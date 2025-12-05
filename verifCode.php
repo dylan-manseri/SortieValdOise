@@ -42,8 +42,8 @@ try{
         $_SESSION['login'] = $foundUser['login'];
         $_SESSION['name'] = $foundUser['nom_user'];
         $_SESSION['pren'] = $foundUser['prenom_user'];
-      $message = "Votre compte a été activé avec succès ! Vous pouvez maintenant vous connecter.";
-      header('refresh:5;url=caMarche.html'); // Redirection après 5 secondes
+      $message = "Votre compte a été activé avec succès ! Vous pouvez maintenant vous connecter en 5 secondes.";
+      header('refresh:5;url=connexion.php'); // Redirection après 5 secondes
     } else {
       // CODE INCORRECT
       $message = "Le code de vérification est incorrect. Veuillez réessayer.";
