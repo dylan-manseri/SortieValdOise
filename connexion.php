@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once 'bd_conf.php';
+require_once 'conf/bd_conf.php';
+require_once 'conf/captcha_conf.php';
 
 $errorMessage = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
@@ -35,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit; 
     }
 
-    $secretKey = '6LevZwwsAAAAAEW-nvjqE6s-f7dswt8OzcPIM1_V'; 
     $recaptchaToken = $_POST['g-recaptcha-response'] ?? null;
 
     if (!$recaptchaToken) {
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['login'] = $foundUser['login'];
         $_SESSION['name'] = $foundUser['nom_user'];
         $_SESSION['pren'] = $foundUser['prenom_user'];
-        header('Location: /caMarche.html');
+       header('Location: /profil.php');
         exit;
     } else {
         $errorMessage = 'Login ou mot de passe incorrect.';
@@ -107,7 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <title>Page Login</title>
   <style>
     body {
-      font-family: 'Permanent Marker', cursive; 
       display: flex;
       justify-content: center;
       align-items: center;
@@ -136,7 +135,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       padding: 10px;
       margin: 10px 0;
       font-size: 1rem;
-      font-family: 'Permanent Marker', cursive; 
       border: 1px solid #ccc;
       border-radius: 5px;
     }
@@ -149,7 +147,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       background-color: #7e9ad7;
       color: white;
       font-size: 1rem;
-      font-family: 'Permanent Marker', cursive; 
       border: none;
       border-radius: 5px;
       cursor: pointer;
@@ -282,7 +279,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <ul id="suggestions"></ul>
       </div>
       <input type="password" name="password" placeholder="Mot de passe" required>
-      <div class="g-recaptcha" data-sitekey="6LevZwwsAAAAAHJ6UbjViJZvzWHdhkgQqB4v2zHz"></div>
+      <div class="g-recaptcha" data-sitekey=<?=$data_sitekey?>></div>
       <button type="submit">Login</button>
       <p style="font-size: 0.9em;">Vous n'avez pas de compte? <a href="creationCompte.php">inscrivez-vous </a></p>
       <a href="/motDePasseOublier.php">Mot de passe oublié ?</a>
