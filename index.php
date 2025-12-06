@@ -1,4 +1,11 @@
 <?php
+
+session_start();
+
+require_once 'conf/bd_conf.php'; 
+require_once 'recordVisit.php'; 
+recordVisit($pdo);
+
 $title="Découvrez le 95";
 $description="ici plein de choses intéressantes!";
 $h1="";
