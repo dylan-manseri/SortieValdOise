@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (session_status() === PHP_SESSION_ACTIVE && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    session_regenerate_id(true); 
+}
 // Assurez-vous que bd_conf.php définit $pdo correctement
 require_once 'conf/bd_conf.php';
 require_once 'conf/email_conf.php';
@@ -104,17 +107,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         http_response_code(400); 
         exit("Erreur: Tous les champs sont requis."); 
     }
+    $regex = '/^(?=.*\d)(?=.*[a-z]).{8,}$/';
+
+    if (!preg_match($regex, $password)) {
+      http_response_code(400);
+      exit("Erreur: Le mot de passe ne respecte pas les exigences de sécurité, veuillez rajouter des chiffres et des caractères");  
+    }
     
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         http_response_code(400);
         exit("Erreur: L'adresse e-mail n'est pas valide.");
     }
     
-    if (strlen($password) < 8) {
-        http_response_code(400);
-        exit("Erreur: Le mot de passe doit contenir au moins 8 caractères.");
-    }
-
 
     // 2.2. VÉRIFICATION RECAPTCHA
     $verifyURL = 'https://www.google.com/recaptcha/api/siteverify';
@@ -331,11 +335,11 @@ try {
       Register
     </h2>
     <form action="" method="POST">
-      <input type="text" name="login" placeholder="Nom d'utilisateur (Login)" id="username-input" maxlength="12" required>
+      <input type="text" name="login" placeholder="Nom d'utilisateur (Login)" id="username-input" maxlength="12" value="<?= htmlspecialchars($login ?? '') ?>" required>
         <span id="username-error" style="color: red; font-size: 0.9em; height: 1em;"></span>      
-      <input type="text" name="nom_user" placeholder="Votre nom" maxlength="30" required>
-      <input type="text" name="prenom_user" placeholder="Votre prenom" maxlength="30" required>
-      <input type="email" name="email" placeholder="Email" maxlength="50" required>
+      <input type="text" name="nom_user" placeholder="Votre nom" maxlength="30" value="<?= htmlspecialchars($nom_user ?? '') ?>" required>
+      <input type="text" name="prenom_user" placeholder="Votre prenom" maxlength="30" value="<?= htmlspecialchars($prenom_user ?? '') ?>" required>
+      <input type="email" name="email" placeholder="Email" maxlength="50" value="<?= htmlspecialchars($email ?? '') ?>" required>
       <input type="password" name="password" placeholder="Password" required>
       <div class="g-recaptcha" data-sitekey=<?=$data_sitekey?>></div>
       <button type="submit">register</button>
