@@ -2,11 +2,12 @@
 session_start();
 require_once 'conf/bd_conf.php';
 
+// Gestion thème et cookies
 $cookieConsent = $_COOKIE['cookieConsent'] ?? null;
 $style = "light";
 
-if (isset($_GET["mode"]) && in_array($_GET["mode"], ["light","dark"], true)) {
-    $style = $_GET["mode"];
+if (isset($_GET["style"]) && in_array($_GET["style"], ["light","dark"], true)) {
+    $style = $_GET["style"];
     if ($cookieConsent === 'true') {
         setcookie("style", $style, time() + 60*60*24*30, "/");
     }
@@ -20,6 +21,7 @@ if ($cookieConsent === 'true' && isset($_COOKIE["date_last_visit"])) {
 
 $bascule = ($style === "light") ? "dark" : "light";
 
+// Vérifier si connecté
 if (!isset($_SESSION['login'])) {
     header('Location: /index.php');
     exit;
@@ -32,16 +34,14 @@ $stmt = $pdo->prepare("SELECT login, nom_user, prenom_user, email FROM users WHE
 $stmt->execute([$login]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Récupérer favoris avec jointure sur propositions
-$fav = $pdo->prepare("
-    SELECT p.titre AS titre, p.status AS categorie
-    FROM favoris f
-    LEFT JOIN propositions p ON f.id_sortie = p.id_prop
-    WHERE f.user_login = ?
-    ORDER BY f.id_favoris DESC
+// Récupérer favoris avec infos réelles
+$stmtFav = $pdo->prepare("
+    SELECT titre, adresse, status 
+    FROM favoris 
+    WHERE user_login = ?
 ");
-$fav->execute([$login]);
-$favoris = $fav->fetchAll(PDO::FETCH_ASSOC);
+$stmtFav->execute([$login]);
+$favoris = $stmtFav->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -61,6 +61,7 @@ table td,table th{padding:10px;border-bottom:1px solid #ddd}
 .logout{display:inline-block;margin-top:20px;padding:10px 20px;background:#7e9ad7;color:#fff;text-decoration:none;border-radius:5px;border:none;cursor:pointer}
 .logout:hover{opacity:0.3}
 form{margin-top:15px}
+.style-toggle a{margin-left:15px;text-decoration:none;color:#000;font-weight:bold}
 </style>
 </head>
 <body>
@@ -78,7 +79,7 @@ form{margin-top:15px}
     </nav>
     <div class="style-toggle">
         <a class="select-nav-cookie" href="cookies.php">Cookies</a>
-        <?php if (!isset($_GET["style"]) || $_GET["style"] == "light"): ?>
+        <?php if ($style === "light"): ?>
             <a href="?style=dark" class="dark-mode">🌙 Mode nuit</a>
         <?php else: ?>
             <a href="?style=light" class="light-mode">☀️ Mode jour</a>
@@ -100,6 +101,7 @@ form{margin-top:15px}
 <tr><th>Login</th><td><?= htmlspecialchars($user['login'] ?? '') ?></td></tr>
 <tr><th>Email</th><td><?= htmlspecialchars($user['email'] ?? '') ?></td></tr>
 </table>
+
 <form action="modifier_profil.php" method="get">
     <button type="submit" class="logout">Modifier les informations</button>
 </form>
@@ -111,17 +113,22 @@ form{margin-top:15px}
 <div class="section">
 <h2>Favoris</h2>
 <?php if (empty($favoris)): ?>
-<p>Aucun favori enregistré.</p>
+    <p>Aucun favori enregistré.</p>
 <?php else: ?>
-<table>
-<tr><th>Titre</th><th>Catégorie</th></tr>
-<?php foreach ($favoris as $f): ?>
-<tr>
-<td><?= htmlspecialchars($f['titre'] ?? 'Non défini') ?></td>
-<td><?= htmlspecialchars($f['categorie'] ?? 'Non défini') ?></td>
-</tr>
-<?php endforeach; ?>
-</table>
+    <table>
+        <tr>
+            <th>Titre</th>
+            <th>Adresse</th>
+            <th>Status</th>
+        </tr>
+        <?php foreach ($favoris as $f): ?>
+        <tr>
+            <td><?= htmlspecialchars($f['titre']) ?></td>
+            <td><?= htmlspecialchars($f['adresse']) ?></td>
+            <td><?= htmlspecialchars($f['status']) ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
 <?php endif; ?>
 </div>
 
