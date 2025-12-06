@@ -7,7 +7,7 @@ function display(eventsList){
         card.classList.add("card");
 
         card.innerHTML = `
-            <div style="width:150px; height:120px; background:#ccc;"><img src="${event.image}" alt="illustration"/></div>
+            <div style="width:150px; height:120px; background:#ccc;"><img src="${event.icon}" alt="illustration"/></div>
             <div class="infos">
                 <h2 style="margin:0 0 10px 0;font-family: 'Playfair Display', serif;">
                     <a href="detail_evenement.php?uid=${event.uid}" style="text-decoration:none; color:#333;">
