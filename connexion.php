@@ -2,6 +2,9 @@
 session_start();
 require_once 'conf/bd_conf.php';
 require_once 'conf/captcha_conf.php';
+require_once 'recordVisit.php';
+
+recordVisit($pdo);
 
 $errorMessage = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
@@ -40,13 +43,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!$recaptchaToken) {
         http_response_code(400); 
-        exit('<h1>Veuillez cocher la case "Je ne suis pas un robot".</h1>');
+        $errorMessage = 'Veuillez cocher la case "Je ne suis pas un robot".';
     }
     
     $login = $_POST['login'] ?? null;
     $password = $_POST['password'] ?? null;
     
-    if (empty($login) || empty($password)) { exit("Login et mot de passe requis"); }
+    if (empty($login) || empty($password)) { $errorMessage ="Login et mot de passe requis"; }
 
 
     $verifyURL = 'https://www.google.com/recaptcha/api/siteverify';
@@ -76,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     try {
-      $stmt = $pdo->prepare("SELECT login, hashedPassword, nom_user, prenom_user FROM users WHERE login = ?");
+      $stmt = $pdo->prepare("SELECT login, hashedPassword, nom_user, prenom_user, role FROM users WHERE login = ?");
       $stmt->execute([$login]);
       
       $foundUser = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -85,12 +88,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           http_response_code(500);
           exit('Database error: ' . $e->getMessage());
       }
-    
-    if ($foundUser && password_verify($password, $foundUser['hashedPassword'])) {
+      
+      if ($foundUser && password_verify($password, $foundUser['hashedPassword'])) {
+
+        $tracking_cookie_name = 'user_tracking_id'; 
+        $anonymous_tracking_id = $_COOKIE[$tracking_cookie_name] ?? null;
+
+
         $_SESSION['login'] = $foundUser['login'];
         $_SESSION['name'] = $foundUser['nom_user'];
         $_SESSION['pren'] = $foundUser['prenom_user'];
-       header('Location: /profil.php');
+        $_SESSION['role'] = $foundUser['role'];
+
+        if ($anonymous_tracking_id) {
+          try {
+              // Mise à jour de toutes les entrées 'anonymous' enregistrées avec cet UUID
+              $update_sql = "
+                  UPDATE visits 
+                  SET login = :new_login, status = 'logged_in', tracking_id = NULL
+                  WHERE tracking_id = :old_tracking_id AND status = 'anonymous'
+              ";
+          $update_stmt = $pdo->prepare($update_sql);
+          $update_stmt->execute([
+              ':new_login' => $foundUser['login'], 
+              ':old_tracking_id' => $anonymous_tracking_id
+          ]);
+              
+          } catch (PDOException $e) {
+              error_log("DB Error linking anonymous history: " . $e->getMessage());
+              // Continuer le processus de connexion même en cas d'erreur de suivi
+          }
+        } 
+
+        recordVisit($pdo);
+        header('Location: /profil.php');
         exit;
     } else {
         $errorMessage = 'Login ou mot de passe incorrect.';
@@ -244,13 +275,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     max-height: 150px;
     overflow-y: auto;
     z-index: 1000;
-    /* CHANGE 3: Remove list bullets and default padding */
     list-style-type: none;
     padding: 0;
     margin: 0;
     border-radius: 15px;
 }
-/* CHANGE 4: Style the <li> instead of the <div> */
+
 #suggestions li {
     padding: 8px;
     cursor: pointer;
@@ -274,7 +304,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     <form action="" method="POST">
       <div class="suggestions-container">
-        <input type="text" id="username" name="login" placeholder="Nom d'utilisateur (Login)" required autocomplete="off">
+        <input type="text" id="username" name="login" placeholder="Nom d'utilisateur (Login)" required autocomplete="off" value="<?php echo htmlspecialchars($login ?? ''); ?>">
         
         <ul id="suggestions"></ul>
       </div>
