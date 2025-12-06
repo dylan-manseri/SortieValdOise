@@ -71,12 +71,12 @@ function displayDetails(events){
             "<div class='details'>" +
             "<figure>"+
             "<img src='"+event["icon"]+"' alt='Image d'//illustration'>"+
-                "<figcaption>Image d'illustration fournit par "+event['source']+"</figcaption>"+
+                "<figcaption>Image d'illustration fournit par"+event['source']+"</figcaption>"+
         "</figure>"+
         "<div id='info'>"+
             "<h2>Détails</h2>"+
             '<h3 class="card-title details-section"><span class="material-icons">location_on</span> Localisation</h3>'+
-            '<p>'+event["address"]+'</p>'+
+            '<p>'+event["address"]+','+event["ville"]+'</p>'+
             '<h3 class="card-title details-section"><span class="material-icons">apartment</span>Lieu</h3>'+
             '<p>'+event['name']+'</p>'+
             '<h3 class="card-title details-section"><span class="material-icons">event</span>Date</h3>'+
@@ -161,10 +161,3 @@ async function main(){
 }
 
 main();
-
-
-
-
-
-
-
