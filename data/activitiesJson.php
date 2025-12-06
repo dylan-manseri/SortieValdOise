@@ -1,48 +1,32 @@
 <?php
-// Toujours utiliser le chemin absolu pour éviter les erreurs d'inclusion
-include __DIR__ . '/../includes/fonctions/activities.php';
+/**
+ * Fichier : activitiesJson.php
+ * Description :    Fichier stockant les activités récupéré (cf. fonctions/activities.php).
+ *                  L'intérêt est de pouvoir les manipuler via js, sans avoir à réaliser de multiples requête navigateur.
+ * Auteur : Dylan Manseri
+ * Date : 23/11/2025
+ */
 
-header('Content-Type: application/json');
+include "../includes/fonctions/activities.php";
+header('Content-Type: application/json');   // On définit la structure de la page (json)
 
-// Définir un cache (facultatif)
-$cacheFile = __DIR__ . '/../cache/activities.json';
-$cacheDuration = 24 * 3600; // 24h
+$cacheFile = "../cache/activities.json";
 
-if (file_exists($cacheFile)) {
+$cacheDuration = 24 * 3600;
+if(file_exists($cacheFile)){
     $age = time() - filemtime($cacheFile);
-    if ($age < $cacheDuration) {
+    if($age < $cacheDuration){
         echo file_get_contents($cacheFile);
-        exit;
     }
 }
+else{
+    $activities = null;
+    try {
+        $activities = json_encode(getActivities()); // On écrit en json le tableau d'activité construit au préalable.
+    } catch (DateMalformedStringException $e) {
 
-try {
-    // Récupérer les activités via ta fonction
-    $activities = getActivities();
-
-    if (!is_array($activities)) {
-        $activities = [];
     }
 
-    // Ajouter des valeurs par défaut si des champs manquent
-    foreach ($activities as &$activity) {
-        if (!isset($activity['id'])) $activity['id'] = uniqid();
-        if (!isset($activity['titre'])) $activity['titre'] = 'Titre inconnu';
-        if (!isset($activity['description'])) $activity['description'] = '';
-        if (!isset($activity['categorie'])) $activity['categorie'] = '';
-        if (!isset($activity['ville'])) $activity['ville'] = '';
-        if (!isset($activity['date'])) $activity['date'] = '';
-        if (!isset($activity['image'])) $activity['image'] = '';
-    }
-    unset($activity);
-
-    // Écrire dans le cache
-    file_put_contents($cacheFile, json_encode($activities));
-
-    // Retourner le JSON
-    echo json_encode($activities);
-
-} catch (Exception $e) {
-    // En cas d'erreur, renvoyer un tableau vide
-    echo json_encode([]);
+    file_put_contents($cacheFile, $activities);
+    echo $activities;
 }
