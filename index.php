@@ -71,8 +71,81 @@ include "includes/pageParts/header.php";
             de notre site.
         </p>
     </section>
-
+<section class="default-section" id="faq">
+    <h2 class="h2-question">Questions fréquemment posées</h2>
+    <div class="question-parent">
+        <div class="question-child">
+            <div style="display: flex">
+                <p class="question-symbole">📊</p>
+                <div class="question">
+                    <h3>Comment sont générées les données météo ?</h3>
+                    <p>Les données proviennent d'une API météo professionnelle et sont mises à jour régulièrement.
+                        Les prévisions reposent sur des modèles numériques complexes qui analysent l’évolution des masses d’air,
+                        de la pression, de l’humidité et d’autres paramètres.</p>
+                </div>
+            </div>
+            <div style="display: flex">
+                <p class="question-symbole">🧭</p>
+                <div class="question">
+                    <h3>Puis-je voir la météo de ma ville ?</h3>
+                    <p>
+                        Oui, vous pouvez rechercher n’importe quelle ville
+                        via notre barre de recherche ou activer la géolocalisation
+                        pour obtenir les prévisions de votre position actuelle.
+                    </p>
+                </div>
+            </div>
+            <div style="display: flex">
+                <p class="question-symbole">🌈</p>
+                <div class="question">
+                    <h3>Que signifient les icônes météo ?</h3>
+                    <p>
+                        Chaque icône représente une condition météo :
+                        ☀️ pour le soleil, 🌧️ pour la pluie, ❄️ pour la neige, 🌩️ pour les orages, etc.
+                        Elles vous permettent de comprendre rapidement la tendance du temps.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="question-child">
+            <div style="display: flex">
+                <p class="question-symbole">🔍</p>
+                <div class="question">
+                    <h3>Quelle est la fiabilité des prévisions ?</h3>
+                    <p>
+                        Les prévisions sont très fiables à court terme (1 à 3 jours),
+                        raisonnables jusqu'à 5 jours, mais deviennent progressivement incertaines au-delà,
+                        en raison de la complexité des phénomènes atmosphériques.
+                    </p>
+                </div>
+            </div>
+            <div style="display: flex">
+                <p class="question-symbole">🎲</p>
+                <div class="question">
+                    <h3>Pourquoi certaines infos sont aléatoires sur la page d’accueil ?</h3>
+                    <p>
+                        Certaines données affichées sont volontairement aléatoires pour enrichir l'expérience
+                        utilisateur.
+                        Cela permet de découvrir des faits météo insolites ou éducatifs à chaque visite.
+                    </p>
+                </div>
+            </div>
+            <div style="display: flex">
+                <p class="question-symbole">⚖️</p>
+                <div class="question">
+                    <h3>Pourquoi la météo affichée peut-elle être différente d’un site à l’autre ?</h3>
+                    <p>
+                        Les sites utilisent différentes sources de données et modèles de prévision.
+                        Certains privilégient la précision locale, d’autres l’étendue géographique.
+                        Cela peut entraîner de légères variations selon les plateformes.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <?php
 include "includes/pageParts/footer.php"
 ?>
+</html>

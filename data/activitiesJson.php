@@ -1,16 +1,36 @@
 <?php
-/**
- * Fichier : activitiesJson.php
- * Description :    Fichier stockant les activités récupéré (cf. fonctions/activities.php).
- *                  L'intérêt est de pouvoir les manipuler via js, sans avoir à réaliser de multiples requête navigateur.
- * Auteur : Dylan Manseri
- * Date : 23/11/2025
- */
-
 include "../includes/fonctions/activities.php";
-header('Content-Type: application/json');   // On définit la structure de la page (json)
+header('Content-Type: application/json');
+
+$cacheFile = "../cache/activities.json";
+$cacheDuration = 24 * 3600;
+
+if(file_exists($cacheFile)){
+    $age = time() - filemtime($cacheFile);
+    if($age < $cacheDuration){
+        echo file_get_contents($cacheFile);
+        exit;
+    }
+}
+
 try {
-    echo json_encode(getActivities());      // On écrit en json le tableau d'activité construit au préalable.
-} catch (DateMalformedStringException $e) {
-    echo "Erreur de formation de la date";
+    $activities = getActivities();
+
+    if (!is_array($activities)) {
+        $activities = [];
+    }
+
+    foreach ($activities as &$activity) {
+        if (!isset($activity['id'])) $activity['id'] = uniqid();
+        if (!isset($activity['titre'])) $activity['titre'] = '';
+        if (!isset($activity['description'])) $activity['description'] = '';
+        if (!isset($activity['categorie'])) $activity['categorie'] = '';
+    }
+    unset($activity);
+
+    file_put_contents($cacheFile, json_encode($activities));
+    echo json_encode($activities);
+
+} catch (Exception $e) {
+    echo json_encode([]);
 }

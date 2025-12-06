@@ -7,11 +7,17 @@
  * @date 23/11/2025
  */
 
+let actList = null;
+
 /**
  * Tableau des activités récupéré via les APIs
- * @type {*[]}
+ * @type {Response}
  */
-const actList = [];
+async function loadActivities(){
+    const response = await fetch("data/activitiesJson.php");
+    actList = await response.json();
+}
+
 
 /**
  * Icon classique de pin pour une activité seul sur ses coordonnées
@@ -55,6 +61,34 @@ const iconMultipleHover = L.icon({
  */
 const markerMap = {};
 
+function displayDetails(events){
+    const panel = document.getElementById("side-panel");
+    panel.innerHTML='';
+    events.forEach( ev => {
+        let uid = ev[0];
+        let event = actList[uid];
+        panel.innerHTML+="<h2>"+event['title']+"</h2>"+
+            "<div class='details'>" +
+            "<figure>"+
+            "<img src='"+event["icon"]+"' alt='Image d'//illustration'>"+
+                "<figcaption>Image d'illustration fournit par "+event['source']+"</figcaption>"+
+        "</figure>"+
+        "<div id='info'>"+
+            "<h2>Détails</h2>"+
+            '<h3 class="card-title details-section"><span class="material-icons">location_on</span> Localisation</h3>'+
+            '<p>'+event["address"]+'</p>'+
+            '<h3 class="card-title details-section"><span class="material-icons">apartment</span>Lieu</h3>'+
+            '<p>'+event['name']+'</p>'+
+            '<h3 class="card-title details-section"><span class="material-icons">event</span>Date</h3>'+
+            '<p>'+event["dateFr"]+'</p>'+
+            '<h3 class="card-title details-section"><span class="material-icons">description</span>Description</h3>'+
+            '<p>'+event["description"]+'</p>'+
+        '</div>'+
+        '</div>'
+    })
+    panel.classList.add("open");
+}
+
 /**
  * Dessine le pin le renvoie pret à être ajouté
  * @param icon  icon à mettre
@@ -82,7 +116,9 @@ function drawPin(icon, iconHover, title, lat, lng){
     })
 
     marker.on("click", () => {                          // On zoom au clic
+        const key = `${lat},${lng}`
         map.setView([lat, lng], 16, { animate: true});
+        displayDetails(markerMap[key])
     })
     return marker;
 }
@@ -94,42 +130,38 @@ function drawPin(icon, iconHover, title, lat, lng){
  * @param lng la longitude
  * @param title le titre de l'activité qui sera affiché sur le panneau
  */
-function insertPin(lat, lng, title){
+function insertPin(lat, lng, title, uid){
     const key = `${lat},${lng}`;
     if(markerMap[key]){     // Le pin existe déjà
         const marker = drawPin(iconMultiple, iconMultipleHover, "Plusieurs évènement en ce lieu", lat, lng)
-        if(!Array.isArray(markerMap[key])){     // Est-ce le premier ayant la même coordonnée qu'un autre ?
-            markerMap[key].remove();            // On supprime l'ancien pin
-            markerMap[key] = [markerMap[key]];
+        if(markerMap[key].length === 1){     // Est-ce le premier ayant la même coordonnée qu'un autre ?
+            markerTmp = markerMap[key];
+            markerMap[key][0][1].remove();            // On supprime l'ancien pin
+            markerMap[key] = markerTmp;
             marker.addTo(map);                  // On dessine le nouveau pin correspondant aux multiples activités
         }
-        markerMap[key].push(marker);
+        let evt = [uid, marker]
+        markerMap[key].push(evt);
     }
     else{
         const marker = drawPin(iconNormal, iconHover, title, lat, lng);     // L'activité est seul avec ses coords, on l'ajoute normalement
         marker.addTo(map);
-        markerMap[key] = marker;
+        let evt = [uid, marker]
+        markerMap[key] = [evt];
     }
 }
 
-// On récupère les données du flux généré et on affiche les activités une par une
-fetch("data/activitiesJson.php")
-    .then(r => r.json())
-    .then(data => {
-        let i=0;
-        Object.entries(data).forEach(([title, value]) => {
-            if(!Array.isArray(value)){
-                insertPin(value['lat'],value['lng'], value['title']);
-            }
-            else{
-                value.forEach(e => {                                    // Cas où une activité a plusieurs fois le même nom
-                    insertPin(e['lat'],e['lng'], e['title']);
-                })
-            }
-            i++;
-        })
-        console.log(i);
+async function main(){
+    await loadActivities();
+    // On récupère les données du flux généré et on affiche les activités une par une
+    let i = 0;
+    Object.entries(actList).forEach(([title, value]) => {
+        insertPin(value['lat'], value['lng'], value['title'], value['uid']);
     })
+}
+
+main();
+
 
 
 

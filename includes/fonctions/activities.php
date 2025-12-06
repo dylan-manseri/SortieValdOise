@@ -24,13 +24,39 @@ function buildArrayOpenAgenda($event) : array
     $infos['lng'] = $event['location']['longitude'];
     $infos['title'] = $event['title']['fr'] ?? null;
     $infos['description'] = $event['description']['fr'] ?? null;
+    $infos['dateFr'] = $event['dateRange']['fr'];
+    $infos['name'] = $event['location']['name'];
+    $infos['address'] = $event['location']['address'];
     if (is_array($event['image'])) {
-        $infos['image'] = ($event['image']['base'] ?? '') . ($event['image']['filename'] ?? '');
+        $infos['image'] = ($event['image']['base'] ?? '') . ($event['image']["filename"] ?? '');
+        $infos['icon'] = ($event['image']['base'] ?? '') . ($event['image']['variants'][1]["filename"] ?? '');
     } else {
         $infos['image'] = $event['image'] ?? "";
     }
     $infos['keywords'] = $event['keywords']['fr'] ?? null;
     $infos['date'] = explode("T", $event["lastTiming"]["end"])[0];
+    return $infos;
+}
+
+/**
+ * Construit un tableau associatif des principales information de l'événement selon OpenDataIleDeFranceAPI
+ * @param $event l'évènement tel qu'il nous est donné dans l'API
+ * @return array tableau des informations
+ */
+function buildArrayDataIDF($event): array
+{
+    $infos['ville'] = $event['location_city'] ?? null;
+    $infos['uid'] = $event['uid'];
+    $infos['sources'] = 'DataIleDeFranceAPI';
+    $infos['lat'] = $event['location_coordinates']['lat'];
+    $infos['lng'] = $event['location_coordinates']['lon'];
+    $infos['title'] = $event['title_fr'];
+    $infos['description'] = $event['description_fr'];
+    $infos['image'] = $event['image'];
+    $infos['icon'] = $event['thumbnail'];
+    $infos['keywords'] = $event['keywords_fr'];
+    $infos['date'] = explode("T",$event['lastdate_end'])[0];
+    $infos['dateFr'] = $event["daterange_fr"];
     return $infos;
 }
 
@@ -173,26 +199,6 @@ function getActivitiesOpenAgenda(&$activities): void
 }
 
 /**
- * Construit un tableau associatif des principales information de l'événement selon OpenDataIleDeFranceAPI
- * @param $event l'évènement tel qu'il nous est donné dans l'API
- * @return array tableau des informations
- */
-function buildArrayDataIDF($event): array
-{
-    $infos['ville'] = $event['location_city'] ?? null;
-    $infos['uid'] = $event['uid'];
-    $infos['sources'] = 'DataIleDeFranceAPI';
-    $infos['lat'] = $event['location_coordinates']['lat'];
-    $infos['lng'] = $event['location_coordinates']['lon'];
-    $infos['title'] = $event['title_fr'];
-    $infos['description'] = $event['description_fr'];
-    $infos['image'] = $event['image'];
-    $infos['keywords'] = $event['keywords_fr'];
-    $infos['date'] = explode("T",$event['lastdate_end'])[0];
-    return $infos;
-}
-
-/**
  * Vérifie si la date de l'évènement est bien supérieur à la date d'aujourd'hui.
  * @throws DateMalformedStringException
  */
@@ -246,9 +252,19 @@ function getActivitiesDataIDF(&$activities) : void
 function getActivities(): array
 {
     $activities = array();
-    getActivitiesOpenAgenda($activities);   // Attention, passage par adresse.
     getActivitiesDataIDF($activities);
-    return $activities;
+    getActivitiesOpenAgenda($activities);   // Attention, passage par adresse.
+    foreach($activities as $i => $value){
+        if(is_array(reset($activities[$i]))){
+            foreach($activities[$i] as $j => $value2){
+                $result[$activities[$i][$j]["uid"]] = $activities[$i][$j];
+            }
+        }
+        else{
+            $result[$activities[$i]["uid"]] = $activities[$i];
+        }
+    }
+    return $result;
 }
 
 /**
