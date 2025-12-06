@@ -1,108 +1,86 @@
-const citiesSelect = document.getElementById("cities");
-const searchInput = document.getElementById("searchInput");
-const resultsDiv = document.getElementById("results");
-const cities = {};
-
 function display(eventsList){
-    resultsDiv.innerHTML = "";
+    const results = document.getElementById("results");
+    results.innerHTML="";
     eventsList.forEach(event => {
+        const div = document.createElement("div")
         const card = document.createElement("div");
         card.classList.add("card");
 
         card.innerHTML = `
-            <div style="width:150px; height:120px; background:#ccc;">
-                <img src="${event.image}" alt="illustration" style="width:100%; height:100%; object-fit:cover;"/>
-            </div>
+            <div style="width:150px; height:120px; background:#ccc;"><img src="${event.icon}" alt="illustration"/></div>
             <div class="infos">
                 <h2 style="margin:0 0 10px 0;font-family: 'Playfair Display', serif;">
                     <a href="detail_evenement.php?uid=${event.uid}" style="text-decoration:none; color:#333;">
                         ${event.title}
                     </a>
                 </h2>
+
                 <div>
                     <span style="background:#3498db; color:white; padding:3px 8px; border-radius:3px; font-size:0.8em;">
                         ${event.ville}
                     </span>
+
                     <span class="date-badge">
                         Le ${new Date(event.date).toLocaleDateString("fr-FR")}
                     </span>
                 </div>
             </div>
         `;
-
-        const favBtn = document.createElement("button");
-        favBtn.className = "favorite-btn";
-        favBtn.dataset.id = event.uid;
-        favBtn.textContent = userFavorites.includes(event.uid) ? "❤️" : "♡";
-        favBtn.style.cssText = "background:none; border:none; cursor:pointer; font-size:1.5em; margin-left:10px;";
-        favBtn.addEventListener("click", () => toggleFavorite(favBtn));
-        card.appendChild(favBtn);
-
-        resultsDiv.appendChild(card);
-    });
-}
-
-function toggleFavorite(btn){
-    const id = btn.dataset.id;
-    fetch("toggleFavorite.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id_sortie: id })
+        results.appendChild(card);
     })
-    .then(res => res.json())
-    .then(data => {
-        if(data.success){
-            btn.textContent = data.isFavorite ? "❤️" : "♡";
-            if(data.isFavorite){
-                if(!userFavorites.includes(id)) userFavorites.push(id);
-            } else {
-                const index = userFavorites.indexOf(id);
-                if(index > -1) userFavorites.splice(index,1);
-            }
-        } else {
-            alert("Erreur lors de la mise à jour des favoris");
-        }
-    });
 }
 
 fetch("data/activitiesJson.php")
     .then(response => response.json())
     .then(data => {
         const eventsArray = Object.values(data);
+        const searchInput = document.getElementById("searchInput");
+        const selectCities = document.getElementById("cities");
 
         eventsArray.forEach(event => {
-            if(event.ville) cities[event.ville] = event.ville;
+            if (event.ville !== undefined && event.ville !== null && event.ville !== "") {
+                cities[event.ville] = event.ville;
+            }
         });
         Object.values(cities).forEach(c => {
             const option = document.createElement("option");
             option.value = c;
             option.textContent = c;
-            citiesSelect.appendChild(option);
-        });
+            selectCities.appendChild(option);
+        })
 
-        function filter() {
+        searchInput.addEventListener("input", () => {
+            if(searchInput.value === ""){
+                display(eventsArray);
+            }
+            document.createElement("div").innerHTML="";
             const term = searchInput.value.toLowerCase().trim();
-            const city = citiesSelect.value;
-
+            let i = 0
             const filtered = eventsArray.filter(ev => {
                 const title = (ev.title ?? "").toLowerCase();
                 const keywordMatch = Array.isArray(ev.keywords)
                     ? ev.keywords.some(kw => kw.toLowerCase().includes(term))
                     : false;
-
-                let cityMatch = true;
-                if(city !== ""){
-                    cityMatch = ev.ville && ev.ville.includes(city);
+                let cityTest = true;
+                if(selectCities.value !== ""){
+                    if(ev.ville){
+                        cityTest = ev.ville.includes(selectCities.value);
+                    }
                 }
-
-                return (title.includes(term) || keywordMatch) && cityMatch;
+                return (title.includes(term) || keywordMatch) && cityTest;
             });
-
             display(filtered);
-        }
+        });
 
-        searchInput.addEventListener("input", filter);
-        citiesSelect.addEventListener("change", filter);
-
+        selectCities.addEventListener("change", () => {
+            if(selectCities.value !== "" && searchInput.value === ""){
+                const actByCity = eventsArray.filter(ev => {
+                    if(ev.ville){
+                        return ev.ville.includes(selectCities.value);
+                    }
+                })
+                display(actByCity);
+            }
+        })
         display(eventsArray);
-    });
+    })
