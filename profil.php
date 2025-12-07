@@ -27,6 +27,12 @@ if (!isset($_SESSION['login'])) {
     exit;
 }
 
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
+  header('Location: connexion.php');
+  exit; 
+}
+
+
 $login = $_SESSION['login'];
 
 // Récupérer infos utilisateur
