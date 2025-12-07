@@ -56,7 +56,30 @@ include "includes/pageParts/header.php";
     h3 .material-icons {
         font-size: 15px; /* ou 16px, 20px… */
     }
+
+    .bouton-volant {
+        text-decoration: none;
+        display: inline-block;
+        position: fixed;
+        top: 8.5%;  /* espace sous navbar */
+        right: 20px;      /* distance depuis la droite */
+        z-index: 9999;    /* passe devant tout */
+
+        background: #007bff;   /* couleur */
+        color: white;
+        padding: 10px 16px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+        font-size: 16px;
+    }
+
+    .bouton-volant:hover {
+        background: #0056c7;
+    }
 </style>
+<button class="bouton-volant" onclick="window.location.href='ajouter.php'">Ajouter une activité</button>
 <!-- Import Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
