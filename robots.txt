@@ -1,7 +1,26 @@
 # robots.txt pour https://sortievaldoise.alwaysdata.net
-# Autorise tous les robots à crawler toutes les pages
+# Autorise tous les robots Ã  crawler toutes les pages
 User-agent: *
-Disallow:
+# Autoriser les ressources necessaires
+Allow: /
+Allow: /includes/pageParts
+Allow: /includes/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.svg$
+Allow: /*.webp$
+
+Disallow: /conf
+Disallow: /motDePasseOublier.php
+Disallow: /profil.php
+Disallow: /logout.php
+Disallow: /connexion.php
+Disallow: /creationCompte.php
+Disallow: /changerMdp.php
+Disallow: /verifCode.php
 
 # Indique l'emplacement du sitemap
 Sitemap: https://sortievaldoise.alwaysdata.net/sitemap.xml

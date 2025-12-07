@@ -1,5 +1,6 @@
 conf/bd_conf.php
 conf/email_conf.php
+conf/captcha_conf.php
 connexion.php
 creationCompte.php
 composer.json
