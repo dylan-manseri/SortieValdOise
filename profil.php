@@ -42,58 +42,18 @@ $stmtFav = $pdo->prepare("
 ");
 $stmtFav->execute([$login]);
 $favoris = $stmtFav->fetchAll(PDO::FETCH_ASSOC);
+$h1 = "Profil";
+$css = "profil";
+$description = "Page dédié au profil des utilisateurs";
+include "includes/pageParts/header.php";
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<title>Profil</title>
-<link rel="stylesheet" href="style/<?=$style?>/navbar.css" />
-<style>
-body{margin:0;background:#e7e8bc}
-.container{max-width:800px;margin:50px auto;background:#f4f4d7;padding:30px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.2)}
-h1{font-size:2.2rem;margin-bottom:20px}
-.gold-gradient{text-align:center;font-size:2.2rem;font-weight:bold;background:linear-gradient(90deg,#b8860b,#ffdf00,#b8860b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block;margin:20px 0}
-.section{margin-top:30px;background:#fff;padding:20px;border-radius:8px}
-.section h2{font-size:1.7rem;margin-bottom:15px}
-table{width:100%;border-collapse:collapse;font-size:1rem}
-table td,table th{padding:10px;border-bottom:1px solid #ddd}
-.logout{display:inline-block;margin-top:20px;padding:10px 20px;background:#7e9ad7;color:#fff;text-decoration:none;border-radius:5px;border:none;cursor:pointer}
-.logout:hover{opacity:0.3}
-form{margin-top:15px}
-.style-toggle a{margin-left:15px;text-decoration:none;color:#000;font-weight:bold}
-</style>
-</head>
-<body>
 
-<header>
-    <div class="logo">
-        <a href="index.php"><img src="images/logo_sv.png" alt="icone du site"/></a>
-    </div>
-    <nav>
-        <ul>
-            <li><a class="select-nav" href="carte.php">Carte</a></li>
-            <li><a class="select-nav" href="sorties.php">Sorties</a></li>
-            <li><a class="select-nav" href="connexion.php">Mes activités</a></li>
-        </ul>
-    </nav>
-    <div class="style-toggle">
-        <a class="select-nav-cookie" href="cookies.php">Cookies</a>
-        <?php if ($style === "light"): ?>
-            <a href="?style=dark" class="dark-mode">🌙 Mode nuit</a>
-        <?php else: ?>
-            <a href="?style=light" class="light-mode">☀️ Mode jour</a>
-        <?php endif; ?>
-    </div>
-</header>
+<section class="profile-container">
+<h1 class="gold-gradient">
+    Bienvenue <?= htmlspecialchars($user['prenom_user'] . " " . $user['nom_user']) ?>
+</h1>
 
 <div class="container">
-<h1>Profil</h1>
-<h2 class="gold-gradient">
-    Bienvenue <?= htmlspecialchars($user['prenom_user'] . " " . $user['nom_user']) ?>
-</h2>
-
-<div class="section">
 <h2>Informations</h2>
 <table>
 <tr><th>Nom</th><td><?= htmlspecialchars($user['nom_user'] ?? '') ?></td></tr>
@@ -133,6 +93,6 @@ form{margin-top:15px}
 </div>
 
 <a class="logout" href="logout.php">Déconnexion</a>
-</div>
-</body>
+</section>
+<?php include "includes/pageParts/footer.php"?>
 </html>

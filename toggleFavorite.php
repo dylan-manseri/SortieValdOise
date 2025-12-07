@@ -40,15 +40,14 @@ if ($isFav) {
 
     // Ajouter le favori avec les infos réelles
     $add = $pdo->prepare("
-        INSERT INTO favoris (user_login, id_sortie, titre, adresse, status) 
-        VALUES (?, ?, ?, ?, ?)
+        INSERT INTO favoris (user_login, id_sortie, titre, adresse) 
+        VALUES (?, ?, ?, ?)
     ");
     $add->execute([
         $login,
         $id_sortie,
         $prop['titre'],
         $prop['adresse'],
-        $prop['status'] ?? 'pending'
     ]);
 
     echo json_encode(['success'=>true, 'isFavorite'=>true]);

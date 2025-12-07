@@ -4,7 +4,7 @@ function display(eventsList){
     eventsList.forEach(event => {
         const div = document.createElement("div")
         const card = document.createElement("div");
-        card.classList.add("card");
+        card.classList.add("card-event");
 
         card.innerHTML = `
             <div style="width:150px; height:120px; background:#ccc;"><img src="${event.icon}" alt="illustration"/></div>
@@ -26,8 +26,48 @@ function display(eventsList){
                 </div>
             </div>
         `;
+
+        // Bouton favoris
+        const favBtn = document.createElement("button");
+        favBtn.className = "favorite-btn";
+        favBtn.dataset.id = event.uid;
+        favBtn.textContent = userFavorites.includes(event.uid) ? "❤️" : "♡";
+
+        favBtn.addEventListener("click", () => {
+            if(!window.isLoggedIn){
+                // Rediriger vers la page de connexion
+                window.location.href = "connexion.php";
+                return;
+            }
+            toggleFavorite(favBtn);
+        });
+        card.appendChild(favBtn);
+
         results.appendChild(card);
+    });
+}
+
+function toggleFavorite(btn) {
+    const id = btn.dataset.id;
+
+    fetch("toggleFavorite.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id_sortie: id })
     })
+        .then(res => res.json())
+        .then(data => {
+            if(data.success){
+                btn.textContent = data.isFavorite ? "❤️" : "♡";
+
+                if(data.isFavorite){
+                    if(!userFavorites.includes(id)) userFavorites.push(id);
+                } else {
+                    const index = userFavorites.indexOf(id);
+                    if(index > -1) userFavorites.splice(index,1);
+                }
+            }
+        });
 }
 
 fetch("data/activitiesJson.php")

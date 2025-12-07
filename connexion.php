@@ -2,9 +2,6 @@
 session_start();
 require_once 'conf/bd_conf.php';
 require_once 'conf/captcha_conf.php';
-require_once 'recordVisit.php';
-
-recordVisit($pdo);
 
 $errorMessage = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
@@ -127,195 +124,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errorMessage = 'Login ou mot de passe incorrect.';
     }
 }
+$title = "Connexion";
+$description = "Page de connexion utilisateur";
+$css = "connexion";
+include "includes/pageParts/header.php";
 ?>
+<section class="center">
+    <div class="login-container">
+        <h2>
+            Login
+        </h2>
+        <?php if (!empty($errorMessage)): ?>
+            <div class="error-message">
+                <?= htmlspecialchars($errorMessage) ?>
+            </div>
+        <?php endif; ?>
 
+        <form action="" method="POST">
+            <div class="suggestions-container">
+                <input type="text" id="username" name="login" placeholder="Nom d'utilisateur (Login)" required autocomplete="off" value="<?php echo htmlspecialchars($login ?? ''); ?>">
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Page Login</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh; /* Full viewport height */
-      background-color: #e7e8bc;
-      margin: 0;
-    }
+                <ul id="suggestions"></ul>
+            </div>
+            <input type="password" name="password" placeholder="Mot de passe" required>
+            <div class="g-recaptcha" data-sitekey=<?=$data_sitekey?>></div>
+            <button type="submit">Login</button>
+            <p style="font-size: 0.9em;">Vous n'avez pas de compte? <a href="creationCompte.php">inscrivez-vous </a></p>
+            <a href="motDePasseOublier.php">Mot de passe oublié ?</a>
+        </form>
 
-    .login-container {
-      background-color: #f4f4d7;
-      padding: 30px 40px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      text-align: center;
-      width: 300px;
-    }
+    </div>
+</section>
 
-    .login-container h2 {
-      margin-bottom: 20px;
-      font-size: 1.8rem;
-      color: #333;
-    }
-
-    .login-container input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    .login-container button {
-      position: relative;
-      width: 100%;
-      padding: 10px;
-      margin-top: 15px;
-      background-color: #7e9ad7;
-      color: white;
-      font-size: 1rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: 0.5s;
-    }
-
-    .login-container button:hover {
-      background-color: #7789b1;
-      opacity: 0.3;
-    }
-    .login-remark {
-      font-size: 0.8em;      /* Petite écriture */
-      color: #6c757d;       /* Couleur discrète (gris) */
-      margin-top: -10px;    /* Un peu moins d'espace en haut */
-      margin-bottom: 20px;  /* Espace avant le titre "Login" */
-    }
-
-    .login-container h2 {
-        position: relative; 
-        display: inline-block;
-        margin-bottom: 20px;
-        font-size: 2.5rem;
-        color: #333;
-    }
-    .sun-inline {
-        position: absolute;
-        top: 17px;       
-        right: -35px;       
-        width: 60px;
-    }
-    
-    .sun-inline img {
-        width: 100%;
-    }
-    
-    .paper-inline {
-        position: absolute;
-        top: 150px;       
-        right: 510px;       
-        width: 70px;
-    }
-    
-    .paper-inline img {
-        width: 100%;
-    }
-
-
-    .login-icon {
-      position: absolute;  
-      bottom: 45px;       
-      left: 400px;    
-      width: 250px;   
-  }
-      @keyframes float {
-      0% {
-        transform: translateY(0px);
-      }
-      50% {
-        transform: translateY(-10px);
-      }
-      100% {
-        transform: translateY(0px);
-      }
-    }
-    @keyframes float1 {
-      0% {
-        transform: translateX(0px);
-      }
-      50% {
-        transform: translateX(-5px);
-      }
-      100% {
-        transform: translateX(0px);
-      }
-    }
-
-    .paper-inline{
-      animation-name: float;
-      animation-duration: 7s; 
-      animation-iteration-count: infinite;
-      animation-timing-function: ease-in-out;
-    }
-    .login-icon{
-      animation-name: float1;
-      animation-duration: 10s; 
-      animation-iteration-count: infinite;
-      animation-timing-function: ease-in-out;
-    }
-    /* Styling for the autocomplete suggestions list */
-#suggestions {
-    position: relative;
-    border: 1px solid #ccc;
-    background-color: white;
-    width: 100%;
-    max-height: 150px;
-    overflow-y: auto;
-    z-index: 1000;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    border-radius: 15px;
-}
-
-#suggestions li {
-    padding: 8px;
-    cursor: pointer;
-}
-#suggestions li:hover {
-    background-color: #f0f0f0;
-}
-  </style>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-</head>
-<body>
-  <div class="login-container">
-    <h2>
-      Login
-    </h2>
-    <?php if (!empty($errorMessage)): ?>
-      <div class="error-message">
-        <?= htmlspecialchars($errorMessage) ?>
-      </div>
-    <?php endif; ?>
-    
-    <form action="" method="POST">
-      <div class="suggestions-container">
-        <input type="text" id="username" name="login" placeholder="Nom d'utilisateur (Login)" required autocomplete="off" value="<?php echo htmlspecialchars($login ?? ''); ?>">
-        
-        <ul id="suggestions"></ul>
-      </div>
-      <input type="password" name="password" placeholder="Mot de passe" required>
-      <div class="g-recaptcha" data-sitekey=<?=$data_sitekey?>></div>
-      <button type="submit">Login</button>
-      <p style="font-size: 0.9em;">Vous n'avez pas de compte? <a href="creationCompte.php">inscrivez-vous </a></p>
-      <a href="motDePasseOublier.php">Mot de passe oublié ?</a>
-    </form>
-
-  </div>
+<?php include "includes/pageParts/footer.php"?>
 <script>
   const usernameInput = document.getElementById('username');
   const suggestionsBox = document.getElementById('suggestions');
@@ -369,5 +210,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 });
     </script>
-    </body>
 </html>

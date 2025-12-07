@@ -24,27 +24,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Location: profil.php');
     exit;
 }
+$title = "Modification";
+$h1 = "Modifier votre profil";
+$css = "modifier";
+$description = "Dans cet page l'utilisateur peut modifier son profil";
+include "includes/pageParts/header.php";
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<title>Modifier Profil</title>
-<link rel="stylesheet" href="style/<?=$style?>/navbar.css" />
-<style>
-body{margin:0;background:#e7e8bc}
-.container{max-width:800px;margin:50px auto;background:#f4f4d7;padding:30px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.2)}
-h1{font-size:2.2rem;margin-bottom:20px}
-.logout{display:inline-block;margin-top:20px;padding:10px 20px;background:#7e9ad7;color:#fff;text-decoration:none;border-radius:5px}
-.logout:hover{opacity:0.3}
-label{display:block;margin-bottom:10px}
-input{padding:8px;width:100%;margin-top:5px;border-radius:5px;border:1px solid #ccc}
-button.logout{margin-top:15px}
-</style>
-</head>
-<body>
-<div class="container">
-<h1>Modifier vos informations</h1>
+<section class="profile-container">
+<h2>Ne vous trompez pas cette fois…</h2>
 <form action="modifier_profil.php" method="post">
     <label>Nom<input type="text" name="nom_user" value="<?= htmlspecialchars($user['nom_user']) ?>" required></label>
     <label>Prénom<input type="text" name="prenom_user" value="<?= htmlspecialchars($user['prenom_user']) ?>" required></label>
@@ -52,6 +39,8 @@ button.logout{margin-top:15px}
     <button class="logout" type="submit">Enregistrer</button>
 </form>
 <a class="logout" href="profil.php">Annuler</a>
-</div>
-</body>
+</section>
+
+<?php include "includes/pageParts/footer.php"?>
+
 </html>

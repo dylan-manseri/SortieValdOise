@@ -147,7 +147,7 @@ $bascule = ($style === "light") ? "dark" : "light";
         <?php endif; ?>
     </div>
 </header>
-<?php if ($h1!=""):?>
+<?php if (isset($h1)):?>
 <h1> <?=$h1?> </h1>
 <?php endif;?>
 <main>
