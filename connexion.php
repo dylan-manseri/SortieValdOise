@@ -1,5 +1,8 @@
 <?php
 session_start();
+if(isset($_SESSION['login']) && $_SESSION['login']!== ""){
+    header("Location: profil.php");
+}
 require_once 'conf/bd_conf.php';
 require_once 'conf/captcha_conf.php';
 
@@ -117,7 +120,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           }
         } 
 
-        recordVisit($pdo);
         header('Location: profil.php');
         exit;
     } else {

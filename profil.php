@@ -36,7 +36,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // Récupérer favoris avec infos réelles
 $stmtFav = $pdo->prepare("
-    SELECT titre, adresse, status 
+    SELECT titre, adresse 
     FROM favoris 
     WHERE user_login = ?
 ");
@@ -79,13 +79,11 @@ include "includes/pageParts/header.php";
         <tr>
             <th>Titre</th>
             <th>Adresse</th>
-            <th>Status</th>
         </tr>
         <?php foreach ($favoris as $f): ?>
         <tr>
             <td><?= htmlspecialchars($f['titre']) ?></td>
             <td><?= htmlspecialchars($f['adresse']) ?></td>
-            <td><?= htmlspecialchars($f['status']) ?></td>
         </tr>
         <?php endforeach; ?>
     </table>
