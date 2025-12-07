@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } 
 
         recordVisit($pdo);
-        header('Location: /profil.php');
+        header('Location: profil.php');
         exit;
     } else {
         $errorMessage = 'Login ou mot de passe incorrect.';
@@ -312,7 +312,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="g-recaptcha" data-sitekey=<?=$data_sitekey?>></div>
       <button type="submit">Login</button>
       <p style="font-size: 0.9em;">Vous n'avez pas de compte? <a href="creationCompte.php">inscrivez-vous </a></p>
-      <a href="/motDePasseOublier.php">Mot de passe oublié ?</a>
+      <a href="motDePasseOublier.php">Mot de passe oublié ?</a>
     </form>
 
   </div>
