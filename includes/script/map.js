@@ -47,11 +47,16 @@ fetch("https://public.opendatasoft.com/api/records/1.0/search/?dataset=georef-fr
             [ 90, -180]
         ];
 
-        const mask = L.polygon([world,coords], {
-            fillColor: "white",
-            fillOpacity: 1,
-            color: "#636363"
-        }).addTo(map);
+// Couleur du masque selon thème light/dark
+let maskColor = (mapStyle === "dark") ? "#0d0d12" : "white"; 
+let maskBorder = (mapStyle === "dark") ? "#2a2a2a" : "#636363";
+
+const mask = L.polygon([world, coords], {
+    fillColor: maskColor,
+    fillOpacity: 1,
+    color: maskBorder
+}).addTo(map);
+
 
         map.setMaxBounds(layer.getBounds());
         map.setMinZoom(map.getBoundsZoom(layer.getBounds()));

@@ -10,7 +10,7 @@ html, body{
 }
 
 header, footer {
-    color: #222222;
+    color: #ffffff;
     text-align: center;
 }
 
@@ -28,7 +28,7 @@ main {
 }
 
 a {
-    color: #0077cc;
+    color: #badef7;
     text-decoration: none;
 }
 
@@ -53,7 +53,7 @@ nav ul li {
 }
 
 nav ul li a {
-    color: rgb(3, 3, 3);
+    color: rgb(255, 255, 255);
     text-decoration: none;
     font-size: 1.4em;
 }
@@ -63,7 +63,7 @@ nav ul li a:hover {
 }
 
 .main-nav{
-    background-color: #e4ebeb;
+    background-color: #000000;
 }
 .main-nav ul {
     list-style: none;
@@ -78,7 +78,7 @@ nav ul li a:hover {
 }
 
 .main-nav a {
-    color: black;
+    color: rgb(255, 255, 255);
     text-decoration: none;
     padding: 10px 15px;
     display: block;
@@ -86,7 +86,7 @@ nav ul li a:hover {
 }
 
 .main-nav a:hover {
-    background-color: #d7dde1;
+    background-color: #000000;
     border-radius: 5px;
     text-decoration: none !important;
 
