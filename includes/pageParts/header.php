@@ -6,8 +6,8 @@ $cookieConsent = isset($_COOKIE['cookieConsent']) ? $_COOKIE['cookieConsent'] : 
 $style = "light";
 
 //1. Si l'utilisateur met mode= dans l'URL : on l'utilise
-if (isset($_GET["mode"]) && in_array($_GET["mode"], ["light", "dark"], true)) {
-    $style = $_GET["mode"];
+if (isset($_GET["style"]) && in_array($_GET["style"], ["light", "dark"], true)) {
+    $style = $_GET["style"];
 
     // 2. On le stocke en cookie uniquement si consentement accepté
     if ($cookieConsent === 'true') {
