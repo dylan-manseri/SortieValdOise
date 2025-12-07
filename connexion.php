@@ -2,6 +2,7 @@
 session_start();
 if(isset($_SESSION['login']) && $_SESSION['login']!== ""){
     header("Location: profil.php");
+    exit;
 }
 require_once 'conf/bd_conf.php';
 require_once 'conf/captcha_conf.php';

@@ -1,7 +1,9 @@
 <?php
 session_start();
 require_once 'conf/bd_conf.php';
-
+ini_set("log_errors", 1);
+ini_set("error_log", "C:/wamp64/www/debug.log");
+error_log(print_r($_SESSION, true));
 // Gestion thème et cookies
 $cookieConsent = $_COOKIE['cookieConsent'] ?? null;
 $style = "light";
@@ -23,11 +25,12 @@ $bascule = ($style === "light") ? "dark" : "light";
 
 // Vérifier si connecté
 if (!isset($_SESSION['login'])) {
-    header('Location: /index.php');
+    header('Location: index.php');
     exit;
 }
 
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
+if ((!isset($_SESSION['role'])) || $_SESSION['role'] !== "user") {
+    error_log($_SESSION['role']);
   header('Location: connexion.php');
   exit; 
 }
