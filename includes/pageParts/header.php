@@ -51,7 +51,7 @@ $bascule = ($style === "light") ? "dark" : "light";
 </head>
 <body>
 <script>
-    // Skip cookie banner for search engine crawlers
+    // Skip cookie banner for bots
     if (navigator.userAgent.match(/bot|crawl|spider|bing|google/i)) {
         document.getElementById('cookie-banner').style.display = 'none';
     }

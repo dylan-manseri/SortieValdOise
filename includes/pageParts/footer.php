@@ -6,7 +6,6 @@
 
         <div class="footer-content row justify-content-center text-center text-md-start">
 
-            <!-- Réseaux sociaux = 1er bloc -->
             <div class="footer-social col-12 mb-4">
                 <a href="https://x.com/EtTemps81032" target="_blank" class="mx-2 d-inline-block">
                     <img src="images/footer/twitter.webp" alt="X" width="35"/>

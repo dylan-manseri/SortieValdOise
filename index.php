@@ -3,10 +3,9 @@ $title="Découvrez le 95";
 $description="ici plein de choses intéressantes!";
 $h1="";
 $css = "index";
-include "includes/pageParts/header.php"; // Bootstrap chargée dans header
+include "includes/pageParts/header.php"; 
 ?>
 
-<!-- ================= CARROUSEL (inchangé, juste structuré proprement) ================ -->
 
 <div class="carousel">
     <h1 class="carousel-title">Découvrez des activités dans le Val-d'Oise.</h1>
@@ -29,7 +28,6 @@ include "includes/pageParts/header.php"; // Bootstrap chargée dans header
     </div>
 </div>
 
-<!-- ================= CONTENU AVEC BOOTSTRAP =================-->
 
 <section class="default-section container my-5">
     <h2 class="h2-presentation">S'amuser devient simple</h2>
@@ -61,7 +59,7 @@ include "includes/pageParts/header.php"; // Bootstrap chargée dans header
 </section>
 
 
-<!-- ================= FAQ AVEC BOOTSTRAP =================-->
+<!--FAQ AVEC BOOTSTRAP -->
 
 <section class="default-section container my-5" id="faq">
     <h2 class="h2-question">Questions fréquemment posées</h2>
