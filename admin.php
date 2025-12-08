@@ -58,7 +58,7 @@ try {
 
     $sqlPendingPropositionsList = "
         SELECT 
-            id_prop, titre, description, adresse, villev, user_login, 
+            id_prop, titre, description, adresse, ville, user_login, 
             DATE_FORMAT(date, '%d/%m/%Y') AS formatted_date
         FROM propositions 
         WHERE status = 'pending'
@@ -69,7 +69,7 @@ try {
 
     $sqlAcceptedAndPendingList = "
     SELECT 
-        id_prop, titre, description, adresse, villev, user_login, status,
+        id_prop, titre, description, adresse, ville, user_login, status,
         DATE_FORMAT(date, '%d/%m/%Y') AS formatted_date
     FROM propositions 
     WHERE status IN ('pending', 'accepted')  /* <-- C'est la clé */
@@ -138,7 +138,7 @@ th, td {
     border-bottom: 1px solid #eee; /* Ajoute une ligne de séparation légère entre les lignes */
 }
 th { 
-    background-color: #c3a990; /* Changé pour une couleur plus vive (bleu) */
+    background-color: #cbb9a9ff; /* Changé pour une couleur plus vive (bleu) */
     color: white; /* Texte blanc pour le contraste */
     font-weight: bold;
     text-align: center; /* Centrage des en-têtes */
@@ -147,7 +147,7 @@ tr:last-child td {
     border-bottom: none;
 }
  .logout-button {
-  background-color: #c3a990; 
+  background-color: #c7bcb3ff; 
   color: white;
   padding: 10px 15px;
   text-decoration: none;
@@ -156,7 +156,7 @@ tr:last-child td {
   transition: background-color 0.3s;
  }
  .logout-button:hover {
-  background-color: #917a65;
+  background-color: #b6a595ff;
  }
   .header-actions {
     display: flex;
@@ -190,7 +190,7 @@ tr:last-child td {
     border-radius: 10px 10px 0 0;
   }
   .tab-header:hover, .tab-header.active {
-    background-color: #917a65; 
+    background-color: #bda995ff; 
   }
   .tab-container {
   padding: 0 5px; /* Compense l'espacement des boutons */
@@ -204,7 +204,7 @@ tr:last-child td {
   }
   .tab-content.active {
     display: block; 
-    background-color: #917a65;
+    background-color: #dbcfc4ff;
   }
   
   .tab-content table {
@@ -324,7 +324,7 @@ tr:last-child td {
                             <strong><?= htmlspecialchars($prop['titre']) ?></strong><br>
                             <small><?= substr(htmlspecialchars($prop['description']), 0, 50) . '...' ?></small>
                         </td>
-                        <td><?= htmlspecialchars($prop['adresse']) . ', ' . htmlspecialchars($prop['villev']) ?></td>
+                        <td><?= htmlspecialchars($prop['adresse']) . ', ' . htmlspecialchars($prop['ville']) ?></td>
                         <td><?= htmlspecialchars($prop['user_login']) ?></td>
                         <td><?= htmlspecialchars($prop['formatted_date']) ?></td>
                         
@@ -357,7 +357,7 @@ tr:last-child td {
                             <strong><?= htmlspecialchars($prop['titre']) ?></strong><br>
                             <small><?= substr(htmlspecialchars($prop['description']), 0, 50) . '...' ?></small>
                         </td>
-                        <td><?= htmlspecialchars($prop['adresse']) . ', ' . htmlspecialchars($prop['villev']) ?></td>
+                        <td><?= htmlspecialchars($prop['adresse']) . ', ' . htmlspecialchars($prop['ville']) ?></td>
                         <td><?= htmlspecialchars($prop['user_login']) ?></td>
                         <td><?= htmlspecialchars($prop['formatted_date']) ?></td>
                         <td>

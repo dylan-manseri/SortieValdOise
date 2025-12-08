@@ -93,8 +93,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['role'] = $foundUser['role'];
 
 
+        if($_SESSION['role']=='admin'){
+            header('Location: admin.php');
+            exit;
+        }
+        else if($_SESSION['role']=='user'){
         header('Location: profil.php');
         exit;
+        }
     } else {
         $errorMessage = 'Login ou mot de passe incorrect.';
     }

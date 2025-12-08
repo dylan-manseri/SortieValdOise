@@ -24,5 +24,6 @@ let mapStyle = "<?=$style?>"; // récupère "light" ou "dark" depuis le header
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="includes/script/map.js" defer></script>
     <script src="includes/script/pins.js" defer></script>
+    
 </body>
 </html>
