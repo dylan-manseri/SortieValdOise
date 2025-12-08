@@ -49,6 +49,8 @@ $bascule = ($style === "light") ? "dark" : "light";
     <meta name="msvalidate.01" content="3EAE8332F257463B9D8DE1208375E37B" />
     <meta name="google-site-verification" content="q-MMb7F1RGkafbyRqtY7RWspQVzYXJ4aCmvuIfNOxgs" />
     <meta name="description" content="<?=$description?>" />
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
+
 </head>
 <body>
 <script>
@@ -119,35 +121,32 @@ $bascule = ($style === "light") ? "dark" : "light";
 
 <header>
     <div class="logo">
-        <a href="index.php">
-            <img src="images/logo_sv.png" alt="icone du site"/>
-        </a>
+        <a href="index.php"><img src="images/logo_sv.png" alt="logo"></a>
     </div>
+
     <nav>
         <ul>
             <li class="menu-deroulant">
-                <a href="index.php#accueil">Explorer ▾</a>
+                <a href="#">Explorer ▾</a>
                 <div class="choice-list">
-                    <a href="carte.php">
-                        <img src="images/header/<?=$style?>/search-map.webp" alt="icone de carte"/>
-                    </a>
-                    <a href="sorties.php">
-                        <img src="images/header/<?=$style?>/search-text.webp" alt="icone de carte"/>
-                    </a>
+                    <a href="carte.php"><img src="images/header/<?=$style?>/search-map.webp" alt="icone de carte"></a>
+                    <a href="sorties.php"><img src="images/header/<?=$style?>/search-text.webp" alt="icone de liste"></a>
                 </div>
             </li>
-            <li><a class="select-nav" href="connexion.php">Mes activités</a></li>
+            <li><a href="connexion.php">Mes activités</a></li>
         </ul>
     </nav>
+
     <div class="style-toggle">
-        <a class="select-nav-cookie" href="cookies.php">Cookies</a>
-        <?php if (!isset($_GET["style"]) || $_GET["style"] == "light"): ?>
+        <a class="select-nav-cookie" id="change-consent" href="cookies.php">Cookies</a>
+        <?php if ($style=="light"): ?>
             <a href="?style=dark" class="dark-mode">🌙 Mode nuit</a>
         <?php else: ?>
             <a href="?style=light" class="light-mode">☀️ Mode jour</a>
         <?php endif; ?>
     </div>
 </header>
+
 <?php if (isset($h1)):?>
 <h1> <?=$h1?> </h1>
 <?php endif;?>

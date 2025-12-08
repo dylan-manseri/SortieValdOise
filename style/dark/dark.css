@@ -14,6 +14,12 @@ header, footer {
     text-align: center;
 }
 
+h1{
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    font-size: 45px;
+}
+
 main {
     padding: 2em;
 }

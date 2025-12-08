@@ -21,26 +21,33 @@ if ($login) {
 }
 ?>
 
-    <section class="main-container">
-        <div style="display: flex; gap: 5px; text-align: center; justify-content: center;">
-            <div style="display:flex; flex-direction: column;">
-                <label for="searchInput">Indiquez des mots clés</label>
-                <div class="search">
-                    <span class="search-icon material-symbols-outlined">search</span>
-                    <input id="searchInput" class="search-input" type="search" placeholder="Rechercher">
-                </div>
-            </div>
-            <div class="select-container">
-                <label for="cities">Sélectionner une ville</label>
-                <select id="cities">
-                    <option value="">-- Ville --</option>
-                </select>
-            </div>
-        </div>
-        <div id="results" style="padding-top: 10px;">
+<section class="container py-4">
 
+    <!-- Barre de recherche centrée -->
+    <div class="row justify-content-center text-center mb-4 g-3">
+        
+        <div class="col-12 col-md-6">
+            <label for="searchInput" class="form-label">Indiquez des mots clés</label>
+            <div class="search w-100">
+                <span class="search-icon material-symbols-outlined">search</span>
+                <input id="searchInput" class="search-input" type="search" placeholder="Rechercher">
+            </div>
         </div>
-    </section>
+
+        <div class="col-10 col-md-3">
+            <label for="cities" class="form-label">Sélectionner une ville</label>
+            <select id="cities" class="form-select">
+                <option value="">-- Ville --</option>
+            </select>
+        </div>
+
+    </div>
+
+    <!-- ZONE D'AFFICHAGE DES CARTES -->
+    <div id="results" class="row justify-content-center gy-4"></div>
+
+</section>
+
 
 <?php include "includes/pageParts/footer.php" ?>
 <script>
@@ -51,3 +58,4 @@ if ($login) {
 <script src="includes/script/activitiesList.js" defer></script>
 
 </html>
+ 

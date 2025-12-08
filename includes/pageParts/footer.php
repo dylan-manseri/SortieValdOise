@@ -6,18 +6,7 @@
 
         <div class="footer-content row justify-content-center text-center text-md-start">
 
-            <div class="footer-social col-12 mb-4">
-                <a href="https://x.com/EtTemps81032" target="_blank" class="mx-2 d-inline-block">
-                    <img src="images/footer/twitter.webp" alt="X" width="35"/>
-                </a>
-                <a href="https://www.instagram.com/cielettemps_officiel" target="_blank" class="mx-2 d-inline-block">
-                    <img src="images/footer/instagram.webp" alt="Instagram" width="35"/>
-                </a>
-                <a href="https://www.youtube.com/@CielEtTemps-Officiel" target="_blank" class="mx-2 d-inline-block">
-                    <img src="images/footer/youtube.webp" alt="YouTube" width="35"/>
-                </a>
-            </div>
-
+        
             <!-- 4 blocs responsive -->
             <div class="footer-column col-12 col-sm-6 col-lg-3 mb-4">
                 <p>🌐 SortieValdoise</p>

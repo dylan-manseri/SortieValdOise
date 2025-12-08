@@ -62,7 +62,7 @@ body {
     align-items: center;
     padding: var(--padding);
     border-radius: 28px;
-    background: #f6f6f6;
+    background: #ffffff;
     transition : box-shadow 0.25s;
 }
 
@@ -150,3 +150,4 @@ select {
 .favorite-btn:hover {
     transform: scale(1.3);
 }
+

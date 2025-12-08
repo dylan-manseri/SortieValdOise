@@ -1,211 +1,115 @@
+/* === GLOBAL LIGHT MODE === */
 body {
     font-family: 'Inter', sans-serif;
-    background-color: var(--background-color);
-    color: black;
+    background-color: #f6f6f8; /* fond clair doux */
+    color: #222;
     margin: 0;
     padding: 0;
     line-height: 1.7;
 }
 
+/* === NAVBAR MODE JOUR === */
 header {
     font-family: 'Inter', sans-serif;
     position: sticky;
     top:0;
     width: 100%;
     height: 70px;
-    background-color: #ffffff;
-    color: white;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    background-color: #ffffff; /* navbar clair */
+    color: #000;
+
+    display: flex;
     align-items: center;
-    padding: 0px 20px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    justify-content: space-between;
+
+    padding: 0 25px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,.10);
     z-index: 1000;
 }
 
-nav{
-    display: flex;
-    justify-content: center;
-}
-
+/* NAV LINKS */
 nav ul {
     display: flex;
     gap: 40px;
     padding: 0;
     margin: 0;
+    list-style: none;
     align-items: center;
-}
-
-nav li {
-    display: flex;
-    margin: 0 15px;
-    align-items: center;
-}
-
-nav ul li {
-    margin: 0 15px;
 }
 
 nav ul li a {
     text-decoration: none;
-    color: #000000;
+    color: #222;
+    font-weight: 500;
     transition: 0.3s;
-    margin: 0 auto;
 }
 
-nav ul li a:hover {
-    color: #000d54;
+nav ul li a:hover { color:#4d6bd9; }
 
-}
-.select-nav {
-    position: relative;
-    display: inline-block;
-
-}
-
-.style-toggle{
-    margin-left: 70px;
-    display: flex;
-    gap: 0;
-    width: 310px;
-}
-
-.select-nav-cookie {
-    text-decoration: none;
-    color: #000000;
-    transition: 0.3s;
-    display: inline-block;
-    margin-left: 90px;
-    margin-top: 5px;
-
-}
-
-.select-nav-cookie::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 2px;
-    background-color: #315b7f;
-    transition: width 0.4s ease;
-}
-
-.select-nav::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 2px;
-    background-color: #315b7f;
-    transition: width 0.4s ease;
-}
-
-.select-nav:hover::after {
-    width: 70%;
-}
-.nav-container {
-    display: flex;
-    align-items: center;
-}
-
-.menu-deroulant{
-    position: relative;
-}
+/* DROPDOWN */
+.menu-deroulant{ position:relative; }
 
 .choice-list{
-    display: none;
-    position: absolute;
-    text-align: center;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 8px 0;
-    min-width: 360px;
-    height: 290px;
-    z-index: 999;
+    display:none;
+    position:absolute;
+    top:100%;
+    left:50%;
+    transform:translateX(-50%);
+    background:#ffffff;
+    border:1px solid #d6d6d6;
+    border-radius:10px;
+    padding:10px 0;
+    min-width:240px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.10);
+    z-index:999;
 }
 
-.menu-deroulant:hover .choice-list {
-    display: block;
+.menu-deroulant:hover .choice-list{ display:block; }
+
+.choice-list a{
+    display:block;
+    color:#222;
+    padding:10px;
+    border-radius:6px;
+    transition:0.2s;
+}
+.choice-list a:hover{ background:#f2f3ff; }
+
+/* -------- COOKIES + SWITCH STYLE -------- */
+
+.style-toggle{
+    display:flex;
+    align-items:center;
+    gap:15px;
 }
 
-.choice-list a {
-    display: inline-flex;
-    justify-content: center;
-    margin-bottom: 15px;
-    color: #000;
-    text-decoration: none;
-    padding: 20px;
-    border-radius: 15px;
-    transition: background 0.2s ease;
+.select-nav-cookie{
+    color:#555;
+    text-decoration:none;
+    font-weight:500;
 }
+.select-nav-cookie:hover{ color:#000; }
 
-.choice-list a:hover{
-    background-color: rgba(223, 235, 236, 0.55);
-}
-
-.logo{
-    display: flex;
-    justify-content: center;
-}
-
-
-.content {
-    margin-top: 100px;
-    padding: 20px;
-}
-
-
-.normalTab th, .normalTab td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-}
-
-.normalTab th {
-    background: #333;
-    color: white;
-}
-
+/* Bouton Mode actuel (clair → montre mode nuit) */
 .dark-mode{
-    display: flex;
-    justify-content: center;
     text-decoration: none;
-    color: white;
-    background-color: #000000;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s ease;
-    width: 139px;
-    height: 39px;
+    background:#000;
+    color:#fff;
+    padding:6px 15px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
 }
-.dark-mode:hover {
-    background-color: #4e4e57;
-}
+.dark-mode:hover{ background:#222; }
 
+/* Bouton affiché uniquement en mode dark → propose mode jour */
 .light-mode{
-    display: flex;
-    justify-content: center;
-    text-decoration: none;
-    color: #000000;
-    background-color: #d1d1e0;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s ease;
-    width: 139px;
-    height: 39px;
+    background:#ffffff;
+    color:#000;
+    padding:6px 15px;
+    border-radius:8px;
+    cursor:pointer;
+    border:1px solid #ccc;
+    transition:.3s;
 }
-.light-mode:hover {
-    background-color: #4e4e57;
-}
+.light-mode:hover{ background:#e9e9e9; }

@@ -4,11 +4,10 @@ body {
     background-color: #0f1016;
     margin: 0;
     color: #e6e6e6;
-    font-family: Arial,sans-serif;
+    font-family: Arial, sans-serif;
 }
 
-/* Centre automatiquement le login */
-
+/* Centre le bloc */
 main {
     min-height: calc(100vh - 80px);
     display: flex;
@@ -16,14 +15,12 @@ main {
     align-items: center;
 }
 
-
 /* ---------- Formulaire ---------- */
-
 .login-container {
     background-color: #1b1c23;
     padding: 30px 40px;
     border-radius: 12px;
-    width: 300px;
+    width: 350px;
     text-align: center;
     box-shadow: 0 4px 20px rgba(0,0,0,0.6);
 }
@@ -35,7 +32,6 @@ main {
 }
 
 /* Inputs */
-
 .login-container input {
     width: 100%;
     padding: 10px;
@@ -51,8 +47,7 @@ main {
     color: #bfbfbf;
 }
 
-/* bouton */
-
+/* Bouton */
 .login-container button {
     width: 100%;
     padding: 10px;
@@ -63,15 +58,14 @@ main {
     border: none;
     margin-top: 15px;
     cursor: pointer;
-    transition:.3s;
+    transition: .3s;
 }
 
 .login-container button:hover {
     background-color: #005fcc;
 }
 
-/* Suggestions auto */
-
+/* Suggestions */
 #suggestions {
     border: 1px solid #444;
     background-color: #2b2e36;
@@ -86,8 +80,32 @@ main {
     background-color: #3a3d47;
 }
 
+/* --- CAPTCHA centré proprement --- */
 .g-recaptcha {
-    transform: scale(0.90);           /* réduit légèrement */
-    transform-origin: center;        /* garde le centrage */
-    margin: 10px auto;
+    display: flex;
+    justify-content: center;
+    transform: scale(0.88);
+    transform-origin: center;
+    margin: 12px auto;
+}
+
+/* --- Responsive pour téléphones --- */
+@media (max-width: 450px) {
+    .login-container {
+        width: 90%;
+    }
+
+    .g-recaptcha {
+        transform: scale(0.80);
+    }
+}
+
+.login-label {
+    display: block;
+    text-align: left;
+    font-size: 0.95rem;
+    margin-top: 12px;
+    margin-bottom: 4px;
+    font-weight: 600;
+    color: inherit; /* garde la couleur du mode */
 }

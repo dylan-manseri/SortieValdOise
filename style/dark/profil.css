@@ -1,12 +1,12 @@
 body {
     margin: 0;
-    background: #e7e8bc
+    background: #101003
 }
 
 .profile-container {
     max-width: 800px;
     margin: 50px auto;
-    background: #f4f4d7;
+    background: #060600;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2)
@@ -30,7 +30,7 @@ h1 {
 
 .section {
     margin-top: 30px;
-    background: #fff;
+    background: #0f0000;
     padding: 20px;
     border-radius: 8px
 }
@@ -48,7 +48,7 @@ table {
 
 table td, table th {
     padding: 10px;
-    border-bottom: 1px solid #ddd
+    border-bottom: 1px solid #2a0808
 }
 
 .logout {

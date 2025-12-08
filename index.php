@@ -1,7 +1,6 @@
 <?php
 $title="Découvrez le 95";
 $description="ici plein de choses intéressantes!";
-$h1="";
 $css = "index";
 include "includes/pageParts/header.php"; 
 ?>
@@ -62,33 +61,36 @@ include "includes/pageParts/header.php";
 <!--FAQ AVEC BOOTSTRAP -->
 
 <section class="default-section container my-5" id="faq">
-    <h2 class="h2-question">Questions fréquemment posées</h2>
+    <h2 class="h2-question">Questions fréquentes</h2>
 
     <div class="row">
 
         <!-- Colonne 1 -->
         <div class="col-lg-6">
             <div class="d-flex mb-4">
-                <p class="question-symbole me-2">📊</p>
+                <p class="question-symbole me-2">❓</p>
                 <div class="question">
-                    <h3>Comment sont générées les données météo ?</h3>
-                    <p>Les données proviennent d'une API météo professionnelle...</p>
+                    <h3>Que propose SortieValdoise ?</h3>
+                    <p>SortieValdoise vous permet de découvrir et de partager des activités dans le Val-d’Oise. 
+                    Vous y trouverez des sorties culturelles, sportives, familiales ou encore des balades en pleine nature.</p>
                 </div>
             </div>
 
             <div class="d-flex mb-4">
-                <p class="question-symbole me-2">🧭</p>
+                <p class="question-symbole me-2">👥</p>
                 <div class="question">
-                    <h3>Puis-je voir la météo de ma ville ?</h3>
-                    <p>Oui, via la recherche ou la géolocalisation...</p>
+                    <h3>Les sorties viennent-elles seulement de l’équipe du site ?</h3>
+                    <p>Non ! Les sorties sont proposées à la fois par nos utilisateurs et par nos partenaires. 
+                    Chacun peut enrichir la plateforme en partageant ses propres idées de sorties.</p>
                 </div>
             </div>
 
             <div class="d-flex mb-4">
-                <p class="question-symbole me-2">🌈</p>
+                <p class="question-symbole me-2">🔐</p>
                 <div class="question">
-                    <h3>Que signifient les icônes météo ?</h3>
-                    <p>☀️ Soleil – 🌧️ Pluie – ❄️ Neige – etc.</p>
+                    <h3>Dois-je créer un compte pour consulter les sorties ?</h3>
+                    <p>Non, la consultation est libre et gratuite. 
+                    La création de compte n'est nécessaire que si vous souhaitez proposer vos propres sorties.</p>
                 </div>
             </div>
         </div>
@@ -96,31 +98,19 @@ include "includes/pageParts/header.php";
         <!-- Colonne 2 -->
         <div class="col-lg-6">
             <div class="d-flex mb-4">
-                <p class="question-symbole me-2">🔍</p>
+                <p class="question-symbole me-2">🎯</p>
                 <div class="question">
-                    <h3>Fiabilité des prévisions ?</h3>
-                    <p>Très fiable sur 3 jours, incertain au-delà...</p>
+                    <h3>Puis-je filtrer les activités selon mes préférences ?</h3>
+                    <p>Oui ! Vous pouvez rechercher une sortie par type (randonnée, concert, exposition…), 
+                    par ville et selon d’autres critères.</p>
                 </div>
             </div>
 
-            <div class="d-flex mb-4">
-                <p class="question-symbole me-2">🎲</p>
-                <div class="question">
-                    <h3>Pourquoi des infos aléatoires ?</h3>
-                    <p>Pour rendre l'expérience plus vivante et éducative...</p>
-                </div>
-            </div>
-
-            <div class="d-flex mb-4">
-                <p class="question-symbole me-2">⚖️</p>
-                <div class="question">
-                    <h3>Pourquoi différences entre sites météo ?</h3>
-                    <p>Dépend de la source et du modèle utilisé...</p>
-                </div>
-            </div>
+    
         </div>
     </div>
 </section>
+
 
 <?php include "includes/pageParts/footer.php"; ?>
 </html>
