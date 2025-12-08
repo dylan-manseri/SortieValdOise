@@ -10,7 +10,6 @@ $errorMessage = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
   if (isset($_POST['action']) && $_POST['action'] === 'autocomplete') {
         
-        // 1. Indiquer au navigateur qu'on envoie du JSON
         header('Content-Type: application/json');
         
         $searchQuery = $_POST['query'] ?? '';
@@ -18,16 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode([]);
             exit;
         }
-
-        // 2. Recherche dans la base de données
         try {
             $searchTerm = $searchQuery . '%';
-            // Requête sécurisée pour sélectionner le champ 'login' correspondant
             $stmt = $pdo->prepare("SELECT login FROM users WHERE login LIKE ? LIMIT 10"); 
             $stmt->execute([$searchTerm]); 
             $results = $stmt->fetchAll(PDO::FETCH_COLUMN, 0); 
-            
-            // 3. Conversion du tableau PHP en chaîne JSON et envoi
             echo json_encode($results);
 
         } catch (PDOException $e) {
@@ -35,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             http_response_code(500);
             echo json_encode([]);
         }
-        // CRITIQUE: Arrêter l'exécution pour ne pas renvoyer le code HTML ci-dessous
         exit; 
     }
 
@@ -100,25 +93,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['pren'] = $foundUser['prenom_user'];
         $_SESSION['role'] = $foundUser['role'];
 
-        if ($anonymous_tracking_id) {
-          try {
-              // Mise à jour de toutes les entrées 'anonymous' enregistrées avec cet UUID
-              $update_sql = "
-                  UPDATE visits 
-                  SET login = :new_login, status = 'logged_in', tracking_id = NULL
-                  WHERE tracking_id = :old_tracking_id AND status = 'anonymous'
-              ";
-          $update_stmt = $pdo->prepare($update_sql);
-          $update_stmt->execute([
-              ':new_login' => $foundUser['login'], 
-              ':old_tracking_id' => $anonymous_tracking_id
-          ]);
-              
-          } catch (PDOException $e) {
-              error_log("DB Error linking anonymous history: " . $e->getMessage());
-              // Continuer le processus de connexion même en cas d'erreur de suivi
-          }
-        } 
 
         header('Location: profil.php');
         exit;
