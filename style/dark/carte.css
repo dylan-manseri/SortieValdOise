@@ -13,7 +13,7 @@
         overflow-y: auto;
         color : #fff;
         overflow-x: hidden;
-        display : flex;
+        display flex;
     }
 
     #side-panel.open {
