@@ -28,9 +28,10 @@ if ($isFav) {
     echo json_encode(['success'=>true, 'isFavorite'=>false]);
 } else {
     // Récupérer les infos réelles depuis propositions
-    $stmtProp = $pdo->prepare("SELECT titre, adresse, status FROM propositions WHERE id_sortie=?");
-    $stmtProp->execute([$id_sortie]);
-    $prop = $stmtProp->fetch(PDO::FETCH_ASSOC);
+    $data = file_get_contents('https://sortievaldoise.alwaysdata.net/data/activitiesJson.php');
+    $json = json_decode($data, true);
+    $prop = $json[$id_sortie];
+
 
     if (!$prop) {
         // Si la sortie n'existe pas dans propositions, renvoyer erreur
@@ -46,8 +47,8 @@ if ($isFav) {
     $add->execute([
         $login,
         $id_sortie,
-        $prop['titre'],
-        $prop['adresse'],
+        $prop['title'],
+        $prop['address'],
     ]);
 
     echo json_encode(['success'=>true, 'isFavorite'=>true]);

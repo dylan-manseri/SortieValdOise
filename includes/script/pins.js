@@ -63,7 +63,7 @@ const markerMap = {};
 
 function displayDetails(events){
     const panel = document.getElementById("side-panel");
-    panel.innerHTML='';
+    panel.innerHTML='<button onclick="closePanel()" class="button-close"><span class="material-icons">close</span></button>';
     events.forEach( ev => {
         let uid = ev[0];
         let event = actList[uid];
@@ -86,7 +86,13 @@ function displayDetails(events){
         '</div>'+
         '</div>'
     })
+    panel.classList.remove("close");
     panel.classList.add("open");
+}
+function closePanel(){
+    const panel = document.getElementById("side-panel");
+    panel.classList.remove("open");
+    panel.classList.add("close");
 }
 
 /**

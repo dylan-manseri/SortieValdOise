@@ -11,7 +11,9 @@ include "includes/pageParts/header.php";
 <!-- Import Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
-    <div id="side-panel"></div>
+    <div id="side-panel">
+        <button onclick="closePanel()"><span class="material-icons">close</span></button>
+    </div>
     <div id="map"></div>
 
     <?php
