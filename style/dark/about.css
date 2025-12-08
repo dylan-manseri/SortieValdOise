@@ -1,0 +1,22 @@
+.apropos-container{
+    max-width:900px;
+    margin:auto;
+    padding:40px 20px;
+    color:#f1f1f1;
+}
+
+h1{text-align:center;margin-bottom:30px;color:white;}
+.content-block{margin-bottom:35px;line-height:1.7;color:#ddd;}
+
+.team-list li{margin-bottom:6px;color:#fff;}
+.features li{margin:6px 0;color:#ccc;}
+
+.btn-retour{
+    background:#444;
+    color:white;
+    padding:10px 20px;
+    text-decoration:none;
+    border-radius:8px;
+}
+.btn-retour:hover{background:#666;}
+.center{text-align:center;}
