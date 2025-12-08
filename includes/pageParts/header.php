@@ -40,7 +40,9 @@ $bascule = ($style === "light") ? "dark" : "light";
     <link rel="stylesheet" href="style/<?=$style?>/<?=$style?>.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
     <link rel="stylesheet" href="style/<?=$style?>/navbar.css" />
+    <?php if (isset($css)): ?>
     <link rel="stylesheet" href="style/<?=$style?>/<?=$css?>.css" />
+    <?php endif; ?>
     <link rel="stylesheet" href="style/<?=$style?>/footer.css" />
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
