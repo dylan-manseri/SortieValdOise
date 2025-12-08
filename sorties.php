@@ -9,6 +9,8 @@ include "includes/pageParts/header.php";
 // Connexion à la base
 require_once 'conf/bd_conf.php';
 
+$props = $pdo->query("SELECT * FROM propositions;")->fetchAll(PDO::FETCH_ASSOC);
+$json = json_encode($props);
 // Récupérer les favoris
 $login = $_SESSION['login'] ?? null;
 $userFavorites = [];
@@ -42,6 +44,7 @@ if ($login) {
 
 <?php include "includes/pageParts/footer.php" ?>
 <script>
+    window.props = <?= $json ?>;
     window.isLoggedIn = <?= $login ? 'true' : 'false' ?>;
     window.userFavorites = <?= json_encode($userFavorites) ?>;
 </script>

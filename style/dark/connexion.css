@@ -1,0 +1,93 @@
+/* === MODE NUIT === */
+
+body {
+    background-color: #0f1016;
+    margin: 0;
+    color: #e6e6e6;
+    font-family: Arial,sans-serif;
+}
+
+/* Centre automatiquement le login */
+
+main {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* ---------- Formulaire ---------- */
+
+.login-container {
+    background-color: #1b1c23;
+    padding: 30px 40px;
+    border-radius: 12px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+}
+
+.login-container h2 {
+    font-size: 1.9rem;
+    margin-bottom: 22px;
+    color: #fff;
+}
+
+/* Inputs */
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 1rem;
+    border: 1px solid #3b3d45;
+    background-color: #2a2c33;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.login-container input::placeholder {
+    color: #bfbfbf;
+}
+
+/* bouton */
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    margin-top: 15px;
+    cursor: pointer;
+    transition:.3s;
+}
+
+.login-container button:hover {
+    background-color: #005fcc;
+}
+
+/* Suggestions auto */
+
+#suggestions {
+    border: 1px solid #444;
+    background-color: #2b2e36;
+    color: white;
+    border-radius: 5px;
+    max-height: 150px;
+    overflow-y:auto;
+    list-style:none;
+}
+
+#suggestions li:hover {
+    background-color: #3a3d47;
+}
+
+.g-recaptcha {
+    transform: scale(0.90);           /* réduit légèrement */
+    transform-origin: center;        /* garde le centrage */
+    margin: 10px auto;
+}

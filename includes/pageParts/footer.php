@@ -56,7 +56,7 @@
         </div>
 
         <div class="footer-bottom text-center mt-4">
-            <p>Réalisé par Dylan Manseri et Amadou Bawol — Licence 2 Informatique, CY Cergy Paris Université</p>
+            <p>Licence 3 Informatique, CY Cergy Paris Université</p>
             <p>© Copyright 2025</p>
         </div>
     </div>
