@@ -51,12 +51,46 @@ $stmtFav = $pdo->prepare("
 ");
 $stmtFav->execute([$login]);
 $favoris = $stmtFav->fetchAll(PDO::FETCH_ASSOC);
+
+include "includes/fonctions/icon.php";
+if(isset($_FILES["image"]) && $_FILES['image']['error'] === UPLOAD_ERR_OK){
+    $verif = verifImage($_FILES["image"]);
+    $rDrop = $pdo->prepare("
+    DELETE FROM icons WHERE  id_user = ?");
+    $rDrop->execute([$login]);
+    $rInsert = $pdo->prepare("
+    INSERT INTO icons (image, format, id_user)
+    VALUES (?, ?, ?)
+");
+    $rInsert->execute([
+        $verif[0],
+        $verif[1],
+        $login
+    ]);
+}
+
+$rIcon = $pdo->prepare("SELECT * FROM icons WHERE id_user = ?");
+$rIcon->execute([$login]);
+$line = $rIcon->fetch(PDO::FETCH_ASSOC);
+if(!$line){
+    $icon= "icons/default.png";
+}
+else{
+    $icon = "showIcon.php?id=".$line['id_icon'];
+}
+$title = "Profil";
 $h1 = "Profil";
 $css = "profil";
 $description = "Page dédié au profil des utilisateurs";
 include "includes/pageParts/header.php";
 ?>
-
+<?php if(isset($_GET["error"]) && $_GET["error"] === "dim"):?>
+    <p class="error-msg">Merci d'envoyer un fichier de taille <= à 256</p>
+<?php elseif (isset($_GET["error"]) && $_GET["error"] === "file"):?>
+    <p class="error-msg">Merci d'envoyer un fichier valide ! Les formats autorisé : png, jpeg, webp.</p>
+<?php elseif (isset($_GET["error"]) && $_GET["error"] === "size"):?>
+    <p class="error-msg">Fichier trop volumineux, taille maximale autorisée : 300Ko</p>
+<?php endif?>
 <section class="profile-container">
 <h1 class="gold-gradient">
     Bienvenue <?= htmlspecialchars($user['prenom_user'] . " " . $user['nom_user']) ?>
@@ -64,12 +98,33 @@ include "includes/pageParts/header.php";
 
 <div class="container">
 <h2>Informations</h2>
-<table>
-<tr><th>Nom</th><td><?= htmlspecialchars($user['nom_user'] ?? '') ?></td></tr>
-<tr><th>Prénom</th><td><?= htmlspecialchars($user['prenom_user'] ?? '') ?></td></tr>
-<tr><th>Login</th><td><?= htmlspecialchars($user['login'] ?? '') ?></td></tr>
-<tr><th>Email</th><td><?= htmlspecialchars($user['email'] ?? '') ?></td></tr>
-</table>
+    <div style="display:flex; gap:10px;">
+        <div>
+            <img class="pp" src="<?= $icon ?>" alt="photo de profil">
+            <form action="profil.php" method="POST" enctype="multipart/form-data" class="upload-container">
+                <input type="file" name="image" accept="image/*" required>
+                <button type="submit">Envoyer</button>
+            </form>
+        </div>
+        <table>
+            <tr>
+                <th>Nom</th>
+                <td><?= htmlspecialchars($user['nom_user'] ?? '') ?></td>
+            </tr>
+            <tr>
+                <th>Prénom</th>
+                <td><?= htmlspecialchars($user['prenom_user'] ?? '') ?></td>
+            </tr>
+            <tr>
+                <th>Login</th>
+                <td><?= htmlspecialchars($user['login'] ?? '') ?></td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td><?= htmlspecialchars($user['email'] ?? '') ?></td>
+            </tr>
+        </table>
+    </div>
 
 <form action="modifier_profil.php" method="get">
     <button type="submit" class="logout">Modifier les informations</button>
