@@ -13,14 +13,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     exit; 
 }
 
-try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
-} catch (\PDOException $e) {
-    error_log("Erreur de connexion PDO: " . $e->getMessage()); 
-    http_response_code(500);
-    exit("Erreur interne du serveur.");
-}
-
 if (isset($_GET['action']) && isset($_GET['id_prop'])) {
     
     $id_prop = (int)$_GET['id_prop']; 
@@ -84,6 +76,7 @@ try {
     ORDER BY date DESC 
     LIMIT 50";
 $acceptedAndPendingPropositions = $pdo->query($sqlAcceptedAndPendingList)->fetchAll();
+$acceptedAndPendingPropCount = count($acceptedAndPendingPropositions);
     
     $sqlLastUsers = "
         SELECT 

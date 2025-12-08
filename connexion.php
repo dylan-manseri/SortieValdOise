@@ -33,19 +33,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit; 
     }
 
-    $recaptchaToken = $_POST['g-recaptcha-response'] ?? null;
-
-    if (!$recaptchaToken) {
-        http_response_code(400); 
-        $errorMessage = 'Veuillez cocher la case "Je ne suis pas un robot".';
-    }
     
     $login = $_POST['login'] ?? null;
     $password = $_POST['password'] ?? null;
+    $recaptchaToken = $_POST['g-recaptcha-response'] ?? null;
     
     if (empty($login) || empty($password)) { $errorMessage ="Login et mot de passe requis"; }
 
+    else if (!$recaptchaToken) {
+        $errorMessage = 'Veuillez cocher la case "Je ne suis pas un robot".';
+    }    
 
+    if(empty($errorMessage)){
     $verifyURL = 'https://www.google.com/recaptcha/api/siteverify';
     $postData = http_build_query([
         'secret'   => $secretKey,
@@ -67,11 +66,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     if (!$result || !$result->success) {
-        http_response_code(401);
-        exit('<h1>Échec de la vérification CAPTCHA. Vous êtes un robot ?</h1>');
+        $errorMessage='Échec de la vérification CAPTCHA. Veuillez réessayer.';
     }
 
-
+    if(empty($errorMessage)){
     try {
       $stmt = $pdo->prepare("SELECT login, hashedPassword, nom_user, prenom_user, role FROM users WHERE login = ?");
       $stmt->execute([$login]);
@@ -100,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $errorMessage = 'Login ou mot de passe incorrect.';
     }
-}
+}}}
 $title = "Connexion";
 $description = "Page de connexion utilisateur";
 $css = "connexion";
@@ -175,7 +173,7 @@ include "includes/pageParts/header.php";
       listItem.addEventListener('click', () => {
       usernameInput.value = loginSuggestion;
       suggestionsBox.innerHTML = '';
-      });
+      });x
 
       suggestionsBox.appendChild(listItem);
     });
