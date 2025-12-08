@@ -18,15 +18,16 @@ if(file_exists($cacheFile)){
     if($age < $cacheDuration){
         echo file_get_contents($cacheFile);
     }
-}
-else{
-    $activities = null;
-    try {
-        $activities = json_encode(getActivities()); // On écrit en json le tableau d'activité construit au préalable.
-    } catch (DateMalformedStringException $e) {
+    else{
+        $activities = null;
+        try {
+            $activities = json_encode(getActivities()); // On écrit en json le tableau d'activité construit au préalable.
+        } catch (DateMalformedStringException $e) {
 
+        }
+
+        file_put_contents($cacheFile, $activities);
+        echo $activities;
     }
-
-    file_put_contents($cacheFile, $activities);
-    echo $activities;
 }
+

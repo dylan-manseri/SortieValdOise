@@ -12,8 +12,6 @@
                 <p>🌐 SortieValdoise</p>
                 <ul>
                     <li><a href="index.php">Accueil</a></li>
-                    <li><a href="carte.php">Carte d'activités</a></li>
-                    <li><a href="stats.php">Mes activités</a></li>
                     <li><a href="about.php">À propos</a></li>
                 </ul>
             </div>
@@ -21,14 +19,8 @@
             <div class="footer-column col-12 col-sm-6 col-lg-3 mb-4">
                 <p>⚙️ Fonctionnalités</p>
                 <ul>
-                    <li><a href="meteo.php#map">Recherche par mot clé/ville</a></li>
-                    <li><a href="index.php#locateWeather">Ajout d'activités</a></li>
-                    <?php if (!isset($_GET["style"]) || $_GET["style"] == "light"): ?>
-                        <li><a href="?style=dark">Changement de mode visuel</a></li>
-                    <?php else: ?>
-                        <li><a href="?style=light">Changement de mode visuel</a></li>
-                    <?php endif; ?>
-                    <li><a href="cookies.php">Traitement des cookies</a></li>
+                    <li><a href="sorties.php">Liste des activités</a></li>
+                    <li><a href="carte.php">Recherche sur la carte</a></li>
                 </ul>
             </div>
 
@@ -36,8 +28,6 @@
                 <p>🗂️ Ressources</p>
                 <ul>
                     <li><a href="sitemap.php">Sitemap</a></li>
-                    <li><a href="mentions.php">Mentions légales</a></li>
-                    <li><a href="contact.php">Contact</a></li>
                     <li><a href="index.php#faq">FAQ</a></li>
                 </ul>
             </div>

@@ -21,12 +21,10 @@ $successMessage = '';
 
 // Configuration PDO (reprise de votre code précédent)
 
-try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
-} catch (\PDOException $e) {
-    error_log("Erreur de connexion PDO: " . $e->getMessage()); 
+if (!isset($pdo)) {
     http_response_code(500);
-    exit("Erreur interne du serveur. La connexion à la base de données a échoué.");}
+    exit("Erreur: connexion à la base de données indisponible.");
+}
 
 
 // =========================================================================

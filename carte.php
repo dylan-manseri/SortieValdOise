@@ -11,7 +11,9 @@ include "includes/pageParts/header.php";
 <!-- Import Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
-    <div id="side-panel"></div>
+    <div id="side-panel">
+        <button onclick="closePanel()"><span class="material-icons">close</span></button>
+    </div>
     <div id="map"></div>
 
     <?php
@@ -24,5 +26,6 @@ let mapStyle = "<?=$style?>"; // récupère "light" ou "dark" depuis le header
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="includes/script/map.js" defer></script>
     <script src="includes/script/pins.js" defer></script>
+    
 </body>
 </html>
