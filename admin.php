@@ -58,7 +58,7 @@ try {
 
     $sqlPendingPropositionsList = "
         SELECT 
-            id_prop, titre, description, adresse, villev, user_login, 
+            id_prop, titre, description, adresse, ville, user_login, 
             DATE_FORMAT(date, '%d/%m/%Y') AS formatted_date
         FROM propositions 
         WHERE status = 'pending'
@@ -69,7 +69,7 @@ try {
 
     $sqlAcceptedAndPendingList = "
     SELECT 
-        id_prop, titre, description, adresse, villev, user_login, status,
+        id_prop, titre, description, adresse, ville, user_login, status,
         DATE_FORMAT(date, '%d/%m/%Y') AS formatted_date
     FROM propositions 
     WHERE status IN ('pending', 'accepted')  /* <-- C'est la clé */
@@ -324,7 +324,7 @@ tr:last-child td {
                             <strong><?= htmlspecialchars($prop['titre']) ?></strong><br>
                             <small><?= substr(htmlspecialchars($prop['description']), 0, 50) . '...' ?></small>
                         </td>
-                        <td><?= htmlspecialchars($prop['adresse']) . ', ' . htmlspecialchars($prop['villev']) ?></td>
+                        <td><?= htmlspecialchars($prop['adresse']) . ', ' . htmlspecialchars($prop['ville']) ?></td>
                         <td><?= htmlspecialchars($prop['user_login']) ?></td>
                         <td><?= htmlspecialchars($prop['formatted_date']) ?></td>
                         
@@ -357,7 +357,7 @@ tr:last-child td {
                             <strong><?= htmlspecialchars($prop['titre']) ?></strong><br>
                             <small><?= substr(htmlspecialchars($prop['description']), 0, 50) . '...' ?></small>
                         </td>
-                        <td><?= htmlspecialchars($prop['adresse']) . ', ' . htmlspecialchars($prop['villev']) ?></td>
+                        <td><?= htmlspecialchars($prop['adresse']) . ', ' . htmlspecialchars($prop['ville']) ?></td>
                         <td><?= htmlspecialchars($prop['user_login']) ?></td>
                         <td><?= htmlspecialchars($prop['formatted_date']) ?></td>
                         <td>

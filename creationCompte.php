@@ -16,6 +16,8 @@ require 'PHPMailer-master/src/Exception.php';
 require 'PHPMailer-master/src/PHPMailer.php';
 require 'PHPMailer-master/src/SMTP.php';
 
+$errorMessage = '';
+
 
 // Fonction d'envoi d'e-mail utilisant PHPMailer
 function sendVerificationEmail($recipientEmail, $verificationCode, $smtpConfig) {
@@ -90,36 +92,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $recaptchaToken = $_POST['g-recaptcha-response'] ?? null;
 
-    if (!$recaptchaToken) {
-        http_response_code(400); 
-        exit('<h1>Erreur: Veuillez cocher la case "Je ne suis pas un robot".</h1>');
-    }
-
-    // Sanctuarisation des entrées
-    $login = trim($_POST['login'] ?? null);
-    $nom_user = trim($_POST['nom_user'] ?? null);
-    $prenom_user = trim($_POST['prenom_user'] ?? null);
-    $email = trim($_POST['email'] ?? null);
-    $password = $_POST['password'] ?? null; 
-
-
-    if (empty($login) || empty($nom_user) || empty($prenom_user) || empty($email) || empty($password)) { 
-        http_response_code(400); 
-        exit("Erreur: Tous les champs sont requis."); 
-    }
-    $regex = '/^(?=.*\d)(?=.*[a-z]).{8,}$/';
-
-    if (!preg_match($regex, $password)) {
-      http_response_code(400);
-      exit("Erreur: Le mot de passe ne respecte pas les exigences de sécurité, veuillez rajouter des chiffres et des caractères");  
-    }
+      
+      // Sanctuarisation des entrées
+      $login = trim($_POST['login'] ?? null);
+      $nom_user = trim($_POST['nom_user'] ?? null);
+      $prenom_user = trim($_POST['prenom_user'] ?? null);
+      $email = trim($_POST['email'] ?? null);
+      $password = $_POST['password'] ?? null; 
+      
+      $regex = '/^(?=.*\d)(?=.*[a-z]).{8,}$/';
+      
+      if (empty($login) || empty($nom_user) || empty($prenom_user) || empty($email) || empty($password)) { 
+        $errorMessage ="Tous les champs sont requis.";
+      }
+      elseif (!preg_match($regex, $password)) {
+        $errorMessage =" Le mot de passe ne respecte pas les exigences de sécurité, veuillez rajouter des chiffres et des caractères";  
+      } 
+      elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errorMessage ="Erreur: L'adresse e-mail n'est pas valide.";
+      }
+      elseif (!$recaptchaToken) {
+        $errorMessage = 'Veuillez cocher la case "Je ne suis pas un robot".';
+      } 
     
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        http_response_code(400);
-        exit("Erreur: L'adresse e-mail n'est pas valide.");
-    }
-    
-
+    if(empty($errorMessage)){
     // 2.2. VÉRIFICATION RECAPTCHA
     $verifyURL = 'https://www.google.com/recaptcha/api/siteverify';
     $postData = http_build_query([
@@ -140,17 +136,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = json_decode($response);
 
     if (!$result || !$result->success) {
-        http_response_code(401);
-        exit('<h1>Échec de la vérification CAPTCHA. Vous êtes un robot ?</h1>');
+        $errorMessage ="Échec de la vérification CAPTCHA.  Veuillez réessayer.";
     }
 
-
+if (empty($errorMessage)){
 try {
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE LOWER(login) = LOWER(?) OR email = ?");
     $stmt->execute([$login, $email]);
     if ($stmt->fetchColumn() > 0) {
-        http_response_code(409);
-        exit('Un utilisateur avec ce login ou cet e-mail existe déjà. Si votre compte est en attente, vérifiez vos spams.');
+        $errorMessage ='Un utilisateur avec ce login ou cet e-mail existe déjà. Si votre compte est en attente, vérifiez vos spams.';
     }
 
     // PRÉ-ENREGISTREMENT ET ENVOI DU CODE
@@ -165,8 +159,7 @@ try {
     if (!sendVerificationEmail($email, $verificationCode, $smtpConfig)) {
          // Si le mail échoue, supprimez l'utilisateur pour qu'il puisse réessayer
          $pdo->prepare("DELETE FROM users WHERE email = ? AND status = 'pending'")->execute([$email]);
-         http_response_code(500);
-         exit('Erreur lors de l\'envoi de l\'e-mail de vérification. Veuillez réessayer.');
+         $errorMessage ='Erreur lors de l\'envoi de l\'e-mail de vérification. Veuillez réessayer.';
     }
     
     // Préparation de la Session pour la prochaine étape
@@ -183,7 +176,8 @@ try {
     http_response_code(500);
     exit('Une erreur inattendue est survenue: ' . $e->getMessage());
 }
-
+    }
+  }
 }
 ?>
 
@@ -334,6 +328,11 @@ try {
     <h2>
       Register
     </h2>
+    <?php if (!empty($errorMessage)): ?>
+            <div class="error-message">
+                <?= htmlspecialchars($errorMessage) ?>
+            </div>
+        <?php endif; ?>
     <form action="" method="POST">
       <input type="text" name="login" placeholder="Nom d'utilisateur (Login)" id="username-input" maxlength="12" value="<?= htmlspecialchars($login ?? '') ?>" required>
         <span id="username-error" style="color: red; font-size: 0.9em; height: 1em;"></span>      
