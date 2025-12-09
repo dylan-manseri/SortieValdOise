@@ -9,7 +9,7 @@
 
 include "../includes/fonctions/activities.php";
 header('Content-Type: application/json');   // On définit la structure de la page (json)
-
+//echo "<html>";
 $cacheFile = "../cache/activities.json";
 
 if(!is_dir("../cache")){

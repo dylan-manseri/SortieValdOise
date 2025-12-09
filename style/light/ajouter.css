@@ -36,7 +36,7 @@ input {
     border-radius: 8px;
     overflow: hidden;
     padding-bottom: 65%;
-    background-image: url('https://assets.codepen.io/285131/coffee_1.jpg');
+    background-image: url('https://sortievaldoise.wordpress.com/wp-content/uploads/2025/11/val-d-oise_11zon-2.webp');
     background-repeat: no-repeat;
     background-size: 150%;
     background-position: 0 5%;
@@ -50,7 +50,7 @@ input {
     right: 10%;
     font-size: 1.75rem;
     font-weight: 700;
-    color: #735400;
+    color: #000000;
     line-height: 1.222;
     small {
         display: block;

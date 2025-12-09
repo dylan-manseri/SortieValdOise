@@ -45,6 +45,9 @@ if ($login) {
 
     <!-- ZONE D'AFFICHAGE DES CARTES -->
     <div id="results" class="row justify-content-center gy-4"></div>
+    <button id="addBtn" onclick="showCards()">
+        <span class="material-icons">add</span>
+    </button>
 
 </section>
 

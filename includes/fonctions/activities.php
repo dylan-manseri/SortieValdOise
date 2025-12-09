@@ -121,6 +121,9 @@ function inserSameTitle(mixed &$activities, array $aInserer): void
  */
 function compare(array $infos, mixed $aInserer): int
 {
+    if($infos['date'] == $aInserer['date'] && $infos['ville'] == $aInserer['ville']){
+        return 2;
+    }
     if($infos['lat'] != $aInserer['lat']){
         return 1;
     }
@@ -244,6 +247,19 @@ function getActivitiesDataIDF(&$activities) : void
 }
 
 /**
+ * Fonction de comparaison, utilisé pour garantir le trie de uasort().
+ * L'opérateur <=> renvoi -1, 0 ou 1 en fonction du résultat du test
+ * @param $a : une date d'événement
+ * @param $b : une autre date d'événement
+ * @return int : résultat du test
+ */
+function dateSort($a, $b){
+    $t1 = strtotime($a["date"]);
+    $t2 = strtotime($b["date"]);
+    return $t1 <=> $t2;
+}
+
+/**
  * Fonction qui récupère les activités des deux APIs et les stockes dans un même tableau associatif.
  * Dans ce tableaux on y trouve toutes leurs informations.
  * L'algorithme gère les dates et les doublons.
@@ -264,6 +280,22 @@ function getActivities(): array
             $result[$activities[$i]["uid"]] = $activities[$i];
         }
     }
+
+    $keys = array_keys($result);
+    for($i = 0; $i < count($keys)-1; $i++){
+        $k1 = $keys[$i];
+        $j=$i+1;
+        $k2 = $keys[$j];
+        similar_text($result[$k1]["title"], $result[$k2]["title"], $percent);
+        while($percent > 70 && $result[$k1]['date'] == $result[$k2]['date'] && $result[$k1]['ville'] == $result[$k2]['ville']){
+            unset($result[$k2]);
+            $j++;
+            $k2 = $keys[$j];
+            similar_text($result[$k1]["title"], $result[$k2]["title"], $percent);
+            $i++;
+        }
+    }
+    uasort($result, "dateSort");
     return $result;
 }
 

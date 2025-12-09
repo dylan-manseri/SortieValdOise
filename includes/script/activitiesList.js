@@ -1,3 +1,5 @@
+let i = 0;
+
 function display(eventsList){
     const results = document.getElementById("results");
     results.innerHTML="";
@@ -42,9 +44,22 @@ function display(eventsList){
             toggleFavorite(favBtn);
         });
         card.appendChild(favBtn);
-
+        if(i>6){
+            card.style.display="none";
+        }
         results.appendChild(card);
+        i++;
     });
+    i = 10;
+}
+
+function showCards(){
+    const cards = Array.from(document.querySelectorAll(".card-event"));
+    const j = i+6;
+    while(i<j && i<cards.length){
+        cards[i].style.display="";
+        i++;
+    }
 }
 
 function toggleFavorite(btn) {
@@ -74,6 +89,14 @@ fetch("data/activitiesJson.php")
     .then(response => response.json())
     .then(data => {
         const eventsArray = Object.values(data);
+        eventsArray.sort((a, b) => {
+            let time1 = new Date(a.date);
+            let time2 = new Date(b.date);
+            if(time1 > time2) return 1;
+            if(time1 < time2) return -1;
+            return 0;
+            //return (time1 > time2) ? 1 : (time1 < time2) ? -1 : 0;
+        })
         const searchInput = document.getElementById("searchInput");
         const selectCities = document.getElementById("cities");
 
