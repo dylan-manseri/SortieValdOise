@@ -55,13 +55,7 @@ $favoris = $stmtFav->fetchAll(PDO::FETCH_ASSOC);
 include "includes/fonctions/icon.php";
 if(isset($_FILES["image"]) && $_FILES['image']['error'] === UPLOAD_ERR_OK){
     $verif = verifImage($_FILES["image"]);
-    $rDrop = $pdo->prepare("
-    DELETE FROM icons WHERE  id_user = ?");
-    $rDrop->execute([$login]);
-    $rInsert = $pdo->prepare("
-    INSERT INTO icons (image, format, id_user)
-    VALUES (?, ?, ?)
-");
+    $rInsert = $pdo->prepare("UPDATE users SET icon = ?, type_mime = ? WHERE login = ?;");
     $rInsert->execute([
         $verif[0],
         $verif[1],
@@ -69,14 +63,14 @@ if(isset($_FILES["image"]) && $_FILES['image']['error'] === UPLOAD_ERR_OK){
     ]);
 }
 
-$rIcon = $pdo->prepare("SELECT * FROM icons WHERE id_user = ?");
+$rIcon = $pdo->prepare("SELECT icon FROM users WHERE login = ?");
 $rIcon->execute([$login]);
 $line = $rIcon->fetch(PDO::FETCH_ASSOC);
-if(!$line){
+if($line['icon'] === NULL){
     $icon= "icons/default.png";
 }
 else{
-    $icon = "showIcon.php?id=".$line['id_icon'];
+    $icon = "showIcon.php?id=".$login;
 }
 $title = "Profil";
 $h1 = "Profil";
