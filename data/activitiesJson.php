@@ -25,20 +25,22 @@ if(!file_exists($cacheFile)){
     file_put_contents($cacheFile, $activities);
     echo $activities;
 }
+else{
+    $cacheDuration = 24 * 3600;
+    $age = time() - filemtime($cacheFile);
+    if ($age < $cacheDuration) {
+        echo file_get_contents($cacheFile);
+    } else {
+        $activities = null;
+        try {
+            $activities = json_encode(getActivities()); // On écrit en json le tableau d'activité construit au préalable.
+        } catch (DateMalformedStringException $e) {
 
-$cacheDuration = 24 * 3600;
-$age = time() - filemtime($cacheFile);
-if ($age < $cacheDuration) {
-    echo file_get_contents($cacheFile);
-} else {
-    $activities = null;
-    try {
-        $activities = json_encode(getActivities()); // On écrit en json le tableau d'activité construit au préalable.
-    } catch (DateMalformedStringException $e) {
-
+        }
+        unlink($cacheFile);
+        file_put_contents($cacheFile, $activities);
+        echo $activities;
     }
-    unlink($cacheFile);
-    file_put_contents($cacheFile, $activities);
-    echo $activities;
 }
+
 
