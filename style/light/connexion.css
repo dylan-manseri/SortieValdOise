@@ -109,3 +109,34 @@ main {
     font-weight: 600;
     color: inherit; /* garde la couleur du mode */
 }
+
+
+/* === creataion compte === */
+.register-page{
+    display:flex;justify-content:center;align-items:center;
+    padding:60px 15px;min-height:calc(100vh - 120px);
+    background:#e7e8bc;
+}
+
+.register-container{
+    width:350px;max-width:90%;
+    background:#f4f4d7;padding:30px;border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,.2);text-align:center;
+}
+
+.register-container input,
+.register-container button{
+    width:100%;padding:10px;margin-top:10px;border-radius:6px;
+    border:1px solid #ccc;font-size:1rem;
+}
+
+.register-container button{
+    background:#7e9ad7;color:white;border:none;cursor:pointer;
+}
+.register-container button:disabled{background:gray;cursor:not-allowed;}
+.register-container button:hover:not(:disabled){background:#5c80c7;}
+
+#username-error{font-size:.9em;min-height:18px;margin-top:2px;text-align:left;}
+
+.error-message{color:#b20000;margin-bottom:10px;}
+.link-msg{font-size:.9em;margin-top:10px;}

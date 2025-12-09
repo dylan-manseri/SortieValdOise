@@ -38,7 +38,6 @@ $bascule = ($style === "light") ? "dark" : "light";
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="style/<?=$style?>/<?=$style?>.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
     <link rel="stylesheet" href="style/<?=$style?>/navbar.css" />
     <?php if (isset($css)): ?>
     <link rel="stylesheet" href="style/<?=$style?>/<?=$css?>.css" />
@@ -123,7 +122,7 @@ $bascule = ($style === "light") ? "dark" : "light";
 
 <header>
     <div class="logo">
-        <a href="index.php"><img src="images/logo_sv.png" alt="logo"></a>
+        <a href="index.php"><img src="images/logo_sv.png" alt="logo du site"></a>
     </div>
 
     <nav>

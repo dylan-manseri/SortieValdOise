@@ -109,3 +109,20 @@ main {
     font-weight: 600;
     color: inherit; /* garde la couleur du mode */
 }
+
+
+/* =====================  creation compete ===================== */
+.register-page{background:#0f1016;}
+.register-container{
+    background:#1d1e26;color:#fff;
+    width:350px;max-width:90%;padding:30px;border-radius:10px;
+}
+.register-container input{
+    background:#2b2d36;color:#fff;border:1px solid #444;
+}
+.register-container button{
+    background:#4e8cff;color:white;border:none;
+}
+.register-container button:hover:not(:disabled){background:#3976e0;}
+#username-error{color:#fff;}
+.error-message{color:#ff7b7b;}
