@@ -12,22 +12,33 @@ header('Content-Type: application/json');   // On définit la structure de la pa
 
 $cacheFile = "../cache/activities.json";
 
+if(!is_dir("../cache")){
+    mkdir("../cache", 0777, true);
+}
+if(!file_exists($cacheFile)){
+    $activities = null;
+    try {
+        $activities = json_encode(getActivities()); // On écrit en json le tableau d'activité construit au préalable.
+    } catch (DateMalformedStringException $e) {
+
+    }
+    file_put_contents($cacheFile, $activities);
+    echo $activities;
+}
+
 $cacheDuration = 24 * 3600;
-if(file_exists($cacheFile)){
-    $age = time() - filemtime($cacheFile);
-    if($age < $cacheDuration){
-        echo file_get_contents($cacheFile);
-    }
-    else{
-        $activities = null;
-        try {
-            $activities = json_encode(getActivities()); // On écrit en json le tableau d'activité construit au préalable.
-        } catch (DateMalformedStringException $e) {
+$age = time() - filemtime($cacheFile);
+if ($age < $cacheDuration) {
+    echo file_get_contents($cacheFile);
+} else {
+    $activities = null;
+    try {
+        $activities = json_encode(getActivities()); // On écrit en json le tableau d'activité construit au préalable.
+    } catch (DateMalformedStringException $e) {
 
-        }
-
-        file_put_contents($cacheFile, $activities);
-        echo $activities;
     }
+    unlink($cacheFile);
+    file_put_contents($cacheFile, $activities);
+    echo $activities;
 }
 
