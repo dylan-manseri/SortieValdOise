@@ -108,6 +108,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 
 /* ======================= Partie affichage ======================= */
 $title="Inscription";
+$description="Dans cette page vous pouvez crée votre compte, afin d'accéder à de nouvelles fonctionnalités";
 $css="connexion"; // ton fichier CSS global + light/dark
 include "includes/pageParts/header.php";
 ?>
@@ -138,13 +139,13 @@ include "includes/pageParts/header.php";
                 value="<?=htmlspecialchars($prenom_user??'')?>">
 
           <label for="email">Email</label>
-          <input type="email" name="email" id="email" placeholder="Email" required
+          <input type="email" name="email" id="email" placeholder="Email" autocomplete="email" required
                 value="<?=htmlspecialchars($email??'')?>">
 
           <label for="password">Mot de passe</label>
           <input type="password" name="password" id="password" placeholder="Mot de passe" required>
 
-          <label>Vérification Captcha</label>
+          <p>Vérification Captcha</p>
           <div class="g-recaptcha" data-sitekey="<?=$data_sitekey?>"></div>
 
           <button id="register-btn" disabled>S'inscrire</button>

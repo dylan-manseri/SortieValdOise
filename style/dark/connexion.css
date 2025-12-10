@@ -112,21 +112,38 @@ main {
 
 
 /* =====================  creation compete ===================== */
-.register-page{background:#0f1016;}
-.register-container{
-    background:#1d1e26;color:#fff;
-    width:350px;max-width:90%;padding:30px;border-radius:10px;
+.register-page{
+    background:#0f1016;color:#fff;
+    display:flex;justify-content:center;align-items:center;
+    padding:60px 15px;min-height:calc(100vh - 120px);
 }
+
+.register-container{
+    width:350px;max-width:90%;
+    background: #2c2d3f;padding:30px;border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,.2);text-align:center;
+}
+
 .register-container input{
     background:#2b2d36;color:#fff;border:1px solid #444;
+    width:100%;padding:10px;margin-top:10px;border-radius:6px;
+    font-size:1rem;
 }
+.register-container button{
+    width:100%;padding:10px;margin-top:10px;border-radius:6px;
+    border:1px solid #ccc;font-size:1rem;
+}
+
 .register-container button{
     background:#4e8cff;color:white;border:none;
 }
+.register-container button:disabled{background:gray;cursor:not-allowed;}
 .register-container button:hover:not(:disabled){background:#092048;}
-#username-error{color:#fff;}
-.error-message{color:#ff7b7b;}
 
+#username-error{font-size:.9em;min-height:18px;margin-top:2px;text-align:left; color:#fff;}
+
+.error-message{color:#ff7b7b;margin-bottom:10px;}
+.link-msg{font-size:.9em;margin-top:10px;}
 
 
 /* --- Responsive tablette --- */
