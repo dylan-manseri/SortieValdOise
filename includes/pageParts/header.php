@@ -33,6 +33,8 @@ $bascule = ($style === "light") ? "dark" : "light";
 <html lang="fr">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title><?=$title?></title>
     <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -134,16 +136,16 @@ $bascule = ($style === "light") ? "dark" : "light";
                     <a href="sorties.php"><img src="images/header/<?=$style?>/search-text.webp" alt="icone de liste"></a>
                 </div>
             </li>
-            <li><a href="connexion.php">Mes activités</a></li>
+            <li><a href="connexion.php">Profil</a></li>
         </ul>
     </nav>
 
     <div class="style-toggle">
-        <a class="select-nav-cookie" id="change-consent" href="cookies.php">Cookies</a>
+        
         <?php if ($style=="light"): ?>
-            <a href="?style=dark" class="dark-mode">🌙 Mode nuit</a>
+            <a href="?style=dark" class="dark-mode">🌙</a>
         <?php else: ?>
-            <a href="?style=light" class="light-mode">☀️ Mode jour</a>
+            <a href="?style=light" class="light-mode">☀️</a>
         <?php endif; ?>
     </div>
 </header>
@@ -152,8 +154,56 @@ $bascule = ($style === "light") ? "dark" : "light";
 <h1> <?=$h1?> </h1>
 <?php endif;?>
 <main>
-    <section id="cookie-banner" style="display: none; position: fixed; bottom: 0; left: 25px; width: 50%; background: #333; color: #fff; padding: 15px; text-align: center; z-index: 9999;">
-        <h2 style="font-size: medium">Ce site utilise des cookies pour améliorer votre expérience.</h2>
-        <button onclick="acceptCookies()" style="margin-left: 10px; color: #00D000">Accepter</button>
-        <button onclick="refuseCookies()" style="color: red">Refuser</button>
-    </section>
+    <section id="cookie-banner" 
+style="
+display:none; 
+position:fixed; 
+bottom:20px; 
+left:50%; 
+transform:translateX(-50%);
+width:400px; 
+max-width:85%;
+background:rgba(0,0,0,0.85); 
+backdrop-filter:blur(8px);
+color:#fff; 
+padding:20px; 
+text-align:center; 
+z-index:9999;
+border-radius:12px;
+box-shadow:0 6px 18px rgba(0,0,0,0.6);
+font-family:'Inter',sans-serif;
+">
+
+    <h2 style="font-size:1rem; font-weight:500; margin-bottom:12px;">
+        Ce site utilise des cookies pour améliorer votre expérience.
+    </h2>
+
+    <button onclick="acceptCookies()" 
+    style="
+    background:#00d000; 
+    color:#fff; 
+    border:none; 
+    padding:8px 16px; 
+    border-radius:8px; 
+    cursor:pointer; 
+    font-weight:600; 
+    margin-right:10px;
+    transition:.2s;
+    ">
+    Accepter
+    </button>
+
+    <button onclick="refuseCookies()" 
+    style="
+    background:#c62828; 
+    color:#fff; 
+    border:none; 
+    padding:8px 16px; 
+    border-radius:8px; 
+    cursor:pointer; 
+    font-weight:600; 
+    transition:.2s;
+    ">
+    Refuser
+    </button>
+</section>

@@ -58,7 +58,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 
-    font-size: 3.5rem;
+    font-size: 4rem;
     font-weight: bold;
     color: white;
     text-shadow: 0 0 15px rgba(255,255,255,0.7), 0 0 30px rgba(0,0,0,0.9);
@@ -88,58 +88,3 @@ body {
     z-index: 30;        /* au-dessus des images */
 }
 
-
-/* --- Responsive mobile --- */
-@media (max-width: 768px) {
-    .card {
-        width: 100%;
-        height: 450px; /* réduit sinon ton contenu déborde */
-    }
-
-    .carousel-title {
-        font-size: 2rem; /* réduction du titre */
-        top: 42%; /* remonte un peu pour libérer le bouton */
-    }
-
-    .carousel-btn {
-        top: 70%; /* place mieux le bouton */
-    }
-
-    .btn-decouvrir{
-        font-size: 1rem;
-        padding: .6rem 1.5rem;
-    }
-}
-
-@media (max-width: 480px){
-    .card {
-        height: 380px; /* encore plus mobile-friendly */
-    }
-    .carousel-title {
-        font-size: 1.7rem;
-        top: 40%;
-    }
-    .carousel-btn {
-        top: 72%;
-    }
-    .btn-decouvrir{
-        font-size: .9rem;
-        padding: .5rem 1.2rem;
-    }
-}
-
-.group{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:0;                /* 🔥 supprime l'espace entre images */
-    padding-right:0;      /* 🔥 supprime les marges inutiles */
-    animation: spin 14s infinite linear; /* ⚡ plus rapide */
-}
-
-/* Mobile optimisation */
-@media(max-width:768px){
-    .group{
-        animation-duration:10s; /* encore plus rapide sur mobile */
-    }
-}

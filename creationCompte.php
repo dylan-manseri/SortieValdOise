@@ -121,23 +121,37 @@ include "includes/pageParts/header.php";
         <p class="error-message"><?= htmlspecialchars($errorMessage) ?></p>
     <?php endif; ?>
 
-    <form method="POST">
-        <input type="text" name="login" id="username-input" maxlength="12"
-               placeholder="Login" value="<?=htmlspecialchars($login??'')?>">
+        <form method="POST">
 
-        <span id="username-error"></span>
+          <label for="username-input">Login</label>
+          <input type="text" name="login" id="username-input" maxlength="12"
+                placeholder="Login" value="<?=htmlspecialchars($login??'')?>">
 
-        <input type="text" name="nom_user" placeholder="Nom" required value="<?=htmlspecialchars($nom_user??'')?>">
-        <input type="text" name="prenom_user" placeholder="Prénom" required value="<?=htmlspecialchars($prenom_user??'')?>">
-        <input type="email" name="email" placeholder="Email" required value="<?=htmlspecialchars($email??'')?>">
-        <input type="password" name="password" placeholder="Mot de passe" required>
+          <span id="username-error"></span>
 
-        <div class="g-recaptcha" data-sitekey="<?=$data_sitekey?>"></div>
+          <label for="nom_user">Nom</label>
+          <input type="text" name="nom_user" id="nom_user" placeholder="Nom" required
+                value="<?=htmlspecialchars($nom_user??'')?>">
 
-        <button id="register-btn" disabled>S'inscrire</button>
+          <label for="prenom_user">Prénom</label>
+          <input type="text" name="prenom_user" id="prenom_user" placeholder="Prénom" required
+                value="<?=htmlspecialchars($prenom_user??'')?>">
 
-        <p class="link-msg">Déjà inscrit ? <a href="connexion.php">Connexion</a></p>
-    </form>
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" placeholder="Email" required
+                value="<?=htmlspecialchars($email??'')?>">
+
+          <label for="password">Mot de passe</label>
+          <input type="password" name="password" id="password" placeholder="Mot de passe" required>
+
+          <label>Vérification Captcha</label>
+          <div class="g-recaptcha" data-sitekey="<?=$data_sitekey?>"></div>
+
+          <button id="register-btn" disabled>S'inscrire</button>
+
+          <p class="link-msg">Déjà inscrit ? <a href="connexion.php">Connexion</a></p>
+      </form>
+
 </div>
 </section>
 

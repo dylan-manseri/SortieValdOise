@@ -29,6 +29,7 @@
                 <ul>
                     <li><a href="sitemap.php">Sitemap</a></li>
                     <li><a href="index.php#faq">FAQ</a></li>
+                    <a href="#" id="open-cookie-settings" style="cursor:pointer;">🍪 Gérer les cookies</a></p>
                 </ul>
             </div>
 
@@ -40,4 +41,10 @@
         </div>
     </div>
 </footer>
+<script>
+document.getElementById('open-cookie-settings').addEventListener('click', function(e){
+    e.preventDefault();
+    document.getElementById('cookie-banner').style.display = 'block';
+});
+</script>
 </body>

@@ -1,0 +1,111 @@
+#side-panel {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 500px;            /* largeur du panneau */
+        height: 100vh;
+        background: #000000;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.25);
+        transform: translateX(-100%);  /* caché à gauche */
+        transition: transform 0.35s ease;
+        z-index: 9999;           /* devant tout */
+        padding: 20px;
+        overflow-y: auto;
+        color : #fff;
+        overflow-x: hidden;
+    }
+
+    #side-panel.open {
+        transform: translateX(0);   /* panneau visible */
+    }
+
+    figure{
+        text-align: center;
+
+    }
+    img{
+        border-radius: 15px;
+    }
+
+    h2{
+        margin-top: 38px;
+        font-size: 20px;
+        font-family: 'Playfair Display', serif;
+    }
+
+    h3 {
+        background: #0a0000;
+        padding: 8px 14px;
+        border-left: 4px solid #81a3f6;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px; /* espace entre l’emoji et le texte */
+        margin-bottom: 8px;
+    }
+
+    h3 .material-icons {
+        font-size: 15px; /* ou 16px, 20px… */
+    }
+
+    .bouton-volant {
+        text-decoration: none;
+        display: inline-block;
+        position: fixed;
+        top: 8.5%;  /* espace sous navbar */
+        right: 20px;      /* distance depuis la droite */
+        z-index: 9999;    /* passe devant tout */
+
+        background: #007bff;   /* couleur */
+        color: white;
+        padding: 10px 16px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+        font-size: 16px;
+    }
+
+    .bouton-volant:hover {
+        background: #0056c7;
+    }
+
+
+/* Carte d'événement dans le panel */
+.event-item {
+    background: #111;          /* fond légèrement contrasté */
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 25px;       /* espace entre les événements */
+    border: 3px solid #ece7e7;    /* contour discret */
+    transition: 0.3s ease;
+}
+
+/* Effet au survol */
+.event-item:hover {
+    background: #161616;
+    transform: scale(1.01);
+}
+
+/* Image ajustée mais NON agrandie */
+.event-item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Texte + info */
+.event-item h2 {
+    margin: 10px 0 5px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #fff;
+}
+
+.event-item p {
+    font-size: 14px;
+    opacity: 0.85;
+}

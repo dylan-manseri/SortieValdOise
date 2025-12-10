@@ -9,7 +9,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 
 // Connexion PDO : Déplacée ici pour être disponible immédiatement
 try {
-   $pdo = new PDO($dsn, $user, $pass, $options);
+   $pdo = new PDO($dsn, $username, $password, $options);
 } catch (\PDOException $e) {
    error_log("Erreur de connexion PDO: " . $e->getMessage()); 
    http_response_code(500);

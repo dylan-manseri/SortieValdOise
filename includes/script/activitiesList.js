@@ -123,7 +123,7 @@ function displayProps(props){
                     <span class="date-badge">
                         Le ${new Date(ev.date).toLocaleDateString("fr-FR")}
                     </span>
-                    <p style="text-align:left"><i>Proposé par ${ev.user_login}</i></p>
+                    <p style="text-align:left"><i>Proposée par ${ev.user_login}</i></p>
                 </div>
             </div>
         `;

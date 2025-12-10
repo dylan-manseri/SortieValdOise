@@ -50,7 +50,7 @@ main {
 .login-container button {
     width: 100%;
     padding: 10px;
-    background-color: #7e9ad7;
+    background-color: #0649d9;
     color: white;
     font-size: 1rem;
     border-radius: 5px;
@@ -61,7 +61,7 @@ main {
 }
 
 .login-container button:hover {
-    background-color: #4969a8;
+    background-color: #0a317f;
 }
 
 /* Suggestions */
@@ -131,12 +131,51 @@ main {
 }
 
 .register-container button{
-    background:#7e9ad7;color:white;border:none;cursor:pointer;
+    background:#0b53ed;color:white;border:none;cursor:pointer;
 }
 .register-container button:disabled{background:gray;cursor:not-allowed;}
-.register-container button:hover:not(:disabled){background:#5c80c7;}
+.register-container button:hover:not(:disabled){background:#5a8aea;}
 
 #username-error{font-size:.9em;min-height:18px;margin-top:2px;text-align:left;}
 
 .error-message{color:#b20000;margin-bottom:10px;}
 .link-msg{font-size:.9em;margin-top:10px;}
+
+/* --- Responsive tablette --- */
+@media (max-width: 850px) {
+    .login-container,
+    .register-container {
+        width: 420px;         /* plus large que mobile pour un meilleur confort */
+        max-width: 90%;
+        padding: 25px;
+    }
+
+    body {
+        font-size: 1rem;
+    }
+}
+
+/* --- Responsive mobile --- */
+@media (max-width: 480px) {
+    .login-container,
+    .register-container {
+        width: 100%;
+        max-width: 95%;
+        padding: 18px;
+        border-radius: 8px;
+    }
+
+    .login-container h2,
+    .register-container h2 {
+        font-size: 1.5rem;
+    }
+
+    input, button {
+        font-size: .9rem;
+        padding: 9px;
+    }
+
+    .g-recaptcha {
+        transform: scale(.78);
+    }
+}

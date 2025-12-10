@@ -1,0 +1,115 @@
+/* === GLOBAL LIGHT MODE === */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f6f6f8; /* fond clair doux */
+    color: #222;
+    margin: 0;
+    padding: 0;
+    line-height: 1.7;
+}
+
+/* === NAVBAR MODE JOUR === */
+header {
+    font-family: 'Inter', sans-serif;
+    position: sticky;
+    top:0;
+    width: 100%;
+    height: 70px;
+    background-color: #ffffff; /* navbar clair */
+    color: #000;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 25px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,.10);
+    z-index: 1000;
+}
+
+/* NAV LINKS */
+nav ul {
+    display: flex;
+    gap: 40px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    align-items: center;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #222;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+nav ul li a:hover { color:#4d6bd9; }
+
+/* DROPDOWN */
+.menu-deroulant{ position:relative; }
+
+.choice-list{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:50%;
+    transform:translateX(-50%);
+    background:#ffffff;
+    border:1px solid #d6d6d6;
+    border-radius:10px;
+    padding:10px 0;
+    min-width:240px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.10);
+    z-index:999;
+}
+
+.menu-deroulant:hover .choice-list{ display:block; }
+
+.choice-list a{
+    display:block;
+    color:#222;
+    padding:10px;
+    border-radius:6px;
+    transition:0.2s;
+}
+.choice-list a:hover{ background:#f2f3ff; }
+
+/* -------- COOKIES + SWITCH STYLE -------- */
+
+.style-toggle{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.select-nav-cookie{
+    color:#555;
+    text-decoration:none;
+    font-weight:500;
+}
+.select-nav-cookie:hover{ color:#000; }
+
+/* Bouton Mode actuel (clair → montre mode nuit) */
+.dark-mode{
+    text-decoration: none;
+    background:#000;
+    color:#fff;
+    padding:6px 15px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+}
+.dark-mode:hover{ background:#222; }
+
+/* Bouton affiché uniquement en mode dark → propose mode jour */
+.light-mode{
+    background:#ffffff;
+    color:#000;
+    padding:6px 15px;
+    border-radius:8px;
+    cursor:pointer;
+    border:1px solid #ccc;
+    transition:.3s;
+}
+.light-mode:hover{ background:#e9e9e9; }

@@ -1,5 +1,5 @@
 <?php
-$title="Découvrez le 95";
+$title="Découvrir le 95";
 $description="ici plein de choses intéressantes!";
 $css = "index";
 include "includes/pageParts/header.php"; 
@@ -7,7 +7,7 @@ include "includes/pageParts/header.php";
 
 
 <div class="carousel">
-    <h1 class="carousel-title">Découvrez des activités dans le Val-d'Oise.</h1>
+    <h1 class="carousel-title">Plein d'activités dans le Val-d'Oise !</h1>
     <button class="btn-decouvrir carousel-btn" onclick="window.location.href='carte.php'">Découvrir</button>
 
     <!-- Première boucle -->
