@@ -1,6 +1,6 @@
 <?php
 
-function verifImage($image){
+function verifImage($image, $page, $wantedWidth, $wantedHeight){
     if($image['size'] > 300 * 1024){
         header("Location: profil.php?error=size");
         exit;
@@ -12,21 +12,21 @@ function verifImage($image){
 
     $allowed = array('image/jpeg', 'image/png', 'image/webp');
     if(!in_array($type, $allowed)){     // Vérifie si le format est le bon
-        header("Location: profil.php?error=file");
+        header("Location: $page.php?error=file");
         exit;
     }
 
     $dim = getimagesize($image['tmp_name']);
     if(!$dim){          // Vérifie si c'est bien une image
-        header("Location: profil.php?error=file");
+        header("Location: $page.php?error=file");
         exit;
     }
 
     $width = $dim[0];
     $height = $dim[1];
 
-    if($width > 256 || $height > 256){
-        header("Location: profil.php?error=dim");
+    if($width > $wantedWidth || $height > $wantedHeight){
+        header("Location: $page.php?error=dim");
         exit;
     }
 

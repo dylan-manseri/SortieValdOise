@@ -54,7 +54,7 @@ $favoris = $stmtFav->fetchAll(PDO::FETCH_ASSOC);
 
 include "includes/fonctions/icon.php";
 if(isset($_FILES["image"]) && $_FILES['image']['error'] === UPLOAD_ERR_OK){
-    $verif = verifImage($_FILES["image"]);
+    $verif = verifImage($_FILES["image"], "profil", 400, 400);
     $rInsert = $pdo->prepare("UPDATE users SET icon = ?, type_mime = ? WHERE login = ?;");
     $rInsert->execute([
         $verif[0],

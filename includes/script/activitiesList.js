@@ -1,6 +1,7 @@
 let i = 0;
 
 function display(eventsList){
+    i=0;
     const results = document.getElementById("results");
     results.innerHTML="";
     eventsList.forEach(event => {
@@ -54,11 +55,21 @@ function display(eventsList){
 }
 
 function showCards(){
-    const cards = Array.from(document.querySelectorAll(".card-event"));
-    const j = i+6;
-    while(i<j && i<cards.length){
-        cards[i].style.display="";
-        i++;
+    const switchInput = document.getElementById("activitySwitch");
+    if (switchInput.checked) {
+        const cards = Array.from(document.querySelectorAll(".card-prop"));
+        const j = i + 6;
+        while (i < j && i < cards.length) {
+            cards[i].style.display = "";
+            i++;
+        }
+    } else {
+        const cards = Array.from(document.querySelectorAll(".card-event"));
+        const j = i + 6;
+        while (i < j && i < cards.length) {
+            cards[i].style.display = "";
+            i++;
+        }
     }
 }
 
@@ -85,6 +96,55 @@ function toggleFavorite(btn) {
         });
 }
 
+function displayProps(props){
+    i=0;
+    console.log(props[0]);
+    const results = document.getElementById("results");
+    results.innerHTML="";
+    props.forEach((ev, index) => {
+        const div = document.createElement("div")
+        const card = document.createElement("div");
+        card.classList.add("card-prop");
+        console.log(ev.id_prop);
+        card.innerHTML = `
+            <div style="width:150px; height:120px; background:#ccc;"><img src="showIcon.php?id=${ev.id_prop}" alt="illustration"/></div>
+            <div class="infos">
+                <h2 style="margin:0 0 10px 0;font-family: 'Playfair Display', serif;">
+                    <a href="detail_evenement.php?uid=${ev.id_prop}" style="text-decoration:none; color:#333;">
+                        ${ev.titre}
+                    </a>
+                </h2>
+
+                <div>
+                    <span style="background:#3498db; color:white; padding:3px 8px; border-radius:3px; font-size:0.8em;">
+                        ${ev.ville}
+                    </span>
+
+                    <span class="date-badge">
+                        Le ${new Date(ev.date).toLocaleDateString("fr-FR")}
+                    </span>
+                    <p style="text-align:left"><i>Proposé par ${ev.user_login}</i></p>
+                </div>
+            </div>
+        `;
+        if(i>6){
+            card.style.display="none";
+        }
+        results.appendChild(card);
+        i++;
+    })
+    i = 10;
+}
+
+function showProps(){
+    const cards = Array.from(document.querySelectorAll(".card-prop"));
+    const j = i+6;
+    while(i<j && i<cards.length){
+        cards[i].style.display="";
+        i++;
+    }
+}
+
 fetch("data/activitiesJson.php")
     .then(response => response.json())
     .then(data => {
@@ -99,6 +159,7 @@ fetch("data/activitiesJson.php")
         })
         const searchInput = document.getElementById("searchInput");
         const selectCities = document.getElementById("cities");
+        const switchInput = document.getElementById("activitySwitch");
 
         eventsArray.forEach(event => {
             if (event.ville !== undefined && event.ville !== null && event.ville !== "") {
@@ -143,6 +204,17 @@ fetch("data/activitiesJson.php")
                     }
                 })
                 display(actByCity);
+            }
+        })
+        switchInput.addEventListener("change", function () {
+            const filter = document.getElementById("filter");
+            if(this.checked){
+                filter.style.display="none";
+                displayProps(window.props)
+            }
+            else{
+                filter.style.display="";
+                display(eventsArray);
             }
         })
         display(eventsArray);

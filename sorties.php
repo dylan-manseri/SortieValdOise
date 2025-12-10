@@ -9,7 +9,7 @@ include "includes/pageParts/header.php";
 // Connexion à la base
 require_once 'conf/bd_conf.php';
 
-$props = $pdo->query("SELECT * FROM propositions;")->fetchAll(PDO::FETCH_ASSOC);
+$props = $pdo->query("SELECT id_prop, description, titre, adresse, status, user_login, date, ville FROM propositions WHERE status='accepted';")->fetchAll(PDO::FETCH_ASSOC);
 $json = json_encode($props);
 // Récupérer les favoris
 $login = $_SESSION['login'] ?? null;
@@ -22,9 +22,16 @@ if ($login) {
 ?>
 
 <section class="container py-4">
-
+    <div class="choice">
+        <p>OpenAgenda</p>
+    <label class="switch">
+        <input type="checkbox" id="activitySwitch">
+        <span class="slider"></span>
+    </label>
+        <p>Utilisateurs</p>
+    </div>
     <!-- Barre de recherche centrée -->
-    <div class="row justify-content-center text-center mb-4 g-3">
+    <div id="filter" class="row justify-content-center text-center mb-4 g-3">
         
         <div class="col-12 col-md-6">
             <label for="searchInput" class="form-label">Indiquez des mots clés</label>
