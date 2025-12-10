@@ -22,6 +22,7 @@ if ($login) {
 ?>
 
 <section class="container py-4">
+    <button class="bouton-volant" onclick="window.location.href='ajouter.php'">Ajouter une activité</button>
     <div class="choice">
         <p>OpenAgenda</p>
     <label class="switch">
