@@ -61,8 +61,7 @@ body {
     font-size: 4rem;
     font-weight: bold;
     color: white;
-    text-shadow: 0 0 10px rgba(0,0,0,0.7);
-
+    text-shadow: 0 0 15px rgba(255,255,255,0.7), 0 0 30px rgba(0,0,0,0.9);
     z-index: 20; /* au-dessus de l'image et du fondu */
     pointer-events: none; /* on peut cliquer à travers */
 }
