@@ -50,6 +50,10 @@ body {
     border-radius: 8px;
 }
 
+.card-prop a {
+    color: black;
+}
+
 .card-prop img {
     width: 150px;
     height: 120px;

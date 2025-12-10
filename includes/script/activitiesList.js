@@ -110,7 +110,7 @@ function displayProps(props){
             <div style="width:150px; height:120px; background:#ccc;"><img src="showIcon.php?id=${ev.id_prop}" alt="illustration"/></div>
             <div class="infos">
                 <h2 style="margin:0 0 10px 0;font-family: 'Playfair Display', serif;">
-                    <a href="detail_evenement.php?uid=${ev.id_prop}" style="text-decoration:none; color:#333;">
+                    <a href="detail_evenement.php?uid=${ev.id_prop}" style="text-decoration:none">
                         ${ev.titre}
                     </a>
                 </h2>
