@@ -34,31 +34,7 @@ $bascule = ($style === "light") ? "dark" : "light";
 
 $errorMessage = '';
 $login = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST' 
-    && isset($_POST['action']) 
-    && $_POST['action'] === 'autocomplete') {
 
-    header('Content-Type: application/json');
-
-    $searchQuery = $_POST['query'] ?? '';
-    if ($searchQuery === '') {
-        echo json_encode([]);
-        exit;
-    }
-
-    try {
-        $stmt = $pdo->prepare("SELECT login FROM users WHERE login LIKE ? LIMIT 10");
-        $stmt->execute([$searchQuery . '%']);
-        $results = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
-        echo json_encode($results);
-    } catch (PDOException $e) {
-        error_log("Autocomplete DB Error: " . $e->getMessage());
-        http_response_code(500);
-        echo json_encode([]);
-    }
-
-    exit; // VERY IMPORTANT
-}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -145,16 +121,14 @@ include "includes/pageParts/header.php";
         <?php endif; ?>
 
         <form action="connexion.php" method="POST">
-            <div class="suggestions-container">
-                <label for="username">Login</label><input type="text" id="username" name="login" placeholder="Nom d'utilisateur (Login)" required autocomplete="off" value="<?php echo htmlspecialchars($login ?? ''); ?>">
+            <label for="username">Login</label>
+            <input type="text" id="username" name="login" placeholder="Nom d'utilisateur (Login)" required>
 
-                <ul id="suggestions"></ul>
+            <label for="password">Mot de passe</label>
+            <div class="password-wrapper">
+                <input type="password" id="password" name="password" placeholder="Mot de passe" required>
+                <span id="togglePassword" class="eye">👁️</span>
             </div>
-<label for="password">Mot de passe</label>
-<div class="password-wrapper">
-    <input type="password" id="password" name="password" placeholder="Mot de passe" required>
-    <span id="togglePassword" class="eye">👁️</span>
-</div>
             <div class="g-recaptcha" data-sitekey=<?=$data_sitekey?>></div>
             <button type="submit" id="btn">Login</button>
             <p style="font-size: 0.9em;">Vous n'avez pas de compte? <a href="creationCompte.php">inscrivez-vous </a></p>
@@ -165,57 +139,6 @@ include "includes/pageParts/header.php";
 </section>
 
 <script>
-const usernameInput = document.getElementById('username');
-const suggestionsBox = document.getElementById('suggestions');
-let currentAbortController = null;
-
-usernameInput.addEventListener('input', () => {
-    const query = usernameInput.value.trim();
-    suggestionsBox.innerHTML = '';
-
-    if (currentAbortController) {
-        currentAbortController.abort();
-    }
-    currentAbortController = new AbortController();
-    const signal = currentAbortController.signal;
-
-    if (query.length > 0) {
-        fetch('connexion.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: `action=autocomplete&query=${encodeURIComponent(query)}`,
-            signal: signal
-        })
-        .then(response => {
-            const contentType = response.headers.get("content-type");
-            if (response.ok && contentType && contentType.includes("application/json")) {
-                return response.json();
-            } else {
-                console.error("Bad response:", response.status);
-                return [];
-            }
-        })
-        .then(matchingUsers => {
-            if (signal.aborted) return;
-
-            matchingUsers.forEach(loginSuggestion => {
-                const listItem = document.createElement('li');
-                listItem.textContent = loginSuggestion;
-
-                listItem.addEventListener('click', () => {
-                    usernameInput.value = loginSuggestion;
-                    suggestionsBox.innerHTML = '';
-                });
-
-                suggestionsBox.appendChild(listItem);
-            });
-        })
-        .catch(error => {
-            if (error.name === 'AbortError') return;
-            console.error("Autocomplete error:", error);
-        });
-    }
-});
 document.getElementById('togglePassword').addEventListener('click', function () {
     const passwordInput = document.getElementById('password');
 
