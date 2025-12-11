@@ -13,13 +13,11 @@ if (!isset($_GET['login']) || empty($_GET['login'])) {
 }
 
 
-// Check if the user is logged in AND if their role is 'admin'
 
 $targetLogin = $_GET['login'];
 $errorMessage = '';
 $successMessage = '';
 
-// Configuration PDO (reprise de votre code précédent)
 
 if (!isset($pdo)) {
     http_response_code(500);

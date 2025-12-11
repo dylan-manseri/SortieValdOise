@@ -84,7 +84,6 @@ $acceptedAndPendingPropCount = count($acceptedAndPendingPropositions);
             DATE_FORMAT(registration_date, '%d/%m/%Y %H:%i') AS formatted_date
         FROM users 
         ORDER BY registration_date DESC 
-        LIMIT 10
     ";
     $lastUsers = $pdo->query($sqlLastUsers)->fetchAll();
 
