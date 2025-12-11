@@ -65,7 +65,7 @@ if ($login) {
 
 </section>
 
-<script>
+<script defer>
     window.props = <?= $json ?>;
     window.isLoggedIn = <?= $login ? 'true' : 'false' ?>;
     window.userFavorites = <?= json_encode($userFavorites) ?>;

@@ -37,17 +37,31 @@ $bascule = ($style === "light") ? "dark" : "light";
 
     <title><?=$title?></title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" as="style">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <?php if(isset($cdn)) echo $cdn?>
+
+    <link rel="preload" href="style/<?=$style?>/<?=$style?>.css" as="style"/>
+    <link rel="preload" href="style/<?=$style?>/navbar.css" as="style"/>
+    <link rel="preload" href="style/<?=$style?>/<?=$css?>.css" as="style"/>
+    <link rel="preload" href="style/<?=$style?>/footer.css" as="style"/>
+
     <link rel="stylesheet" href="style/<?=$style?>/<?=$style?>.css" />
     <link rel="stylesheet" href="style/<?=$style?>/navbar.css" />
     <?php if (isset($css)): ?>
     <link rel="stylesheet" href="style/<?=$style?>/<?=$css?>.css" />
     <?php endif; ?>
     <link rel="stylesheet" href="style/<?=$style?>/footer.css" />
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
+
     <meta name="robots" content="index, follow">
     <meta name="msvalidate.01" content="3EAE8332F257463B9D8DE1208375E37B" />
     <meta name="google-site-verification" content="q-MMb7F1RGkafbyRqtY7RWspQVzYXJ4aCmvuIfNOxgs" />
