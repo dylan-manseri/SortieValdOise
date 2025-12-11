@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Vérifie l'image en passant par plusieurs tests de sécurité.
+ * Taille de l'image, dimension, format, etc...
+ * @param $image : L'image en binaire
+ * @param $page : La page où seront redirigé les erreurs
+ * @param $wantedWidth : La hauteur autorisé
+ * @param $wantedHeight : La largeur autorisé
+ * @return array|void : Un tableau contenant les information (image et format) OU rien si erreur
+ */
 function verifImage($image, $page, $wantedWidth, $wantedHeight){
     if($image['size'] > 300 * 1024){
         header("Location: profil.php?error=size");

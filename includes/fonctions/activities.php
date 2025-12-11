@@ -282,7 +282,7 @@ function getActivities(): array
     }
 
     $keys = array_keys($result);
-    for($i = 0; $i < count($keys)-1; $i++){
+    for($i = 0; $i < count($keys)-1; $i++){     // On effectue une nouvelle couche de tri pour les nom similaire
         $k1 = $keys[$i];
         $j=$i+1;
         $k2 = $keys[$j];
@@ -295,7 +295,7 @@ function getActivities(): array
             $i++;
         }
     }
-    uasort($result, "dateSort");
+    uasort($result, "dateSort");    // On effectue un tri par date
     return $result;
 }
 

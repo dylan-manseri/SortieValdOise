@@ -157,6 +157,10 @@ function insertPin(lat, lng, title, uid){
     }
 }
 
+/**
+ * Récupère les activités en mettant pause au scritp via await pour être de tout récupérer avant d'afficher
+ * @returns {Promise<void>}
+ */
 async function main(){
     await loadActivities();
     // On récupère les données du flux généré et on affiche les activités une par une

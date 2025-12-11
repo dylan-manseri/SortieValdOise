@@ -1,15 +1,32 @@
+/**
+ * Fichier :        activitiesList.js
+ * Description :    Script gérant l'affichage des activités dans la page sortie.php.
+ *                  Il est possible d'y afficher les sorties de l'API et des utilisateurs.
+ *
+ * @type {number}
+ * @author Dylan Manseri
+ * @version 1.0
+ */
+
+/**
+ * Nombre d'activités affiché, itère au besoin
+ * @type {number}
+ */
 let i = 0;
 
+/**
+ * Affiche les activités de notre flux avec le bouton favoris
+ * @param eventsList la liste d'événements
+ */
 function display(eventsList){
     i=0;
-    const results = document.getElementById("results");
+    const results = document.getElementById("results"); // Container de l'affichage de la liste
     results.innerHTML="";
-    eventsList.forEach(event => {
-        const div = document.createElement("div")
-        const card = document.createElement("div");
-        card.classList.add("card-event");
+    eventsList.forEach(event => {       // On parcourt la liste d'événement pour insérer la div de l'affichage dans la div result pour chaque événement
+        const card = document.createElement("div");     // Container de l'affichage d'un événement
+        card.classList.add("card-event");       // On lui attribue une classe CSS
 
-        card.innerHTML = `
+        card.innerHTML = `                        
             <div style="width:150px; height:120px; background:#ccc;"><img src="${event.icon}" alt="illustration" loading="lazy"/></div>
             <div class="infos">
                 <h2 style="margin:0 0 10px 0;font-family: 'Playfair Display', serif;">
@@ -28,7 +45,7 @@ function display(eventsList){
                     </span>
                 </div>
             </div>
-        `;
+        `;  // On y met le HTML correspondant, en fonction de l'événement
 
         // Bouton favoris
         const favBtn = document.createElement("button");
@@ -54,8 +71,11 @@ function display(eventsList){
     i = 10;
 }
 
+/**
+ * Ajoute 6 élements supplémentaire à la div de la liste des activités
+ */
 function showCards(){
-    const switchInput = document.getElementById("activitySwitch");
+    const switchInput = document.getElementById("activitySwitch");  // Est-ce qu'on doit afficher +6 pour les propositions ou les activités
     if (switchInput.checked) {
         const cards = Array.from(document.querySelectorAll(".card-prop"));
         const j = i + 6;
@@ -96,13 +116,17 @@ function toggleFavorite(btn) {
         });
 }
 
+/**
+ * Affiche les propositions, s'exécute si le switch est enclenché
+ * Même principe que display()
+ * @param props les propositions
+ */
 function displayProps(props){
     i=0;
     console.log(props[0]);
     const results = document.getElementById("results");
     results.innerHTML="";
     props.forEach((ev, index) => {
-        const div = document.createElement("div")
         const card = document.createElement("div");
         card.classList.add("card-prop");
         console.log(ev.id_prop);
@@ -136,20 +160,14 @@ function displayProps(props){
     i = 10;
 }
 
-function showProps(){
-    const cards = Array.from(document.querySelectorAll(".card-prop"));
-    const j = i+6;
-    while(i<j && i<cards.length){
-        cards[i].style.display="";
-        i++;
-    }
-}
-
+/**
+ * Programme principal, récupère les activités et crée les event pour les élements de la page
+ */
 fetch("data/activitiesJson.php")
     .then(response => response.json())
     .then(data => {
         const eventsArray = Object.values(data);
-        eventsArray.sort((a, b) => {
+        eventsArray.sort((a, b) => {    // On trie par date les événements
             let time1 = new Date(a.date);
             let time2 = new Date(b.date);
             if(time1 > time2) return 1;
@@ -160,12 +178,16 @@ fetch("data/activitiesJson.php")
         const searchInput = document.getElementById("searchInput");
         const selectCities = document.getElementById("cities");
         const switchInput = document.getElementById("activitySwitch");
+        let cities;
 
+        // On récupère toutes les villes des activités
         eventsArray.forEach(event => {
             if (event.ville !== undefined && event.ville !== null && event.ville !== "") {
                 cities[event.ville] = event.ville;
             }
         });
+
+        // On ajoute les villes dans le sélecteur
         Object.values(cities).forEach(c => {
             const option = document.createElement("option");
             option.value = c;
@@ -173,6 +195,7 @@ fetch("data/activitiesJson.php")
             selectCities.appendChild(option);
         })
 
+        // On ajoute event à l'écriture sur la barre de recherche
         searchInput.addEventListener("input", () => {
             if(searchInput.value === ""){
                 display(eventsArray);
@@ -180,13 +203,13 @@ fetch("data/activitiesJson.php")
             document.createElement("div").innerHTML="";
             const term = searchInput.value.toLowerCase().trim();
             let i = 0
-            const filtered = eventsArray.filter(ev => {
+            const filtered = eventsArray.filter(ev => {     // On filtre selon le contenu du searchInput
                 const title = (ev.title ?? "").toLowerCase();
                 const keywordMatch = Array.isArray(ev.keywords)
                     ? ev.keywords.some(kw => kw.toLowerCase().includes(term))
                     : false;
                 let cityTest = true;
-                if(selectCities.value !== ""){
+                if(selectCities.value !== ""){      // On fait le trie en plus selon la ville sélectionné
                     if(ev.ville){
                         cityTest = ev.ville.includes(selectCities.value);
                     }
@@ -196,9 +219,10 @@ fetch("data/activitiesJson.php")
             display(filtered);
         });
 
+        // On ajoute aussi un event sur le sélecteur de ville
         selectCities.addEventListener("change", () => {
             if(selectCities.value !== "" && searchInput.value === ""){
-                const actByCity = eventsArray.filter(ev => {
+                const actByCity = eventsArray.filter(ev => {    // On filtre avec la ville sélectionnée
                     if(ev.ville){
                         return ev.ville.includes(selectCities.value);
                     }
@@ -206,13 +230,14 @@ fetch("data/activitiesJson.php")
                 display(actByCity);
             }
         })
+        // Enfin, on ajoute un event sur le switch pour afficher les propositions ou les events en fonction de son état
         switchInput.addEventListener("change", function () {
             const filter = document.getElementById("filter");
-            if(this.checked){
+            if(this.checked){   // Coché
                 filter.style.display="none";
                 displayProps(window.props)
             }
-            else{
+            else{               // Non coché
                 filter.style.display="";
                 display(eventsArray);
             }
