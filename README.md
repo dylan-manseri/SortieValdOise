@@ -39,5 +39,36 @@ Ce projet a été réalisé dans le cadre du module **Développement Web** de la
 - Farah OUAIL
 - Nouha ELYAMANY
 
-## URL 
+
+# Répartition des tâches
+
+## Dylan : Développement fonctionnel & intégration technique
+- Gestion du flux de données provenant de l'API
+- Mise en place d'un système de cache
+- Ajout des propositions d'activités par les utilisateurs
+- Gestion de l'ajout d'images
+- Affichage de la carte et liste des activités
+
+## Fariza : Architecture web, UX et gestion du contenu
+- Référencement (SEO) et création du logo 
+- Gestion des styles et responsive
+- Gestion du système de cookies
+- Validation des pages et accessibilité 
+- Conception et gestion de la base de données 
+- Développement du site WordPress et des pages secondaires
+
+## Farah : Gestion des comptes et interface admin
+- Connexion et inscription des utilisateurs avec CAPTCHA
+- Validation par mail et fonctionnalité "mot de passe oublié"
+- Développement de la page administrateur :
+  - Validation des propositions
+  - Statistiques clés
+  - Gestion des utilisateurs
+
+## Nouha : Interface utilisateur
+- Contribution au développement de la page utilisateur
+- Ajout et affichage des favoris
+
+
+# URL 
 https://sortievaldoise.alwaysdata.net/

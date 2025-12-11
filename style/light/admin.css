@@ -35,7 +35,7 @@ th, td {
     border-bottom: 1px solid #eee; /* Ajoute une ligne de séparation légère entre les lignes */
 }
 th { 
-    background-color: #cbb9a9ff; /* Changé pour une couleur plus vive (bleu) */
+    background-color: rgb(164, 127, 94); /* Changé pour une couleur plus vive (bleu) */
     color: white; /* Texte blanc pour le contraste */
     font-weight: bold;
     text-align: center; /* Centrage des en-têtes */
@@ -44,7 +44,7 @@ tr:last-child td {
     border-bottom: none;
 }
  .logout-button {
-  background-color: #c7bcb3ff; 
+  background-color: rgb(120, 99, 81); 
   color: white;
   padding: 10px 15px;
   text-decoration: none;
