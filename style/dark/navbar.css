@@ -44,11 +44,33 @@ nav ul {
 }
 
 nav ul li a {
+    position: relative;
     text-decoration: none;
     color: #f9f8f8;
-    transition: 0.3s;
+    transition: 0.3s ease;
 }
-nav ul li a:hover { color:#d8dcf4; }
+
+nav ul li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0;
+    height: 2px;
+    background: #d8dcf4;
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #d8dcf4;
+    text-decoration: none;
+    transform: scale(1.15);
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
 
 /* ---------------- DROPDOWN ---------------- */
 
@@ -113,7 +135,8 @@ nav ul li a:hover { color:#d8dcf4; }
     background:#dad8e6;
     color:#000;
 }
-.light-mode:hover{ background:#c6c3d8; }
+.light-mode:hover{ background:#c6c3d8;
+text-decoration: none; }
 
 
 

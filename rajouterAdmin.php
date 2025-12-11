@@ -1,5 +1,6 @@
 <?php
-session_start();require_once 'conf/bd_conf.php';
+session_start();
+require_once 'conf/bd_conf.php';
 
 // Vérification stricte du rôle d'administrateur
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
@@ -7,19 +8,30 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
    exit; 
 }
 
-// Connexion PDO : Déplacée ici pour être disponible immédiatement
-try {
-   $pdo = new PDO($dsn, $username, $password, $options);
-} catch (\PDOException $e) {
-   error_log("Erreur de connexion PDO: " . $e->getMessage()); 
-   http_response_code(500);
-   exit("Erreur interne du serveur.");
+$title = "Page rajouter Admin";
+$css = "rajouterAdmin";  // if you use a CSS file
+$description = "Page dédiée au rajout d’un administrateur";
+
+$cookieConsent = $_COOKIE['cookieConsent'] ?? null;
+$style = "light";
+
+if (isset($_GET["style"]) && in_array($_GET["style"], ["light","dark"], true)) {
+    $style = $_GET["style"];
+    if ($cookieConsent === 'true') {
+        setcookie("style", $style, time() + 60*60*24*30, "/");
+    }
+} elseif ($cookieConsent === 'true' && isset($_COOKIE['style']) && in_array($_COOKIE['style'], ['light','dark'], true)) {
+    $style = $_COOKIE['style'];
 }
 
+if ($cookieConsent === 'true' && isset($_COOKIE["date_last_visit"])) {
+    setcookie("date_last_visit", time(), time() + 60*60*24*30, "/");
+}
 
-// =========================================================================
-// 2. VÉRIFICATION AJAX DE DISPONIBILITÉ DU LOGIN
-// =========================================================================
+$bascule = ($style === "light") ? "dark" : "light";
+
+
+$errorMessage = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'check_username') {
   header('Content-Type: application/json');
@@ -52,11 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
   exit;
 }
 
-
-// =========================================================================
-// 3. TRAITEMENT DU FORMULAIRE DE CRÉATION DE COMPTE (POST)
-// =========================================================================
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Sanctuarisation des entrées
   $login = trim($_POST['login'] ?? null);
@@ -65,39 +72,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $email = trim($_POST['email'] ?? null);
   $password = $_POST['password'] ?? null; 
 
-    $errors = []; // Tableau pour collecter les erreurs de validation
-
-    // Validation 1: Champs vides
-  if (empty($login) || empty($nom_user) || empty($prenom_user) || empty($email) || empty($password)) { 
-        $errors[] = "Tous les champs sont requis.";
-  }
-    
-    // Validation 2: Format Email
-  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "L'adresse e-mail n'est pas valide.";
-  }
-
-    // Validation 3: Longueur du mot de passe
-  if (strlen($password) < 8) {
-        $errors[] = "Le mot de passe doit contenir au moins 8 caractères.";
-  }
-    
-    // Validation 4: Complexité du mot de passe (Minimum 8, au moins un chiffre et une minuscule)
+  $errorMessage = '';
   $regex = '/^(?=.*\d)(?=.*[a-z]).{8,}$/';
-  if (!preg_match($regex, $password)) {
-    $errors[] = "Le mot de passe doit contenir au moins 8 caractères, un chiffre et une lettre minuscule.";
+  if (empty($login) || empty($nom_user) || empty($prenom_user) || empty($email) || empty($password)) { 
+        $errorMessage ="Tous les champs sont requis.";
+  }elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errorMessage = "L'adresse e-mail n'est pas valide.";
+  } elseif (strlen($password) < 8) {
+        $errorMessage = 'Le mot de passe doit contenir au moins 8 caractères.';
+  } elseif (!preg_match($regex, $password)) {
+    $errorMessage = 'Le mot de passe doit contenir au moins 8 caractères, un chiffre et une lettre minuscule.';
   }
     
-    // Si des erreurs ont été collectées, arrêtez le script et affichez-les (ou redirigez)
-    if (!empty($errors)) {
-        http_response_code(400);
-        // Afficher toutes les erreurs. Dans un vrai projet, utilisez flash messages ou session.
-        exit("Erreur(s) de validation: " . implode(" | ", $errors));
-    }
+    // if (!empty($errors)) {
+    //     http_response_code(400);
+    //     $errorMessage = 'Erreur(s) de validation: ' . implode(" | ", $errors);
+    // }
 
-
+if(empty($errorMessage)){
 try {
-    // Vérification finale de l'unicité (Login et Email)
   $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE LOWER(login) = LOWER(?) OR email = ?");
   $stmt->execute([$login, $email]);
   if ($stmt->fetchColumn() > 0) {
@@ -110,7 +103,7 @@ try {
   $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
   
   $role = 'admin';
-  $stmt = $pdo->prepare("INSERT INTO users (login, nom_user, prenom_user, email, hashedPassword, code_genere, role, status) VALUES (?, ?, ?, ?, ?, ?, ?, 'pending')");
+  $stmt = $pdo->prepare("INSERT INTO users (login, nom_user, prenom_user, email, hashedPassword, code_genere, role, status) VALUES (?, ?, ?, ?, ?, ?, ?, 'active')");
   $stmt->execute([$login, $nom_user, $prenom_user, $email, $hashedPassword, $verificationCode, $role]);
   $_SESSION['flash_message'] = 'Administrateur rajouté avec succès !';
   header('Location: admin.php');
@@ -125,103 +118,35 @@ try {
   http_response_code(500);
   exit('Une erreur inattendue est survenue.');
 }
-
 }
+}
+include "includes/pageParts/header.php";
 ?>
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
- <meta charset="UTF-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1" />
- <title>Ajouter un Administrateur</title>
- <style>
-  body {
-   font-family: 'Permanent Marker', cursive; 
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   height: 100vh; 
-   margin: 0;
-   background-color: #e7e8bc;
-  }
-
-  .register-container {
-   background-color: #f4f4d7;
-   padding: 30px 40px;
-   border-radius: 10px;
-   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-   text-align: center;
-   width: 300px;
-  }
-
-  .register-container h2 {
-   margin-bottom: 20px;
-   font-size: 1.8rem;
-   color: #333;
-  }
-
-  .register-container input {
-   width: 100%;
-   padding: 10px;
-   margin: 10px 0;
-   font-size: 1rem;
-   font-family: 'Permanent Marker', cursive; 
-   border: 1px solid #ccc;
-   border-radius: 5px;
-  }
-
-  .register-container button {
-   position: relative;
-   width: 100%;
-   padding: 10px;
-   margin-top: 15px;
-   background-color: #7e9ad7;
-   color: white;
-   font-size: 1rem;
-   font-family: 'Permanent Marker', cursive; 
-   border: none;
-   border-radius: 5px;
-   cursor: pointer;
-   transition: 0.2s;
-  }
-
-  .register-container button:hover {
-   background-color: #7789b1;
-   opacity: 0.3;
-  }
-  
-  .register-container h2 {
-   position: relative; 
-   display: inline-block;
-   margin-bottom: 20px;
-   font-size: 2.5rem;
-   color: #333;
-  }
-  /* Les styles .sun-inline, .register-icon, .paper-inline et les animations 
-       sont conservés mais n'affectent pas la logique de fond. */
-
- </style>
-</head>
-<body>
- <div class="register-container">
+<div class="page-wrapper">
+<div class="register-container">
   <h2>
    Ajouter Admin
   </h2>
+      <?php if (!empty($errorMessage)): ?>
+            <div class="error-message">
+                <?= htmlspecialchars($errorMessage) ?>
+            </div>
+        <?php endif; ?>
+
       <form action="" method="POST">
-   <input type="text" name="login" placeholder="Nom d'utilisateur (Login)" id="username-input" maxlength="12" required>
+   <input type="text" name="login" placeholder="Nom d'utilisateur (Login)" id="username-input" maxlength="12" required value="<?= htmlspecialchars($login ?? '') ?>">
     <span id="username-error" style="color: red; font-size: 0.9em; height: 1em;"></span>   
-   <input type="text" name="nom_user" placeholder="Nom" maxlength="30" required>
-   <input type="text" name="prenom_user" placeholder="Prénom" maxlength="30" required>
-   <input type="email" name="email" placeholder="Email" maxlength="50" required>
+   <input type="text" name="nom_user" placeholder="Nom" maxlength="30" required value="<?= htmlspecialchars($nom_user ?? '') ?>">
+   <input type="text" name="prenom_user" placeholder="Prénom" maxlength="30" required value="<?= htmlspecialchars($prenom_user ?? '') ?>">
+   <input type="email" name="email" placeholder="Email" maxlength="50" required value="<?= htmlspecialchars($email ?? '') ?>">
    <input type="password" name="password" placeholder="Mot de passe" required>
-   <button type="submit">Ajouter l'Admin</button>
+   <button type="submit" class="unified-btn">Ajouter l'Admin</button>
+     <a href="admin.php" class="unified-btn">Retour au Tableau de Bord</a>
   </form>
- </div>
-<script>
+  <script>
  const usernameInput = document.getElementById('username-input');
  const errorMessageSpan = document.getElementById('username-error');
- let currentAbortController = null; // Pour annuler les requêtes précédentes
+ let currentAbortController = null; 
 
  // Cette fonction s'exécute à chaque frappe dans le champ du nom d'utilisateur
  usernameInput.addEventListener('input', function() {
@@ -241,7 +166,7 @@ try {
   if (login.length >= 3) {
    
    // La requête AJAX pointe vers le même fichier avec l'action 'check_username'
-   fetch('?action=check_username', { // Utilisez '?' pour pointer vers le fichier actuel
+   fetch('?action=check_username', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: `login=${encodeURIComponent(login)}`, 
@@ -252,7 +177,7 @@ try {
      return response.json();
    })
    .then(data => {
-    if (signal.aborted) return; // Ignorer si la requête a été annulée
+    if (signal.aborted) return; 
          
     if (!data.available) {
      errorMessageSpan.textContent = 'Ce login est déjà utilisé.';
@@ -263,13 +188,17 @@ try {
     }
    })
    .catch(error => {
-    if (error.name === 'AbortError') return; // C'est une annulation normale due à la frappe
+    if (error.name === 'AbortError') return; 
     console.error("Erreur de vérification AJAX:", error);
     errorMessageSpan.textContent = 'Erreur lors de la vérification.';
     errorMessageSpan.style.color = 'orange';
    });
   }
  });
+ usernameInput.addEventListener('focus', () => {
+    errorMessageSpan.textContent = '';
+});
 </script>
-</body>
-</html>
+</div>
+</div>
+<?php include "includes/pageParts/footer.php"; ?>

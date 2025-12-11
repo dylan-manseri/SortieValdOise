@@ -14,16 +14,20 @@ $css = "connexion";
 $title = "Mot de passe oublié";
 $description = "Réinitialisation du mot de passe utilisateur";
 
-/* ---------------------------- Reset Password Logic ---------------------------- */
+/* ---------------------------- Reset Password Logic -------------------- */
+$message = null;
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'] ?? null;
-    $genericSuccessMessage = '<h1 class="text-center mt-5">Si un compte existe avec cet email, un lien de réinitialisation a été envoyé.</h1>';
+    $genericSuccessMessage = "Si un compte existe avec cet email, un lien de réinitialisation a été envoyé.";
 
     try {
         $stmt = $pdo->prepare("SELECT email FROM users WHERE email = ?");
         $stmt->execute([$email]);
         $foundUser = $stmt->fetch();
-    } catch (PDOException $e) { exit($genericSuccessMessage); }
+    } catch (PDOException $e) { 
+        $message = $genericSuccessMessage;
+    }
 
     if ($foundUser) {
         $token = bin2hex(random_bytes(32));
@@ -53,7 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->send();
         } catch(Exception $e){}
     }
-    exit($genericSuccessMessage);
+
+
+    $message = $genericSuccessMessage;
 }
 
 include "includes/pageParts/header.php";
@@ -64,6 +70,12 @@ include "includes/pageParts/header.php";
 
         <h2 class="mb-3 text-center">Réinitialiser le mot de passe</h2>
         <p class="text-center mb-4">Entrez votre email et un lien vous sera envoyé.</p>
+
+        <?php if (!empty($message)): ?>
+            <div class="alert alert-info text-center mb-4">
+                <?= htmlspecialchars($message) ?>
+            </div>
+        <?php endif; ?>
         
         <form action="motDePasseOublier.php" method="POST" class="d-grid gap-3">
             <input type="email" name="email" class="form-control" placeholder="Votre email" required>

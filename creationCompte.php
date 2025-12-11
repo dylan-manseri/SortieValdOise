@@ -109,11 +109,11 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 /* ======================= Partie affichage ======================= */
 $title="Inscription";
 $description="Dans cette page vous pouvez crée votre compte, afin d'accéder à de nouvelles fonctionnalités";
-$css="connexion"; // ton fichier CSS global + light/dark
+$css="creationCompte"; // ton fichier CSS global + light/dark
 include "includes/pageParts/header.php";
 ?>
 
-<section class="register-page">
+<div class="register-page">
 <div class="register-container">
 
     <h2>Créer un compte</h2>
@@ -142,8 +142,11 @@ include "includes/pageParts/header.php";
           <input type="email" name="email" id="email" placeholder="Email" autocomplete="email" required
                 value="<?=htmlspecialchars($email??'')?>">
 
-          <label for="password">Mot de passe</label>
-          <input type="password" name="password" id="password" placeholder="Mot de passe" required>
+<label for="password">Mot de passe</label>
+<div class="password-wrapper">
+    <input type="password" id="password" name="password" placeholder="Mot de passe" required>
+    <span id="togglePassword" class="eye">👁️</span>
+</div>
 
           <p>Vérification Captcha</p>
           <div class="g-recaptcha" data-sitekey="<?=$data_sitekey?>"></div>
@@ -154,7 +157,7 @@ include "includes/pageParts/header.php";
       </form>
 
 </div>
-</section>
+</div>
 
 <script>
 const input=document.getElementById("username-input"),
@@ -183,6 +186,18 @@ input.addEventListener("input",()=>checkLogin(input.value.trim()));
 
 window.addEventListener("DOMContentLoaded",()=>{
     if(input.value.trim().length>=3) checkLogin(input.value.trim());
+});
+document.getElementById('togglePassword').addEventListener('click', function () {
+    const passwordInput = document.getElementById('password');
+
+    // Toggle type
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        this.textContent = '🙈'; // icon when visible
+    } else {
+        passwordInput.type = 'password';
+        this.textContent = '👁️'; // icon when hidden
+    }
 });
 </script>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>

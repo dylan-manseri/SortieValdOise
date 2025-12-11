@@ -51,7 +51,7 @@ include "includes/pageParts/header.php";
             <li>❤️ Possibilité d’ajouter des favoris</li>
             <li>👤 Comptes utilisateurs & connexion sécurisée</li>
             <li>📝 Proposition d’activités ajoutées par les utilisateurs</li>
-            <li>🛠 Espace administrateur pour modération des propositions</li>
+            <li>🛠 Espace administrateur pour la modération des propositions et la gestion des utilisateurs</li>
         </ul>
     </div>
 

@@ -55,6 +55,7 @@ include "includes/pageParts/header.php";
                 <li><a href="sitemap.php">Plan du site</a></li>
                 <li><a href="sitemap.xml">Sitemap XML</a></li>
                 <li><a href="robots.txt">robots.txt</a></li>
+                <li><a href="about.php">À propos</a></li>
             </ul>
         </div>
 

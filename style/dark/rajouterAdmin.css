@@ -1,0 +1,73 @@
+  body {
+   font-family: Arial, sans-serif;
+    background-color: #161616;
+    margin: 0;
+    padding: 0;
+  }
+
+  .register-container {
+   background-color: #2b2b2b;
+   padding: 30px 40px;
+   border-radius: 10px;
+   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+   text-align: center;
+   width: 400px;
+  }
+
+  .register-container h2 {
+   margin-bottom: 20px;
+   font-size: 1.8rem;
+   color: #383838;
+  }
+    .page-wrapper {
+   display: flex;
+    justify-content: center;
+    align-items: flex-start; /* not vertical center */
+    min-height: 80vh;
+    margin-top: 40px; 
+    margin-bottom: 40px; 
+}
+
+
+  .register-container input {
+   width: 100%;
+   padding: 10px;
+   margin: 10px 0;
+   font-size: 1rem;
+   font-family: Arial, sans-serif; 
+   border: 1px solid #424242;
+   border-radius: 5px;
+  }
+  
+  .register-container h2 {
+   position: relative; 
+   display: inline-block;
+   margin-bottom: 20px;
+   font-size: 2.5rem;
+   color: #ffffff;
+  }
+.unified-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    background-color: #4c4c4c;          /* même couleur pour les deux */
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-family: Arial, sans-serif;
+    border: none;
+    border-radius: 20px;                /* même forme arrondie pour les deux */
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.unified-btn:hover {
+    background-color: #131313;
+    opacity: 0.9;
+}
+.admin-btn:visited {
+    color: #ffffff;
+}

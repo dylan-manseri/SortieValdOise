@@ -38,13 +38,32 @@ nav ul {
 }
 
 nav ul li a {
+    position: relative;
     text-decoration: none;
-    color: #060303;
-    font-weight: 500;
-    transition: 0.3s;
+    color: #080000;
+    transition: 0.3s ease;
 }
 
-nav ul li a:hover { color:#4d6bd9; }
+nav ul li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0;
+    height: 2px;
+    background: #808ce9;
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #000000;
+    text-decoration: none;
+    transform: scale(1.15);
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
 
 /* DROPDOWN */
 .menu-deroulant{ position:relative; }
@@ -102,7 +121,7 @@ nav ul li a:hover { color:#4d6bd9; }
 }
 .dark-mode:hover{ background:#222; }
 
-/* Bouton affiché uniquement en mode dark → propose mode jour */
+/* Bouton change style*/
 .light-mode{
     background:#ffffff;
     color:#000;
@@ -111,5 +130,6 @@ nav ul li a:hover { color:#4d6bd9; }
     cursor:pointer;
     border:1px solid #ccc;
     transition:.3s;
+    text-decoration: none;
 }
 .light-mode:hover{ background:#e9e9e9; }
