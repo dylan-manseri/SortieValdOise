@@ -175,9 +175,13 @@ $bascule = ($style === "light") ? "dark" : "light";
     <div class="style-toggle">
         
         <?php if ($style=="light"): ?>
-            <a href="?style=dark" class="dark-mode">🌙</a>
+            <!-- <a href="?style=dark" class="dark-mode">🌙</a> -->
+             <a href="?<?= http_build_query(array_merge($_GET, ['style' => 'dark'])) ?>" class="dark-mode">🌙</a>
+
         <?php else: ?>
-            <a href="?style=light" class="light-mode">☀️</a>
+            <!-- <a href="?style=light" class="light-mode">☀️</a> -->
+            <a href="?<?= http_build_query(array_merge($_GET, ['style' => 'light'])) ?>" class="light-mode">☀️</a>
+
         <?php endif; ?>
     </div>
 </header>

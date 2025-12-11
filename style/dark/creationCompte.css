@@ -1,7 +1,9 @@
+/* === MODE JOUR === */
+
 body {
-    background-color: #0f1016;
+    background-color: #0f1016 !important;
     margin: 0;
-    color: #e6e6e6;
+    color: #ffffff;
     font-family: Arial, sans-serif;
 }
 
@@ -12,44 +14,33 @@ main {
     justify-content: center;
     align-items: center;
 }
-
-/* ---------- Formulaire ---------- */
-.login-container {
-    background-color: #1b1c23;
-    padding: 30px 40px;
-    border-radius: 12px;
-    width: 350px;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+.register-page{
+    display:flex;justify-content:center;align-items:center;
+    padding:60px 15px;min-height:calc(100vh - 120px);
+    background:#0f1016;
 }
 
-.login-container h2 {
-    font-size: 1.9rem;
-    margin-bottom: 22px;
-    color: #fff;
-}
 
-/* Inputs */
 .login-container input {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
     font-size: 1rem;
-    border: 1px solid #3b3d45;
-    background-color: #2a2c33;
+    border: 1px solid #ccc;
+    background-color: #efefe6;
     border-radius: 5px;
-    color: #fff;
 }
 
 .login-container input::placeholder {
-    color: #bfbfbf;
+    color: #666;
 }
 
 /* Bouton */
 .login-container button {
     width: 100%;
     padding: 10px;
-    background-color: #0253ab;
+    border: 1px solid #3b3d45;
+    background-color: #2a2c33;
     color: white;
     font-size: 1rem;
     border-radius: 5px;
@@ -60,14 +51,14 @@ main {
 }
 
 .login-container button:hover {
-    background-color: #0553ad;
+    background-color: #0a317f;
 }
 
 /* Suggestions */
 #suggestions {
-    border: 1px solid #444;
-    background-color: #2b2e36;
-    color: white;
+    border: 1px solid #ccc;
+    background-color: white;
+    color: #333;
     border-radius: 5px;
     max-height: 150px;
     overflow-y:auto;
@@ -75,7 +66,7 @@ main {
 }
 
 #suggestions li:hover {
-    background-color: #3a3d47;
+    background-color: #ececec;
 }
 
 /* --- CAPTCHA centré proprement --- */
@@ -98,6 +89,7 @@ main {
     }
 }
 
+
 .login-label {
     display: block;
     text-align: left;
@@ -109,40 +101,33 @@ main {
 }
 
 
-/* =====================  creation compete ===================== */
-.register-page{
-    background:#0f1016;color:#fff;
-    display:flex;justify-content:center;align-items:center;
-    padding:60px 15px;min-height:calc(100vh - 120px);
-}
+/* === creataion compte === */
 
 .register-container{
-    width:350px;max-width:90%;
-    background: #2c2d3f;padding:30px;border-radius:10px;
+    width:450px;max-width:90%;
+    border: 1px solid #3b3d45;
+    background-color: #2a2c33;
+    padding:30px;
+    border-radius:10px;
     box-shadow:0 4px 10px rgba(0,0,0,.2);text-align:center;
 }
 
-.register-container input{
-    background:#2b2d36;color:#fff;border:1px solid #444;
-    width:100%;padding:10px;margin-top:10px;border-radius:6px;
-    font-size:1rem;
-}
+.register-container input,
 .register-container button{
     width:100%;padding:10px;margin-top:10px;border-radius:6px;
     border:1px solid #ccc;font-size:1rem;
 }
 
 .register-container button{
-    background:#4e8cff;color:white;border:none;
+    background:#0b53ed;color:white;border:none;cursor:pointer;
 }
 .register-container button:disabled{background:gray;cursor:not-allowed;}
-.register-container button:hover:not(:disabled){background:#092048;}
+.register-container button:hover:not(:disabled){background:#5a8aea;}
 
-#username-error{font-size:.9em;min-height:18px;margin-top:2px;text-align:left; color:#fff;}
+#username-error{font-size:.9em;min-height:18px;margin-top:2px;text-align:left;}
 
-.error-message{color:#ff7b7b;margin-bottom:10px;}
+.error-message{color:#b20000;margin-bottom:10px;}
 .link-msg{font-size:.9em;margin-top:10px;}
-
 
 /* --- Responsive tablette --- */
 @media (max-width: 850px) {

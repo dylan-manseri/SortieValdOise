@@ -1,9 +1,11 @@
 <?php
 session_start();
-if(isset($_SESSION['login']) && $_SESSION['login']!== ""){
+
+if (isset($_SESSION['login']) && $_SESSION['login'] !== "") {
     header("Location: profil.php");
     exit;
 }
+
 require_once 'conf/bd_conf.php';
 require_once 'conf/captcha_conf.php';
 
@@ -25,106 +27,101 @@ if ($cookieConsent === 'true' && isset($_COOKIE["date_last_visit"])) {
 
 $bascule = ($style === "light") ? "dark" : "light";
 
-
 $errorMessage = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
-  if (isset($_POST['action']) && $_POST['action'] === 'autocomplete') {
-        
-        header('Content-Type: application/json');
-        
-        $searchQuery = $_POST['query'] ?? '';
-        if (empty($searchQuery)) {
-            echo json_encode([]);
-            exit;
-        }
-        try {
-            $searchTerm = $searchQuery . '%';
-            $stmt = $pdo->prepare("SELECT login FROM users WHERE login LIKE ? LIMIT 10"); 
-            $stmt->execute([$searchTerm]); 
-            $results = $stmt->fetchAll(PDO::FETCH_COLUMN, 0); 
-            echo json_encode($results);
+$login = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' 
+    && isset($_POST['action']) 
+    && $_POST['action'] === 'autocomplete') {
 
-        } catch (PDOException $e) {
-            error_log("Autocomplete DB Error: " . $e->getMessage());
-            http_response_code(500);
-            echo json_encode([]);
-        }
-        exit; 
+    header('Content-Type: application/json');
+
+    $searchQuery = $_POST['query'] ?? '';
+    if ($searchQuery === '') {
+        echo json_encode([]);
+        exit;
     }
 
-    
+    try {
+        $stmt = $pdo->prepare("SELECT login FROM users WHERE login LIKE ? LIMIT 10");
+        $stmt->execute([$searchQuery . '%']);
+        $results = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+        echo json_encode($results);
+    } catch (PDOException $e) {
+        error_log("Autocomplete DB Error: " . $e->getMessage());
+        http_response_code(500);
+        echo json_encode([]);
+    }
+
+    exit; // VERY IMPORTANT
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
     $login = $_POST['login'] ?? null;
     $password = $_POST['password'] ?? null;
     $recaptchaToken = $_POST['g-recaptcha-response'] ?? null;
-    
-    if (empty($login) || empty($password)) { $errorMessage ="Login et mot de passe requis"; }
 
-    else if (!$recaptchaToken) {
+    if (empty($login) || empty($password)) {
+        $errorMessage = "Login et mot de passe requis";
+    }
+    elseif (!$recaptchaToken) {
         $errorMessage = 'Veuillez cocher la case "Je ne suis pas un robot".';
-    }    
-
-    if(empty($errorMessage)){
-    $verifyURL = 'https://www.google.com/recaptcha/api/siteverify';
-    $postData = http_build_query([
-        'secret'   => $secretKey,
-        'response' => $recaptchaToken,
-        'remoteip' => $_SERVER['REMOTE_ADDR']
-    ]);
-
-    $options = [
-        'http' => [
-            'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-            'method'  => 'POST',
-            'content' => $postData
-        ]
-    ];
-
-    $context = stream_context_create($options);
-    $response = file_get_contents($verifyURL, false, $context);
-    $result = json_decode($response);
-
-
-    if (!$result || !$result->success) {
-        $errorMessage='Échec de la vérification CAPTCHA. Veuillez réessayer.';
     }
 
-    if(empty($errorMessage)){
-    try {
-      $stmt = $pdo->prepare("SELECT login, hashedPassword, nom_user, prenom_user, role FROM users WHERE login = ?");
-      $stmt->execute([$login]);
-      
-      $foundUser = $stmt->fetch(PDO::FETCH_ASSOC);
+    if (empty($errorMessage)) {
 
-      } catch (PDOException $e) {
-          http_response_code(500);
-          exit('Database error: ' . $e->getMessage());
-      }
-      
-      if ($foundUser && password_verify($password, $foundUser['hashedPassword'])) {
+        $verifyURL = 'https://www.google.com/recaptcha/api/siteverify';
+        $postData = http_build_query([
+            'secret'   => $secretKey,
+            'response' => $recaptchaToken,
+            'remoteip' => $_SERVER['REMOTE_ADDR']
+        ]);
 
-        $tracking_cookie_name = 'user_tracking_id'; 
-        $anonymous_tracking_id = $_COOKIE[$tracking_cookie_name] ?? null;
+        $options = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'POST',
+                'content' => $postData
+            ]
+        ];
 
+        $context = stream_context_create($options);
+        $response = file_get_contents($verifyURL, false, $context);
+        $result = json_decode($response);
 
-        $_SESSION['login'] = $foundUser['login'];
-        $_SESSION['name'] = $foundUser['nom_user'];
-        $_SESSION['pren'] = $foundUser['prenom_user'];
-        $_SESSION['role'] = $foundUser['role'];
-
-
-        if($_SESSION['role']=='admin'){
-            header('Location: admin.php');
-            exit;
+        if (!$result || !$result->success) {
+            $errorMessage = 'Échec de la vérification CAPTCHA. Veuillez réessayer.';
         }
-        else if($_SESSION['role']=='user'){
-        header('Location: profil.php');
-        exit;
+    }
+
+    if (empty($errorMessage)) {
+        try {
+            $stmt = $pdo->prepare("SELECT login, hashedPassword, nom_user, prenom_user, role FROM users WHERE login = ?");
+            $stmt->execute([$login]);
+            $foundUser = $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            http_response_code(500);
+            exit('Database error: ' . $e->getMessage());
         }
+
+        if ($foundUser && password_verify($password, $foundUser['hashedPassword'])) {
+
+            $_SESSION['login'] = $foundUser['login'];
+            $_SESSION['name'] = $foundUser['nom_user'];
+            $_SESSION['pren'] = $foundUser['prenom_user'];
+            $_SESSION['role'] = $foundUser['role'];
+
+            if ($_SESSION['role'] == 'admin') {
+                header('Location: admin.php');
+                exit;
+            } elseif ($_SESSION['role'] == 'user') {
+                header('Location: profil.php');
+                exit;
+            }
         } else {
-        $errorMessage = 'Login ou mot de passe incorrect.';
+            $errorMessage = 'Login ou mot de passe incorrect.';
         }
     }
-}
 }
 $title = "Connexion";
 $description = "Page de connexion utilisateur";
@@ -161,56 +158,56 @@ include "includes/pageParts/header.php";
 </section>
 
 <script>
-  const usernameInput = document.getElementById('username');
-  const suggestionsBox = document.getElementById('suggestions');
-  let currentAbortController = null;
+const usernameInput = document.getElementById('username');
+const suggestionsBox = document.getElementById('suggestions');
+let currentAbortController = null;
 
-  usernameInput.addEventListener('input', () => {
-  const query = usernameInput.value.trim();
-  suggestionsBox.innerHTML = ''; 
+usernameInput.addEventListener('input', () => {
+    const query = usernameInput.value.trim();
+    suggestionsBox.innerHTML = '';
 
-  if (currentAbortController) { 
-      currentAbortController.abort(); 
-  } 
-  currentAbortController = new AbortController(); 
-  const signal = currentAbortController.signal; 
-
-  if (query.length > 0) {
-    fetch('', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `query=${encodeURIComponent(query)}&action=autocomplete`,
-      signal: signal 
-  })
-  .then(response => {
-    const contentType = response.headers.get("content-type");
-    if (response.ok && contentType && contentType.includes("application/json")) {
-      return response.json();
-    } else {
-      console.error("Erreur de format de réponse ou statut non OK:", response.status);
-      return [];
+    if (currentAbortController) {
+        currentAbortController.abort();
     }
-  })
-  .then(matchingUsers => {
-    if (signal.aborted) return;
+    currentAbortController = new AbortController();
+    const signal = currentAbortController.signal;
 
-    matchingUsers.forEach(loginSuggestion => {
-      const listItem = document.createElement('li');
-      listItem.textContent = loginSuggestion;
+    if (query.length > 0) {
+        fetch('connexion.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `action=autocomplete&query=${encodeURIComponent(query)}`,
+            signal: signal
+        })
+        .then(response => {
+            const contentType = response.headers.get("content-type");
+            if (response.ok && contentType && contentType.includes("application/json")) {
+                return response.json();
+            } else {
+                console.error("Bad response:", response.status);
+                return [];
+            }
+        })
+        .then(matchingUsers => {
+            if (signal.aborted) return;
 
-      listItem.addEventListener('click', () => {
-      usernameInput.value = loginSuggestion;
-      suggestionsBox.innerHTML = '';
-      });x
+            matchingUsers.forEach(loginSuggestion => {
+                const listItem = document.createElement('li');
+                listItem.textContent = loginSuggestion;
 
-      suggestionsBox.appendChild(listItem);
-    });
-  })
-  .catch(error => {
-      if (error.name === 'AbortError') return; 
-      console.error("Erreur lors de la récupération des suggestions:", error);
-  });
-}
+                listItem.addEventListener('click', () => {
+                    usernameInput.value = loginSuggestion;
+                    suggestionsBox.innerHTML = '';
+                });
+
+                suggestionsBox.appendChild(listItem);
+            });
+        })
+        .catch(error => {
+            if (error.name === 'AbortError') return;
+            console.error("Autocomplete error:", error);
+        });
+    }
 });
     </script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>

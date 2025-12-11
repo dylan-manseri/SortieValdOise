@@ -7,7 +7,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background: #0d0d0d; /* 🖤 fond night mode */
+    background: #161616 !important; /* 🖤 fond night mode */
     color: #eaeaea;
 }
 

@@ -1,7 +1,8 @@
 body {
           margin: 0;
           font-family: Arial, sans-serif;
-          background-color: #fcf5ef;
+          background-color: #161616 !important;
+          color: white !important;
         }
 
         .page-wrapper {
@@ -22,13 +23,14 @@ body {
             text-align: center;
             width: 100%;
             max-width: 450px;
+            color: white;
         }
 
         /* Titre */
         .manage-container h1 {
             margin-bottom: 25px;
             font-size: 1.8rem;
-            color: #383838;
+            color: #ffffff;
         }
 
         /* Messages */
@@ -57,7 +59,7 @@ body {
             display: block; 
             margin-bottom: 5px; 
             font-weight: bold; 
-            color: #333;
+            color: #ffffff;
         }
         input[type="text"], input[type="email"], select { 
             width: 100%;
@@ -110,11 +112,12 @@ body {
         p a {
             display: block;
             margin-top: 20px;
-            color: #4c4c4c;
+            color: #bababa;
             text-decoration: none;
             font-size: 0.9em;
         }
         p a:hover {
             text-decoration: underline;
             background-color: #131313; 
+            border-radius: 20px;
         }

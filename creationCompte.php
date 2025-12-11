@@ -109,11 +109,11 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 /* ======================= Partie affichage ======================= */
 $title="Inscription";
 $description="Dans cette page vous pouvez crée votre compte, afin d'accéder à de nouvelles fonctionnalités";
-$css="connexion"; // ton fichier CSS global + light/dark
+$css="creationCompte"; // ton fichier CSS global + light/dark
 include "includes/pageParts/header.php";
 ?>
 
-<section class="register-page">
+<div class="register-page">
 <div class="register-container">
 
     <h2>Créer un compte</h2>
@@ -154,7 +154,7 @@ include "includes/pageParts/header.php";
       </form>
 
 </div>
-</section>
+</div>
 
 <script>
 const input=document.getElementById("username-input"),
