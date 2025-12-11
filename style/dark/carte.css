@@ -140,14 +140,14 @@ h3 .material-icons {
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 700px) {
     #side-panel {
         width: 92vw;
         max-width: none;
     }
 
     .bouton-volant {
-        top: 12%;
+        top: 16%;
         font-size: 13px;
         padding: 7px 12px;
     }

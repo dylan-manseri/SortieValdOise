@@ -36,12 +36,9 @@ try{
 
       unset($_SESSION['email_pending']);
 
-      /* 🔥 EMPÊCHE LA CONNEXION AUTOMATIQUE 🔥
-         → supprimé la création de session login/nom/prenom
-      */
 
       $message = "Votre compte a été activé avec succès ! Vous pouvez maintenant vous connecter.";
-      header("refresh:4;url=connexion.php"); // redirection propre apres 4 sec
+      header("refresh:3;url=connexion.php"); // redirection apres 3 sec
     } else {
       $message = "Le code de vérification est incorrect. Veuillez réessayer.";
     }
