@@ -64,6 +64,7 @@ nav ul li a::after {
 nav ul li a:hover {
     color: #d8dcf4;
     text-decoration: none;
+    transform: scale(1.15);
 }
 
 nav ul li a:hover::after {
@@ -134,7 +135,8 @@ nav ul li a:hover::after {
     background:#dad8e6;
     color:#000;
 }
-.light-mode:hover{ background:#c6c3d8; }
+.light-mode:hover{ background:#c6c3d8;
+text-decoration: none; }
 
 
 
