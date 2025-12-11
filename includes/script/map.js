@@ -1,3 +1,11 @@
+/**
+ * @file            map.js
+ * @description     Script gérant l'affichage de la carte via leaflet et OpenStreetMap (api)
+ *
+ * @author Dylan Manseri
+ * @version 1.0
+ */
+
 /** @type {typeof import("leaflet")} */
 var L;
 

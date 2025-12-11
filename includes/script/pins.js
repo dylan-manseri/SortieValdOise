@@ -61,6 +61,10 @@ const iconMultipleHover = L.icon({
  */
 const markerMap = {};
 
+/**
+ * Affiche les details de l'activité sélectionnée sur une side bar
+ * @param events
+ */
 function displayDetails(events){
     const panel = document.getElementById("side-panel");
     panel.innerHTML='<button onclick="closePanel()" class="button-close"><span class="material-icons">close</span></button>';
