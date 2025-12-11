@@ -29,6 +29,37 @@ main {
     color: #fff;
 }
 
+/* === Password eye icon – final fix === */
+.password-wrapper {
+    position: relative;
+    width: 100%;
+    display: block;
+    margin: 10px 0;       /* same vertical rhythm as other inputs */
+}
+
+.password-wrapper input[type="password"] {
+    width: 100%;
+    padding: 10px 40px 10px 10px;  /* 40px to the right for the eye */
+    box-sizing: border-box;
+    border: 1px solid #3b3d45;
+    background-color: #2a2c33;
+    border-radius: 5px;
+    color: #fff;
+}
+
+/* target the icon by id so nothing else can override it */
+#togglePassword {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    user-select: none;
+}
+
+
 /* Inputs */
 .login-container input {
     width: 100%;

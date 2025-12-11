@@ -125,6 +125,27 @@ main {
 .error-message{color:#b20000;margin-bottom:10px;}
 .link-msg{font-size:.9em;margin-top:10px;}
 
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding-right: 40px; /* Space for the eye icon */
+}
+
+.password-wrapper .eye {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    user-select: none;
+    font-size: 18px;
+}
+
+
+
 /* --- Responsive tablette --- */
 @media (max-width: 850px) {
     .login-container,

@@ -30,6 +30,25 @@ main {
     margin-bottom: 22px;
     color: #333;
 }
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding-right: 40px; /* Space for the eye icon */
+}
+
+.password-wrapper .eye {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    user-select: none;
+    font-size: 18px;
+}
+
 
 /* Inputs */
 .login-container input {
