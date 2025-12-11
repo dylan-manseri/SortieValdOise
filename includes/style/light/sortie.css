@@ -167,32 +167,6 @@ select {
     transform: scale(1.3);
 }
 
-#addBtn {
-    margin: 40px auto;        /* centré automatiquement */
-    display: block;
-    transform: translate(-50%, -50%);
-
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: none;
-    background-color: #007BFF;
-    color: white;
-    font-size: 32px;
-    cursor: pointer;
-
-    align-items: center;
-    justify-content: center;
-
-    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-    transition: 0.2s;
-}
-
-#addBtn:hover {
-    background-color: #0056c7;
-    box-shadow: 0 8px 22px rgba(0,0,0,0.4);
-}
-
 #addBtn:active {
     transform: translate(-50%, -50%) scale(0.95);
 }
@@ -256,7 +230,7 @@ input:checked + .slider:before {
     right: 20px; /* distance depuis la droite */
     z-index: 9999; /* passe devant tout */
 
-    background: #007bff; /* couleur */
+    background: #003774; /* couleur */
     color: white;
     padding: 10px 16px;
     border-radius: 8px;

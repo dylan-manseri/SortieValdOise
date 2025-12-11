@@ -52,6 +52,9 @@ body {
     to {translate: -100%;}
 }
 .carousel-title {
+    background-color: rgba(255, 255, 255, 0.38);
+    border-radius: 15px;
+    padding: 10px;
     text-align:center;
     position: absolute;
     top: 50%;
@@ -60,8 +63,8 @@ body {
 
     font-size: 3.5rem;
     font-weight: bold;
-    color: white;
-    text-shadow: 0 0 15px rgba(255,255,255,0.7), 0 0 30px rgba(0,0,0,0.9);
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(0,0,0,0.9);
     z-index: 20; /* au-dessus de l'image et du fondu */
     pointer-events: none; /* on peut cliquer à travers */
 }

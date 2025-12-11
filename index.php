@@ -12,18 +12,18 @@ include "includes/pageParts/header.php";
 
     <!-- Première boucle -->
     <div class="group">
-        <div class="card"><img src="images/landscape/arbre_valdoise.jpg" alt="image foret"/></div>
-        <div class="card"><img src="images/landscape/theatre.jpg" alt="image theatre"/></div>
-        <div class="card"><img src="images/landscape/banc_valdoise.jpg" alt="image banc"/></div>
-        <div class="card"><img src="images/landscape/mediatheque.jpg" alt="image mediatheque"/></div>
+        <div class="card"><img src="images/landscape/arbre_valdoise.webp" alt="image foret"/></div>
+        <div class="card"><img src="images/landscape/theatre.webp" alt="image theatre"/></div>
+        <div class="card"><img src="images/landscape/banc_valdoise.webp" alt="image banc"/></div>
+        <div class="card"><img src="images/landscape/mediatheque.webp" alt="image mediatheque"/></div>
     </div>
 
     <!-- Deuxième boucle pour l’animation infinie -->
     <div class="group" aria-hidden="true">
-        <div class="card"><img src="images/landscape/arbre_valdoise.jpg" alt="image foret"/></div>
-        <div class="card"><img src="images/landscape/theatre.jpg" alt="image theatre"/></div>
-        <div class="card"><img src="images/landscape/banc_valdoise.jpg" alt="image banc"/></div>
-        <div class="card"><img src="images/landscape/mediatheque.jpg" alt="image mediatheque"/></div>
+        <div class="card"><img src="images/landscape/arbre_valdoise.webp" alt="image foret"/></div>
+        <div class="card"><img src="images/landscape/theatre.webp" alt="image theatre"/></div>
+        <div class="card"><img src="images/landscape/banc_valdoise.webp" alt="image banc"/></div>
+        <div class="card"><img src="images/landscape/mediatheque.webp" alt="image mediatheque"/></div>
     </div>
 </div>
 

@@ -185,8 +185,6 @@ window.addEventListener("DOMContentLoaded",()=>{
     if(input.value.trim().length>=3) checkLogin(input.value.trim());
 });
 </script>
-
-<?php include "includes/pageParts/footer.php"; ?>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
+<?php include "includes/pageParts/footer.php"; ?>
 </html>

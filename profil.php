@@ -73,7 +73,6 @@ else{
     $icon = "showIcon.php?id=".$login;
 }
 $title = "Profil";
-$h1 = "Profil";
 $css = "profil";
 $description = "Page dédié au profil des utilisateurs";
 include "includes/pageParts/header.php";

@@ -260,7 +260,7 @@ input:checked + .slider:before {
     right: 20px; /* distance depuis la droite */
     z-index: 9999; /* passe devant tout */
 
-    background: #007bff; /* couleur */
+    background: #004e98; /* couleur */
     color: white;
     padding: 10px 16px;
     border-radius: 8px;

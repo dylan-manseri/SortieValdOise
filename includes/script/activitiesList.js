@@ -10,7 +10,7 @@ function display(eventsList){
         card.classList.add("card-event");
 
         card.innerHTML = `
-            <div style="width:150px; height:120px; background:#ccc;"><img src="${event.icon}" alt="illustration"/></div>
+            <div style="width:150px; height:120px; background:#ccc;"><img src="${event.icon}" alt="illustration" loading="lazy"/></div>
             <div class="infos">
                 <h2 style="margin:0 0 10px 0;font-family: 'Playfair Display', serif;">
                     <a href="detail_evenement.php?uid=${event.uid}" style="text-decoration:none; color:#333;">
@@ -107,7 +107,7 @@ function displayProps(props){
         card.classList.add("card-prop");
         console.log(ev.id_prop);
         card.innerHTML = `
-            <div style="width:150px; height:120px; background:#ccc;"><img src="showIcon.php?id=${ev.id_prop}" alt="illustration"/></div>
+            <div style="width:150px; height:120px; background:#ccc;"><img src="showIcon.php?id=${ev.id_prop}" loading="lazy" alt="illustration"/></div>
             <div class="infos">
                 <h2 style="margin:0 0 10px 0;font-family: 'Playfair Display', serif;">
                     <a href="detail_evenement.php?uid=${ev.id_prop}" style="text-decoration:none">

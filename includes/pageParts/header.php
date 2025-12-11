@@ -37,8 +37,8 @@ $bascule = ($style === "light") ? "dark" : "light";
 
     <title><?=$title?></title>
     <!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <?php if(isset($cdn)) echo $cdn?>
     <link rel="stylesheet" href="style/<?=$style?>/<?=$style?>.css" />
     <link rel="stylesheet" href="style/<?=$style?>/navbar.css" />
     <?php if (isset($css)): ?>
@@ -154,7 +154,7 @@ $bascule = ($style === "light") ? "dark" : "light";
 <h1> <?=$h1?> </h1>
 <?php endif;?>
 <main>
-    <section id="cookie-banner" 
+    <div id="cookie-banner"
 style="
 display:none; 
 position:fixed; 
@@ -180,7 +180,7 @@ font-family:'Inter',sans-serif;
 
     <button onclick="acceptCookies()" 
     style="
-    background:#00d000; 
+    background:#14672e;
     color:#fff; 
     border:none; 
     padding:8px 16px; 
@@ -206,4 +206,4 @@ font-family:'Inter',sans-serif;
     ">
     Refuser
     </button>
-</section>
+</div>

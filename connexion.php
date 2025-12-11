@@ -114,24 +114,26 @@ include "includes/pageParts/header.php";
 ?>
 <section class="center">
     <div class="login-container">
-        <h2>
-            Login
-        </h2>
+        <h1>
+            Connexion
+        </h1>
         <?php if (!empty($errorMessage)): ?>
             <div class="error-message">
                 <?= htmlspecialchars($errorMessage) ?>
             </div>
         <?php endif; ?>
 
-        <form action="" method="POST">
+        <form action="connexion.php" method="POST">
             <div class="suggestions-container">
-                <input type="text" id="username" name="login" placeholder="Nom d'utilisateur (Login)" required autocomplete="off" value="<?php echo htmlspecialchars($login ?? ''); ?>">
+                <label for="username">Login</label><input type="text" id="username" name="login" placeholder="Nom d'utilisateur (Login)" required autocomplete="off" value="<?php echo htmlspecialchars($login ?? ''); ?>">
 
                 <ul id="suggestions"></ul>
             </div>
-            <input type="password" name="password" placeholder="Mot de passe" required>
+            <label>Mot de passe
+                <input type="password" name="password" placeholder="Mot de passe" required>
+            </label>
             <div class="g-recaptcha" data-sitekey=<?=$data_sitekey?>></div>
-            <button type="submit">Login</button>
+            <button type="submit" id="btn">Login</button>
             <p style="font-size: 0.9em;">Vous n'avez pas de compte? <a href="creationCompte.php">inscrivez-vous </a></p>
             <a href="motDePasseOublier.php">Mot de passe oublié ?</a>
         </form>
@@ -139,7 +141,6 @@ include "includes/pageParts/header.php";
     </div>
 </section>
 
-<?php include "includes/pageParts/footer.php"?>
 <script>
   const usernameInput = document.getElementById('username');
   const suggestionsBox = document.getElementById('suggestions');
@@ -194,5 +195,5 @@ include "includes/pageParts/header.php";
 });
     </script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
+<?php include "includes/pageParts/footer.php"?>
 </html>

@@ -65,7 +65,7 @@ include "includes/pageParts/header.php";
         <h2 class="mb-3 text-center">Réinitialiser le mot de passe</h2>
         <p class="text-center mb-4">Entrez votre email et un lien vous sera envoyé.</p>
         
-        <form action="" method="POST" class="d-grid gap-3">
+        <form action="motDePasseOublier.php" method="POST" class="d-grid gap-3">
             <input type="email" name="email" class="form-control" placeholder="Votre email" required>
             <button type="submit" class="btn w-100">Envoyer le lien</button>
         </form>

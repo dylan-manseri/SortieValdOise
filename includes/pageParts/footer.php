@@ -29,7 +29,7 @@
                 <ul>
                     <li><a href="sitemap.php">Sitemap</a></li>
                     <li><a href="index.php#faq">FAQ</a></li>
-                    <a href="#" id="open-cookie-settings" style="cursor:pointer;">🍪 Gérer les cookies</a></p>
+                    <li><a href="#" id="open-cookie-settings" style="cursor:pointer;">🍪 Gérer les cookies</a>/li>
                 </ul>
             </div>
 
