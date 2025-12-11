@@ -190,6 +190,7 @@ h1 {
     font-size:1.6em;
     color:#ff5470;        /* rouge plus clean */
     transition: transform .25s, color .25s;
+    margin-left: auto;
 }
 
 .favorite-btn:hover {

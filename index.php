@@ -1,5 +1,5 @@
 <?php
-$title="Découvrir le 95";
+$title="Sorties dans le Val-d'Oise";
 $description="Découvrir les activités du 95 Val-d'Oise, événements et lieux incontournables dans le Val-d'Oise. Carte interactive, recherche avancée, photos et infos détaillées.";
 $css = "index";
 include "includes/pageParts/header.php"; 

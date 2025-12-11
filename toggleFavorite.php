@@ -28,7 +28,14 @@ if ($isFav) {
     echo json_encode(['success'=>true, 'isFavorite'=>false]);
 } else {
     // Récupérer les infos réelles depuis propositions
-    $data = file_get_contents('https://sortievaldoise.alwaysdata.net/data/activitiesJson.php');
+    $url = "https://sortievaldoise.alwaysdata.net/data/activitiesJson.php";
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+
+    $data = curl_exec($ch);
+    curl_close($ch);
     $json = json_decode($data, true);
     $prop = $json[$id_sortie];
 

@@ -7,7 +7,16 @@ if(!isset($_GET["uid"])){
 $title = "Detail d'événement";
 $css = "detail";
 $description = "Page dédié aux détails d'un événement";
-$data = file_get_contents("https://sortievaldoise.alwaysdata.net/data/activitiesJson.php");
+$url = "https://sortievaldoise.alwaysdata.net/data/activitiesJson.php";
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+
+$data = curl_exec($ch);
+curl_close($ch);
+
+//$data = file_get_contents("https://sortievaldoise.alwaysdata.net/data/activitiesJson.php");
 $json = json_decode($data, true);
 $case = 0;
 if(!isset($json[$_GET["uid"]])){

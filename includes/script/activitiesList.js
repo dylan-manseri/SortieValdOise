@@ -178,7 +178,7 @@ fetch("data/activitiesJson.php")
         const searchInput = document.getElementById("searchInput");
         const selectCities = document.getElementById("cities");
         const switchInput = document.getElementById("activitySwitch");
-        let cities;
+        let cities = {};
 
         // On récupère toutes les villes des activités
         eventsArray.forEach(event => {
@@ -221,10 +221,10 @@ fetch("data/activitiesJson.php")
 
         // On ajoute aussi un event sur le sélecteur de ville
         selectCities.addEventListener("change", () => {
-            if(selectCities.value !== "" && searchInput.value === ""){
+            if(selectCities.value !== ""){
                 const actByCity = eventsArray.filter(ev => {    // On filtre avec la ville sélectionnée
                     if(ev.ville){
-                        return ev.ville.includes(selectCities.value);
+                        return ev.ville.includes(selectCities.value) && ev.title.toLowerCase().includes(searchInput.value.toLowerCase());
                     }
                 })
                 display(actByCity);

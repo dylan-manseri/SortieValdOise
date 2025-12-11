@@ -153,6 +153,8 @@ select {
     max-height: 0;
     overflow: hidden;
     transition: max-height .35s ease;
+    border-radius: 0 0 8px 8px;
+    padding: 0 10px;
 }
 
 .card-panel.open {
@@ -163,9 +165,10 @@ select {
     background:none;
     border:none;
     cursor:pointer;
-    font-size:1.5em;
+    font-size:1.6em;
     color:#ff0000;
     transition: transform 0.2s;
+    margin-left: auto;
 }
 .favorite-btn:hover {
     transform: scale(1.3);
