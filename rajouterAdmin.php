@@ -8,6 +8,31 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
    exit; 
 }
 
+$title = "Page rajouter Admin";
+$css = "rajouterAdmin";  // if you use a CSS file
+$description = "Page dédiée au rajout d’un administrateur";
+
+$cookieConsent = $_COOKIE['cookieConsent'] ?? null;
+$style = "light";
+
+if (isset($_GET["style"]) && in_array($_GET["style"], ["light","dark"], true)) {
+    $style = $_GET["style"];
+    if ($cookieConsent === 'true') {
+        setcookie("style", $style, time() + 60*60*24*30, "/");
+    }
+} elseif ($cookieConsent === 'true' && isset($_COOKIE['style']) && in_array($_COOKIE['style'], ['light','dark'], true)) {
+    $style = $_COOKIE['style'];
+}
+
+if ($cookieConsent === 'true' && isset($_COOKIE["date_last_visit"])) {
+    setcookie("date_last_visit", time(), time() + 60*60*24*30, "/");
+}
+
+$bascule = ($style === "light") ? "dark" : "light";
+
+
+$errorMessage = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'check_username') {
   header('Content-Type: application/json');
   
@@ -95,82 +120,10 @@ try {
 }
 }
 }
+include "includes/pageParts/header.php";
 ?>
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
- <meta charset="UTF-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1" />
- <title>Ajouter un Administrateur</title>
- <style>
-  body {
-   font-family: 'Permanent Marker', cursive; 
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   height: 100vh; 
-   margin: 0;
-   background-color: #e7e8bc;
-  }
-
-  .register-container {
-   background-color: #f4f4d7;
-   padding: 30px 40px;
-   border-radius: 10px;
-   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-   text-align: center;
-   width: 300px;
-  }
-
-  .register-container h2 {
-   margin-bottom: 20px;
-   font-size: 1.8rem;
-   color: #333;
-  }
-
-  .register-container input {
-   width: 100%;
-   padding: 10px;
-   margin: 10px 0;
-   font-size: 1rem;
-   font-family: 'Permanent Marker', cursive; 
-   border: 1px solid #ccc;
-   border-radius: 5px;
-  }
-
-  .register-container button {
-   position: relative;
-   width: 100%;
-   padding: 10px;
-   margin-top: 15px;
-   background-color: #7e9ad7;
-   color: white;
-   font-size: 1rem;
-   font-family: 'Permanent Marker', cursive; 
-   border: none;
-   border-radius: 5px;
-   cursor: pointer;
-   transition: 0.2s;
-  }
-
-  .register-container button:hover {
-   background-color: #7789b1;
-   opacity: 0.3;
-  }
-  
-  .register-container h2 {
-   position: relative; 
-   display: inline-block;
-   margin-bottom: 20px;
-   font-size: 2.5rem;
-   color: #333;
-  }
-
- </style>
-</head>
-<body>
- <div class="register-container">
+<div class="page-wrapper">
+<div class="register-container">
   <h2>
    Ajouter Admin
   </h2>
@@ -187,10 +140,10 @@ try {
    <input type="text" name="prenom_user" placeholder="Prénom" maxlength="30" required value="<?= htmlspecialchars($prenom_user ?? '') ?>">
    <input type="email" name="email" placeholder="Email" maxlength="50" required value="<?= htmlspecialchars($email ?? '') ?>">
    <input type="password" name="password" placeholder="Mot de passe" required>
-   <button type="submit">Ajouter l'Admin</button>
+   <button type="submit" class="unified-btn">Ajouter l'Admin</button>
+     <a href="admin.php" class="unified-btn">Retour au Tableau de Bord</a>
   </form>
- </div>
-<script>
+  <script>
  const usernameInput = document.getElementById('username-input');
  const errorMessageSpan = document.getElementById('username-error');
  let currentAbortController = null; 
@@ -242,6 +195,10 @@ try {
    });
   }
  });
+ usernameInput.addEventListener('focus', () => {
+    errorMessageSpan.textContent = '';
+});
 </script>
-</body>
-</html>
+</div>
+</div>
+<?php include "includes/pageParts/footer.php"; ?>

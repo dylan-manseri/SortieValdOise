@@ -1,6 +1,32 @@
 <?php
 session_start();
 require_once 'conf/bd_conf.php';
+
+
+$title = "Page Admin";
+$css = "admin";  // if you use a CSS file
+$description = "Page dedie a la gestion administrative";
+
+$cookieConsent = $_COOKIE['cookieConsent'] ?? null;
+$style = "light";
+
+if (isset($_GET["style"]) && in_array($_GET["style"], ["light","dark"], true)) {
+    $style = $_GET["style"];
+    if ($cookieConsent === 'true') {
+        setcookie("style", $style, time() + 60*60*24*30, "/");
+    }
+} elseif ($cookieConsent === 'true' && isset($_COOKIE['style']) && in_array($_COOKIE['style'], ['light','dark'], true)) {
+    $style = $_COOKIE['style'];
+}
+
+if ($cookieConsent === 'true' && isset($_COOKIE["date_last_visit"])) {
+    setcookie("date_last_visit", time(), time() + 60*60*24*30, "/");
+}
+
+$bascule = ($style === "light") ? "dark" : "light";
+
+
+
 $successMessage = '';
 
 if (isset($_SESSION['flash_message'])) {
@@ -92,133 +118,11 @@ $acceptedAndPendingPropCount = count($acceptedAndPendingPropositions);
     http_response_code(500);
     exit("Erreur interne du serveur lors de la récupération des données.");
 }
+
+
+include "includes/pageParts/header.php";
 ?>
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<title>Tableau de Bord Admin</title>
-<style>
- body { font-family: Arial, sans-serif; padding: 0; margin: 0; background-color: #fcf5ef; }
-  /* Container centré */
- #main-container {
-    width: 95%; 
-    max-width: 1200px; /* Limite la largeur pour le centrage */
-    margin: 50px auto; /* Centre le contenu */
-    padding: 50px;
-    background-color: #fff2e6;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    border-radius: 20px;
-  }
-
-  /* Styles d'origine conservés */
- .stats-box { 
-  border: 1px solid #ccc;
-  padding: 15px; 
-  margin-bottom: 20px; 
-  border-radius: 30px;
-  text-align: center; 
-}
- .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px;}
-table { 
-    width: 100%; 
-    border-collapse: collapse; /* Gardé pour éviter les espaces entre les cellules */
-    margin-top: 20px; 
-    /* Ajout de coins arrondis à l'ensemble du tableau et masquage des débordements */
-    border-radius: 10px; 
-    overflow: hidden; /* Important pour que border-radius fonctionne sur les enfants */
-    border: none; /* Supprime la bordure extérieure du tableau */
-}
-th, td { 
-    border: none; /* Supprime les bordures de cellule */
-    padding: 12px 8px; 
-    text-align: center; /* Centre le contenu horizontalement dans les cellules */
-    border-bottom: 1px solid #eee; /* Ajoute une ligne de séparation légère entre les lignes */
-}
-th { 
-    background-color: #cbb9a9ff; /* Changé pour une couleur plus vive (bleu) */
-    color: white; /* Texte blanc pour le contraste */
-    font-weight: bold;
-    text-align: center; /* Centrage des en-têtes */
-}
-tr:last-child td {
-    border-bottom: none;
-}
- .logout-button {
-  background-color: #c7bcb3ff; 
-  color: white;
-  padding: 10px 15px;
-  text-decoration: none;
-  border-radius: 10px;
-  font-weight: bold;
-  transition: background-color 0.3s;
- }
- .logout-button:hover {
-  background-color: #b6a595ff;
- }
-  .header-actions {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-bottom: 20px;
-    gap: 15px;
-  }
-  
-  /* Styles pour le système d'onglets */
-  .tab-nav {
-    display: table; 
-    width: 100%;
-    border-collapse: separate; /* Changé à separate pour permettre l'espace entre les boutons */
-    margin-top: 20px;
-    background-color: transparent; /* Pas de fond sur le conteneur des boutons */
-    table-layout: fixed; /* Pour que les cellules soient de même largeur */
-    border-spacing: 5px 0;  
-  }
-  .tab-header {
-    background-color: #c3a990; 
-    display: table-cell;
-    color: white;
-    padding: 15px;
-    text-align: center;
-    font-weight: bold;
-    cursor: pointer;
-    border: none; 
-    border-bottom: 3px solid transparent;
-    transition: background-color 0.2s, border-bottom 0.2s;
-    border-radius: 10px 10px 0 0;
-  }
-  .tab-header:hover, .tab-header.active {
-    background-color: #bda995ff; 
-  }
-  .tab-container {
-  padding: 0 5px; /* Compense l'espacement des boutons */
-  margin-top: -1px; /* Remonte légèrement pour éviter un double espace */
- }
-  .tab-content {
-    display: none; 
-    padding: 20px 0;
-    border-top: 1px solid #ccc;
-    border-top: none;
-  }
-  .tab-content.active {
-    display: block; 
-    background-color: #dbcfc4ff;
-  }
-  
-  .tab-content table {
-    margin-top: 0;
-  }
-    /* Style spécifique pour le statut dans le tableau */
-    .status-pending { color: #ffc107; font-weight: bold; }
-    .status-accepted { color: #28a745; font-weight: bold; }
-
-</style>
-</head>
-<body>
-
-  
-  <div id="main-container">
+<div id="main-container">
     <div class="header-actions">
         <a href="logout.php" class="logout-button">Déconnexion</a>
         <a href="rajouterAdmin.php" class="logout-button" >Ajouter Admin</a>
@@ -360,17 +264,19 @@ tr:last-child td {
                         <td><?= htmlspecialchars($prop['user_login']) ?></td>
                         <td><?= htmlspecialchars($prop['formatted_date']) ?></td>
                         <td>
+                            <div class="action-container">
                             <a href="admin.php?action=accept&id_prop=<?= urlencode($prop['id_prop']) ?>" 
-                            style="background-color: #28a745; color: white; padding: 5px 8px; text-decoration: none; border-radius: 3px; font-size: 0.8em;"
-                            onclick="return confirm('Êtes-vous sûr de vouloir accepter cette proposition ?');">
-                            Accepter
+                                class="action-btn action-accept"
+                                onclick="return confirm('Êtes-vous sûr de vouloir accepter cette proposition ?');">
+                                Accepter
                             </a>
-                            
+
                             <a href="admin.php?action=delete&id_prop=<?= urlencode($prop['id_prop']) ?>" 
-                            style="background-color: #dc3545; color: white; padding: 5px 8px; text-decoration: none; border-radius: 3px; font-size: 0.8em; margin-left: 5px;"
-                            onclick="return confirm('Êtes-vous sûr de vouloir SUPPRIMER cette proposition ? Cette action est irréversible.');">
-                            Supprimer
+                                class="action-btn action-delete"
+                                onclick="return confirm('Êtes-vous sûr de vouloir SUPPRIMER cette proposition ? Cette action est irréversible.');">
+                                Supprimer
                             </a>
+                        </div>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -424,5 +330,4 @@ tr:last-child td {
         }
     });
 </script>
-</body>
-</html>
+<?php include "includes/pageParts/footer.php"; ?>
