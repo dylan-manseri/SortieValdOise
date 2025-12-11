@@ -159,7 +159,7 @@ include "includes/pageParts/header.php";
                 </select>
             </div>
             
-            <button type="submit">Mettre à Jour</button>
+            <button type="submit">Mettre à jour</button>
         </form>
         
         <form method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur? Cette action est irréversible.');">
@@ -171,3 +171,4 @@ include "includes/pageParts/header.php";
 </div>
 </div>
 <?php include "includes/pageParts/footer.php"; ?>
+</html>
