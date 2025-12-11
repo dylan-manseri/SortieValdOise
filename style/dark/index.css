@@ -7,43 +7,43 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #0a0a0a;          /* couleur nuit */
-    color: #f5f5f5;                  /* texte clair */
+    background: #0d0d0d; /* 🖤 fond night mode */
+    color: #eaeaea;
 }
 
-/*********** CAROUSEL ************/
+/* ---------------------------------
+            CAROUSEL
+---------------------------------- */
 
 .carousel{
     margin: 100px auto;
     width: 90%;
     display: flex;
-    overflow-x:auto;
-    border-radius:10px;
+    overflow-x: auto;
+    border-radius: 10px;
     position: relative;
-    background: #0a0a0a;             /* léger fond derrière les images */
 }
-
 .carousel::-webkit-scrollbar{
     display:none;
 }
 
 .group{
     display:flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1em;
-    animation: spin 30s infinite linear;
-    padding-right: 1em;
+    align-items:center;
+    justify-content:center;
+    gap:0;               
+    padding-right:0;      
+    animation: spin 14s infinite linear;
 }
 
 .card{
     flex: 0 0 auto;
-    border-radius: .2em;
-    align-content: center;
     width: 1400px;
     height: 800px;
     overflow: hidden;
-    background:#111;                 /* fond neutre si image pas chargée */
+    border-radius: .4em;
+    background: #111; /* fallback */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.6);
 }
 
 .card img {
@@ -53,45 +53,62 @@ body {
     display: block;
 }
 
+/* Animation */
 @keyframes spin{
-    from{translate: 0;}
-    to {translate: -100%;}
+    from{ translate: 0; }
+    to { translate: -100%; }
 }
 
-/*********** TEXTE DU TITRE ************/
+/* ---------------------------------
+         TITLE on CAROUSEL (night)
+---------------------------------- */
 
 .carousel-title {
+    background-color: rgba(0, 0, 0, 0.45); /* 🔥 plus night mode */
+    border-radius: 15px;
+    padding: 12px 18px;
     text-align:center;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 4rem;
+
+    font-size: 3.5rem;
     font-weight: bold;
     color: #ffffff;
-    text-shadow: 0 0 15px rgba(255,255,255,0.7), 0 0 30px rgba(0,0,0,0.9);
+    text-shadow: 
+        0 0 10px rgba(0,0,0,0.9),
+        0 0 25px rgba(0,0,0,1); /* meilleur contraste */
     z-index: 20;
     pointer-events: none;
 }
 
-/*********** BOUTONS ************/
+/* ---------------------------------
+               BUTTON
+---------------------------------- */
 
 .btn-decouvrir {
     padding: .8rem 2rem;
-    background: linear-gradient(135deg, #3a7bff, #0041b8);
+    background: linear-gradient(135deg, #4a8cff, #0050c9);
     color: white;
     border: none;
     border-radius: 50px;
     font-size: 1.2rem;
     font-weight: 600;
     cursor: pointer;
+
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.5),
+        0 0 12px rgba(58,121,255,0.35); /* glow soft night */
+
     transition: transform .2s ease, box-shadow .2s ease;
-    box-shadow: 0 0 12px rgba(0, 128, 255, 0.4);
 }
 
 .btn-decouvrir:hover {
     transform: translate(-50%, -53%) scale(1.05);
-    box-shadow: 0 0 18px rgba(0, 128, 255, 0.7);
+    box-shadow: 
+        0 6px 16px rgba(0, 0, 0, 0.7),
+        0 0 14px rgba(58,121,255,0.55);
 }
 
 .carousel-btn {
@@ -100,4 +117,54 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 30;
+}
+
+/* ---------------------------------
+            MOBILE RESPONSIVE
+---------------------------------- */
+
+@media (max-width: 768px) {
+    .card {
+        width: 100%;
+        height: 450px;
+    }
+
+    .carousel-title {
+        font-size: 2rem;
+        top: 42%;
+        padding: 10px 14px;
+    }
+
+    .carousel-btn {
+        top: 70%;
+    }
+
+    .btn-decouvrir {
+        font-size: 1rem;
+        padding: .6rem 1.5rem;
+    }
+
+    .group {
+        animation-duration: 10s;
+    }
+}
+
+@media (max-width: 480px){
+    .card {
+        height: 380px;
+    }
+
+    .carousel-title {
+        font-size: 1.7rem;
+        top: 40%;
+    }
+
+    .carousel-btn {
+        top: 72%;
+    }
+
+    .btn-decouvrir {
+        font-size: .9rem;
+        padding: .5rem 1.2rem;
+    }
 }

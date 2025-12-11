@@ -1,114 +1,78 @@
-html, body{
-    height: 100%;
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Lora:wght@400;700&family=Playfair+Display:wght@400;700&display=swap');
+
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-#map{
-    position: absolute;
-    height: 100%;
-    width: 100%;
-}
-
-header, footer {
-    color: #ffffff;
-    text-align: center;
-}
-
+/* TITRES */
 h1{
     font-family: 'Playfair Display', serif;
     text-align: center;
     font-size: 45px;
+    color: #f5f5f5;  /* texte clair */
 }
 
-main {
-    padding: 2em;
+/* MAP */
+#map{
+    position: absolute;
+    height: 85%;
+    width: 100%;
 }
 
-.back-to-top.show {
-    opacity: 1;
+/* ------ DARK MODE COLORS ------ */
+:root {
+    --primary-color: #d3d7ff;         /* texte clair doux */
+    --secondary-color: #999;          /* gris doux */
+    --background-color: #0f0f0f;      /* fond sombre */
+    --text-color: #e8e8e8;            /* texte standard */
+    --accent-color: #5ea3ff;          /* bleu accent en mode nuit */
+    --shadow-color: rgba(0, 0, 0, 0.6);
 }
 
-.changer-mode{
-    position: fixed; bottom: 110px; right: 16px;
-    z-index: 500;
-}
-
-a {
-    color: #badef7;
-    text-decoration: none;
-}
-
-.main-nav {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    gap: 20px;
-    justify-content: flex-end;
-}
-
-nav ul {
-    list-style-type: none;
+/* LIEN */
+a{
+    color: #6fb8ff; /* version night du bleu */
+    display:block;
     text-align: center;
-    margin-top: 10px;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 15px;
-}
-
-nav ul li a {
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    font-size: 1.4em;
-}
-
-nav ul li a:hover {
+    margin: auto;
     text-decoration: none;
 }
-
-.main-nav{
-    background-color: #050505;
-}
-.main-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
+a:hover{
+    text-decoration: underline;
 }
 
-.main-nav li {
-    margin: 0 11px;
+/* SECTIONS */
+.default-section {
+    width: 80%;
+    margin: 20px auto;
+    text-align: left;
+    color: var(--text-color);
 }
 
-.main-nav a {
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    padding: 10px 15px;
-    display: block;
-    transition: background 0.3s;
+/* H2 */
+.h2-presentation{
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 50px;
+    margin-bottom: 50px;
+    color: var(--primary-color);
 }
-
-.main-nav a:hover {
-    background-color: #000000;
-    border-radius: 5px;
-    text-decoration: none !important;
-
-}
-
 
 .h2-question{
     text-align: left;
     font-family: 'Playfair Display', serif;
     font-size: 50px;
     margin-bottom: 50px;
+    color: var(--primary-color);
 }
 
+/* QUESTIONS */
 .question-parent{
     display: flex;
     flex-direction: row;
+    color: var(--text-color);
 }
 
 .question-child{
@@ -120,6 +84,13 @@ nav ul li a:hover {
     display: block;
     margin-bottom: 20px;
     padding: 20px;
+
+    background: #181818;     /* panel nuit */
+    border-radius: 8px;
+    box-shadow: 0 2px 6px var(--shadow-color);
+
+    border-left: 4px solid var(--accent-color);
+    color: var(--text-color);
 }
 
 .question-symbole{
@@ -127,9 +98,9 @@ nav ul li a:hover {
     margin-bottom: 20px;
     padding-top: 22px;
     font-size: 20px;
+    color: var(--accent-color);
 }
 
 .question:last-child{
-    display: block;
     margin-bottom: auto;
 }

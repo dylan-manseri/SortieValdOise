@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Lora:wght@400;700&family=Playfair+Display:wght@400;700&display=swap');
 body {
     margin: 0;
-    background: #e7e8bc
+    background: #24240c
 }
 
 .profile-container {
     max-width: 800px;
     margin: 50px auto;
-    background: #f4f4d7;
+    background: #1b1b02;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2)

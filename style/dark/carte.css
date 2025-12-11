@@ -1,111 +1,154 @@
+/* ================================
+          SIDE PANEL DARK MODE
+================================ */
+
 #side-panel {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 500px;            /* largeur du panneau */
-        height: 100vh;
-        background: #000000;
-        box-shadow: 2px 0 10px rgba(0,0,0,0.25);
-        transform: translateX(-100%);  /* caché à gauche */
-        transition: transform 0.35s ease;
-        z-index: 9999;           /* devant tout */
-        padding: 20px;
-        overflow-y: auto;
-        color : #fff;
-        overflow-x: hidden;
-    }
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 500px; /* largeur du panneau */
+    height: 100vh;
 
-    #side-panel.open {
-        transform: translateX(0);   /* panneau visible */
-    }
+    background: #111;  /* 🟣 fond mode nuit */
+    color: #eee;       /* texte clair */
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.55);
 
-    figure{
-        text-align: center;
+    transform: translateX(-100%); /* caché à gauche */
+    transition: transform 0.35s ease;
 
-    }
-    img{
-        border-radius: 15px;
-    }
+    z-index: 9999;
+    padding: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
 
-    h2{
-        margin-top: 38px;
-        font-size: 20px;
-        font-family: 'Playfair Display', serif;
-    }
-
-    h3 {
-        background: #0a0000;
-        padding: 8px 14px;
-        border-left: 4px solid #81a3f6;
-        border-radius: 5px;
-        font-size: 0.9rem;
-        margin-top: 20px;
-        display: flex;
-        align-items: center;
-        gap: 8px; /* espace entre l’emoji et le texte */
-        margin-bottom: 8px;
-    }
-
-    h3 .material-icons {
-        font-size: 15px; /* ou 16px, 20px… */
-    }
-
-    .bouton-volant {
-        text-decoration: none;
-        display: inline-block;
-        position: fixed;
-        top: 8.5%;  /* espace sous navbar */
-        right: 20px;      /* distance depuis la droite */
-        z-index: 9999;    /* passe devant tout */
-
-        background: #007bff;   /* couleur */
-        color: white;
-        padding: 10px 16px;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
-        font-size: 16px;
-    }
-
-    .bouton-volant:hover {
-        background: #0056c7;
-    }
-
-
-/* Carte d'événement dans le panel */
-.event-item {
-    background: #111;          /* fond légèrement contrasté */
-    padding: 12px;
-    border-radius: 10px;
-    margin-bottom: 25px;       /* espace entre les événements */
-    border: 3px solid #ece7e7;    /* contour discret */
-    transition: 0.3s ease;
+    border-right: 1px solid #222; /* contour léger */
 }
 
-/* Effet au survol */
-.event-item:hover {
-    background: #161616;
-    transform: scale(1.01);
+#side-panel.open {
+    transform: translateX(0);
 }
 
-/* Image ajustée mais NON agrandie */
-.event-item img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 8px;
+#side-panel.close {
+    transform: translateX(-100%);
 }
 
-/* Texte + info */
-.event-item h2 {
-    margin: 10px 0 5px;
-    margin-bottom: 10px;
-    font-size: 20px;
+/* ================================
+            CLOSE BUTTON
+================================ */
+
+.button-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+
+    color: #bbb; /* bouton gris */
+}
+.button-close:hover {
     color: #fff;
 }
 
-.event-item p {
-    font-size: 14px;
-    opacity: 0.85;
+/* ================================
+               CONTENT
+================================ */
+
+figure {
+    text-align: center;
+}
+
+img {
+    border-radius: 15px;
+}
+
+/* Titres */
+h2 {
+    margin-top: 38px;
+    font-size: 20px;
+    font-family: 'Playfair Display', serif;
+    color: #f0f0f0;
+}
+
+h3 {
+    background: #1a1a1a; /* plus foncé */
+    padding: 8px 14px;
+    border-left: 4px solid #4d7cf7; /* bleu plus saturé en mode nuit */
+    border-radius: 5px;
+    font-size: 0.9rem;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+
+    color: #ddd;
+}
+
+h3 .material-icons {
+    font-size: 15px;
+    color: #aac3ff;
+}
+
+/* ================================
+              FLYING BUTTON
+================================ */
+
+.bouton-volant {
+    text-decoration: none;
+    display: inline-block;
+    position: fixed;
+    top: 8.5%;
+    right: 20px;
+    z-index: 9999;
+
+    background: #0050b8; /* bleu nuit */
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+    font-size: 16px;
+
+    transition: background 0.2s ease;
+}
+
+.bouton-volant:hover {
+    background: #0062dd;
+}
+
+/* ==================================
+             RESPONSIVE
+================================== */
+
+@media (max-width: 768px) {
+    #side-panel {
+        width: 85vw;
+        max-width: 400px;
+        padding: 15px;
+    }
+
+    .bouton-volant {
+        top: 11%;
+        right: 10px;
+        font-size: 14px;
+        padding: 8px 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    #side-panel {
+        width: 92vw;
+        max-width: none;
+    }
+
+    .bouton-volant {
+        top: 12%;
+        font-size: 13px;
+        padding: 7px 12px;
+    }
 }

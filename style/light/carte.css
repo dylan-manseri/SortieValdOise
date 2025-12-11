@@ -85,3 +85,32 @@ h3 .material-icons {
 .bouton-volant:hover {
     background: #0056c7;
 }
+
+/* ---- Responsive Mobile ---- */
+@media (max-width: 768px) {
+    #side-panel {
+        width: 85vw;         /* prend 85% de la largeur écran */
+        max-width: 400px;    /* limite max */
+        padding: 15px;
+    }
+
+    .bouton-volant {
+        top: 11%;
+        right: 10px;
+        font-size: 14px;
+        padding: 8px 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    #side-panel {
+        width: 92vw;         /* presque toute la largeur mais pas collé */
+        max-width: none;
+    }
+
+    .bouton-volant {
+        top: 12%;
+        font-size: 13px;
+        padding: 7px 12px;
+    }
+}
