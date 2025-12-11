@@ -140,3 +140,103 @@ tr:last-child td {
     opacity: 0.85;
 }
 
+
+
+
+/* ─────────────────────────────────────────────── */
+/* RESPONSIVE – TABLETTES ET MOBILES */
+/* ─────────────────────────────────────────────── */
+
+/* Conteneur principal */
+@media (max-width: 992px) {
+    #main-container {
+        padding: 25px;
+        margin: 20px auto;
+    }
+
+    .header-actions {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* Stats : 3 colonnes → 2 colonnes */
+@media (max-width: 900px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Stats : 2 colonnes → 1 colonne en mobile */
+@media (max-width: 600px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Onglets : alignés verticalement en mobile */
+@media (max-width: 768px) {
+    .tab-nav {
+        display: flex;
+        flex-direction: column;
+        border-spacing: 0;
+        gap: 10px;
+    }
+
+    .tab-header {
+        display: block;
+        width: 100%;
+        border-radius: 10px;
+    }
+}
+
+/* Tableau scrollable en mobile */
+@media (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    th, td {
+        padding: 10px 6px;
+        font-size: 0.9em;
+    }
+}
+
+/* Actions boutons : alignement centré + largeur auto */
+@media (max-width: 600px) {
+    .action-container {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .action-btn {
+        width: 90px;
+        font-size: 0.85em;
+        margin-right: 0;
+    }
+}
+
+/* Header actions : boutons l’un sous l’autre */
+@media (max-width: 600px) {
+    .header-actions {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .logout-button {
+        width: 100%;
+    }
+}
+
+/* Tab-content padding réduit sur mobile */
+@media (max-width: 600px) {
+    .tab-content {
+        padding: 10px 0;
+    }
+}
