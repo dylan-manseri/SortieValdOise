@@ -1,6 +1,6 @@
 <?php
 $title="Découvrir le 95";
-$description="ici plein de choses intéressantes!";
+$description="Découvrez les activités du 95 Val-d'Oise, événements et lieux incontournables dans le Val-d'Oise. Carte interactive, recherche avancée, photos et infos détaillées.";
 $css = "index";
 include "includes/pageParts/header.php"; 
 ?>
@@ -12,18 +12,18 @@ include "includes/pageParts/header.php";
 
     <!-- Première boucle -->
     <div class="group">
-        <div class="card"><img src="images/landscape/arbre_valdoise.webp" alt="image foret"/></div>
-        <div class="card"><img src="images/landscape/theatre.webp" alt="image theatre"/></div>
-        <div class="card"><img src="images/landscape/banc_valdoise.webp" alt="image banc"/></div>
-        <div class="card"><img src="images/landscape/mediatheque.webp" alt="image mediatheque"/></div>
+        <div class="card"><img src="images/landscape/arbre_valdoise.webp" loading="lazy" alt="Fôret dans le Val-d'Oise"/></div>
+        <div class="card"><img src="images/landscape/theatre.webp" loading="lazy" alt="Théâtre Pierre Frenay d'Ermont dans le Val-d'Oise"/></div>
+        <div class="card"><img src="images/landscape/banc_valdoise.webp" loading="lazy" alt="Vison depuis banc, Eglise de Pontoise, Val-d'Oise"/></div>
+        <div class="card"><img src="images/landscape/mediatheque.webp" loading="lazy" alt="Médiathèque Soisy-sous-Montmorency, Val-d'Oise"/></div>
     </div>
 
     <!-- Deuxième boucle pour l’animation infinie -->
     <div class="group" aria-hidden="true">
-        <div class="card"><img src="images/landscape/arbre_valdoise.webp" alt="image foret"/></div>
-        <div class="card"><img src="images/landscape/theatre.webp" alt="image theatre"/></div>
-        <div class="card"><img src="images/landscape/banc_valdoise.webp" alt="image banc"/></div>
-        <div class="card"><img src="images/landscape/mediatheque.webp" alt="image mediatheque"/></div>
+        <div class="card"><img src="images/landscape/arbre_valdoise.webp" loading="lazy" alt="Fôret dans le Val-d'Oise"/></div>
+        <div class="card"><img src="images/landscape/theatre.webp" loading="lazy" alt="Théâtre Pierre Frenay d'Ermont dans le Val-d'Oise"/></div>
+        <div class="card"><img src="images/landscape/banc_valdoise.webp" loading="lazy" alt="Vison depuis banc, Eglise de Pontoise, Val-d'Oise"/></div>
+        <div class="card"><img src="images/landscape/mediatheque.webp" loading="lazy" alt="Médiathèque Soisy-sous-Montmorency, Val-d'Oise"/></div>
     </div>
 </div>
 

@@ -1,0 +1,73 @@
+  body {
+   font-family: Arial, sans-serif;
+    background-color: #fcf5ef;
+    margin: 0;
+    padding: 0;
+  }
+
+  .register-container {
+   background-color: #fff2e6;
+   padding: 30px 40px;
+   border-radius: 10px;
+   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+   text-align: center;
+   width: 400px;
+  }
+
+  .page-wrapper {
+   display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 80vh;
+    margin-top: 40px; 
+    margin-bottom: 40px; 
+}
+
+  .register-container h2 {
+   margin-bottom: 20px;
+   font-size: 1.8rem;
+   color: #333;
+  }
+
+  .register-container input {
+   width: 100%;
+   padding: 10px;
+   margin: 10px 0;
+   font-size: 1rem;
+   font-family: Arial, sans-serif; 
+   border: 1px solid #ccc;
+   border-radius: 5px;
+  }
+  
+  .register-container h2 {
+   position: relative; 
+   display: inline-block;
+   margin-bottom: 20px;
+   font-size: 2.5rem;
+   color: #333;
+  }
+.unified-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    background-color: #7e9ad7;          /* même couleur pour les deux */
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-family: Arial, sans-serif;
+    border: none;
+    border-radius: 20px;                /* même forme arrondie pour les deux */
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.unified-btn:hover {
+    background-color: #6b86c4;
+    opacity: 0.9;
+}
+.admin-btn:visited {
+    color: #ffffff;
+}

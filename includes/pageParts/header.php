@@ -68,6 +68,24 @@ $bascule = ($style === "light") ? "dark" : "light";
     <meta name="description" content="<?=$description?>" />
     <link rel="icon" type="image/x-icon" href="images/favicon.png">
 
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Sortie Val d'Oise",
+            "url": "https://sortievaldoise.alwaysdata.net/",
+            "description": "Découvrez les activités, événements et lieux incontournables du Val-d'Oise. Carte interactive, photos, filtres et recherche avancée.",
+            "publisher": {
+                "@type": "Organization",
+                "name": "Sortie Val d’Oise"
+            },
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://sortievaldoise.alwaysdata.net/sortie.php",
+                "query-input": "required name=search_term"
+            }
+        }
+    </script>
 </head>
 <body>
 <script>

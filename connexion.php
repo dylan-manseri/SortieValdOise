@@ -7,6 +7,25 @@ if(isset($_SESSION['login']) && $_SESSION['login']!== ""){
 require_once 'conf/bd_conf.php';
 require_once 'conf/captcha_conf.php';
 
+$cookieConsent = $_COOKIE['cookieConsent'] ?? null;
+$style = "light";
+
+if (isset($_GET["style"]) && in_array($_GET["style"], ["light","dark"], true)) {
+    $style = $_GET["style"];
+    if ($cookieConsent === 'true') {
+        setcookie("style", $style, time() + 60*60*24*30, "/");
+    }
+} elseif ($cookieConsent === 'true' && isset($_COOKIE['style']) && in_array($_COOKIE['style'], ['light','dark'], true)) {
+    $style = $_COOKIE['style'];
+}
+
+if ($cookieConsent === 'true' && isset($_COOKIE["date_last_visit"])) {
+    setcookie("date_last_visit", time(), time() + 60*60*24*30, "/");
+}
+
+$bascule = ($style === "light") ? "dark" : "light";
+
+
 $errorMessage = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
   if (isset($_POST['action']) && $_POST['action'] === 'autocomplete') {
