@@ -1,6 +1,6 @@
 /**
- * Fichier :        activitiesList.js
- * Description :    Script gérant l'affichage des activités dans la page sortie.php.
+ * @file            activitiesList.js
+ * @description     Script gérant l'affichage des activités dans la page sortie.php.
  *                  Il est possible d'y afficher les sorties de l'API et des utilisateurs.
  *
  * @type {number}
