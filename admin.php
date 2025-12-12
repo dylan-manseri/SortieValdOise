@@ -4,7 +4,7 @@ require_once 'conf/bd_conf.php';
 
 
 $title = "Page Admin";
-$css = "admin";  // if you use a CSS file
+$css = "admin";  
 $description = "Page dedie a la gestion administrative";
 
 $cookieConsent = $_COOKIE['cookieConsent'] ?? null;
@@ -320,7 +320,7 @@ include "includes/pageParts/header.php";
             });
         });
 
-        // Assurez-vous que l'onglet 'tab-users' (le premier) est actif au chargement
+        
         if (tabs.length > 0) {
             // S'assurer que 'tab-users' est actif si rien n'est sélectionné
             const activeTab = document.querySelector('.tab-header.active');

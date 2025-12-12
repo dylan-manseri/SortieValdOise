@@ -11,9 +11,9 @@ body {
     color: #eaeaea;
 }
 
-/* ---------------------------------
+/*  --
             CAROUSEL
----------------------------------- */
+ --- */
 
 .carousel{
     margin: 100px auto;
@@ -42,7 +42,7 @@ body {
     height: 800px;
     overflow: hidden;
     border-radius: .4em;
-    background: #111; /* fallback */
+    background: #111; 
     box-shadow: 0 4px 15px rgba(0,0,0,0.6);
 }
 
@@ -59,12 +59,12 @@ body {
     to { translate: -100%; }
 }
 
-/* ---------------------------------
+/*  --
          TITLE on CAROUSEL (night)
----------------------------------- */
+ */
 
 .carousel-title {
-    background-color: rgba(0, 0, 0, 0.45); /* 🔥 plus night mode */
+    background-color: rgba(0, 0, 0, 0.45); 
     border-radius: 15px;
     padding: 12px 18px;
     text-align:center;
@@ -78,14 +78,14 @@ body {
     color: #ffffff;
     text-shadow: 
         0 0 10px rgba(0,0,0,0.9),
-        0 0 25px rgba(0,0,0,1); /* meilleur contraste */
+        0 0 25px rgba(0,0,0,1);
     z-index: 20;
     pointer-events: none;
 }
 
-/* ---------------------------------
+/*  --
                BUTTON
----------------------------------- */
+ --- */
 
 .btn-decouvrir {
     padding: .8rem 2rem;
@@ -99,7 +99,7 @@ body {
 
     box-shadow: 
         0 4px 12px rgba(0, 0, 0, 0.5),
-        0 0 12px rgba(58,121,255,0.35); /* glow soft night */
+        0 0 12px rgba(58,121,255,0.35); 
 
     transition: transform .2s ease, box-shadow .2s ease;
 }
@@ -119,9 +119,9 @@ body {
     z-index: 30;
 }
 
-/* ---------------------------------
+/*  --
             MOBILE RESPONSIVE
----------------------------------- */
+ --- */
 
 @media (max-width: 768px) {
     .card {

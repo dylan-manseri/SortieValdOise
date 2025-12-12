@@ -5,6 +5,7 @@ User-agent: *
 Allow: /
 Allow: /includes/pageParts
 Allow: /includes/
+Allow: /images/
 Allow: /*.css$
 Allow: /*.js$
 Allow: /*.jpg$

@@ -1,4 +1,4 @@
-/* === GLOBAL LIGHT MODE === */
+/* -- GLOBAL LIGHT MODE -- */
 body {
     font-family: 'Inter', sans-serif;
     background-color: #f6f6f8; /* fond clair doux */
@@ -8,14 +8,14 @@ body {
     line-height: 1.7;
 }
 
-/* === NAVBAR MODE JOUR === */
+/* -- NAVBAR MODE JOUR -- */
 header {
     font-family: 'Inter', sans-serif;
     position: sticky;
     top:0;
     width: 100%;
     height: 70px;
-    background-color: #ffffff; /* navbar clair */
+    background-color: #ffffff; 
     color: #000;
 
     display: flex;
@@ -94,7 +94,7 @@ nav ul li a:hover::after {
 }
 .choice-list a:hover{ background:#f2f3ff; }
 
-/* -------- COOKIES + SWITCH STYLE -------- */
+/* -------- COOKIES + SWITCH STYLE --- */
 
 .style-toggle{
     display:flex;
@@ -109,7 +109,7 @@ nav ul li a:hover::after {
 }
 .select-nav-cookie:hover{ color:#000; }
 
-/* Bouton Mode actuel (clair → montre mode nuit) */
+/* Bouton mode */
 .dark-mode{
     text-decoration: none;
     background:#000;

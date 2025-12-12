@@ -22,7 +22,7 @@
     .page-wrapper {
    display: flex;
     justify-content: center;
-    align-items: flex-start; /* not vertical center */
+    align-items: flex-start; 
     min-height: 80vh;
     margin-top: 40px; 
     margin-bottom: 40px; 
@@ -51,12 +51,12 @@
     width: 100%;
     padding: 12px;
     margin: 12px 0;
-    background-color: #4c4c4c;          /* même couleur pour les deux */
+    background-color: #4c4c4c;          
     color: #ffffff;
     font-size: 1.1rem;
     font-family: Arial, sans-serif;
     border: none;
-    border-radius: 20px;                /* même forme arrondie pour les deux */
+    border-radius: 20px;               
     text-align: center;
     text-decoration: none;
     cursor: pointer;

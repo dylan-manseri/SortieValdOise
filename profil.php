@@ -80,9 +80,8 @@ include "includes/pageParts/header.php";
     Bienvenue <?= htmlspecialchars($user['prenom_user'] . " " . $user['nom_user']) ?>
 </h1>
 
-<!-- --------------------------------------
-                INFORMATIONS
---------------------------------------- -->
+<!-- 
+   INFORMATIONS -->
 <div class="container">
 <h2>Informations</h2>
 
@@ -139,9 +138,9 @@ include "includes/pageParts/header.php";
 </div>
 </div>
 
-<!-- --------------------------------------
+<!-- --
                 FAVORIS
---------------------------------------- -->
+----- -->
 <div class="section container py-4">
 <h2>Favoris</h2>
 

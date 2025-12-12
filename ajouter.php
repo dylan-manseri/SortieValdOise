@@ -41,7 +41,7 @@ include "includes/pageParts/header.php";
     <p class="validate-msg">Activité ajoutée avec succès, elle sera vérifiée dans les 48h.</p>
 <?php endif?>
     <div class="container">
-        <!-- code here -->
+        
         <div class="card">
             <div class="card-image">
                 <h2 class="card-heading">

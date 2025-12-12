@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Lora:wght@400;700&family=Playfair+Display:wght@400;700&display=swap');
 
-/* ---------- BASE ---------- */
+/* ---------- BASE ---- */
 
 html, body {
     height: 100%;
     margin: 0;
     font-family: sans-serif;
-    background-color: #0f1016;      /* fond principal */
-    color: #e6e6e6;                 /* texte par défaut */
+    background-color: #0f1016;      
+    color: #e6e6e6;                 
 }
 
 h1 {
@@ -23,13 +23,13 @@ h1 {
     margin: auto;
 }
 
-/* ---------- Fiches Évènements ---------- */
+/*  Fiches Évènements  */
 
 .card-event {
     display: flex;
     gap: 15px;
     background: #1b1c23;           /* fond des cartes */
-    border: 1px solid #2a2c33;     /* contour léger */
+    border: 1px solid #2a2c33;     /* contour  */
     margin-bottom: 15px;
     padding: 15px;
     border-radius: 8px;
@@ -52,7 +52,7 @@ h1 {
     display: flex;
     gap: 15px;
     background: #1b1c23;           /* fond des cartes */
-    border: 1px solid #2a2c33;     /* contour léger */
+    border: 1px solid #2a2c33;     /* contour  */
     margin-bottom: 15px;
     padding: 15px;
     border-radius: 8px;
@@ -80,14 +80,13 @@ h1 {
     justify-content: center;
 }
 
-/* Badge date ou catégorie */
 .date-badge {
     font-weight: bold;
-    color: #ffffff; /* couleur chaude visible sur fond sombre */
+    color: #ffffff; 
     margin-left: 5px;
 }
 
-/* ---------- Barre de recherche ---------- */
+/*  Barre de recherche  */
 
 .search {
     height: 40px;
@@ -97,7 +96,7 @@ h1 {
     align-items: center;
     padding: var(--padding);
     border-radius: 28px;
-    background: #2b2e36;            /* fond sombre cohérent */
+    background: #2b2e36;            
     transition: box-shadow 0.25s, background 0.25s;
     color: #fff;
 }
@@ -127,7 +126,7 @@ h1 {
     color: #a5a5a5;
 }
 
-/* ---------- Sélecteur ---------- */
+/*  Sélecteur  */
 
 .select-container select {
     width: 100%;
@@ -165,7 +164,7 @@ h1 {
     color: #cfcfcf;
 }
 
-/* ---------- Toggle des détails ---------- */
+/*  Toggle des détails  */
 
 .card-panel {
     max-height: 0;
@@ -181,14 +180,14 @@ h1 {
     padding: 10px;
 }
 
-/* ---------- Favoris ❤️ ---------- */
+/* -- Favoris  */
 
 .favorite-btn {
     background:none;
     border:none;
     cursor:pointer;
     font-size:1.6em;
-    color:#ff5470;        /* rouge plus clean */
+    color:#ff5470;        
     transition: transform .25s, color .25s;
     margin-left: auto;
 }
@@ -203,12 +202,12 @@ a {
 }
 
 
-/* ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-   FIX VISIBILITÉ – DARK MODE
-   ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ */
+/* --
+   FIX VISIBILITÉ - DARK MODE
+   -- */
 
 h1, h2, h3, h4 {
-    color: #f8f8f8 !important;          /* Titres très lisibles */
+    color: #f8f8f8 !important;          
 }
 
 .card-event .infos {
@@ -223,7 +222,7 @@ h1, h2, h3, h4 {
 }
 
 .card-event  {
-    color: #ffffff !important;          /* Blanc visible */
+    color: #ffffff !important;          
     font-size: 1.3rem;
     font-weight: 600;
 }
@@ -236,7 +235,7 @@ h1, h2, h3, h4 {
 
 .tag-ville, 
 .ville-badge {
-    background: #3b82f6 !important;     /* Bleu lisible */
+    background: #3b82f6 !important;     
     color: white !important;
     border-radius: 5px;
     padding: 3px 8px;
@@ -252,7 +251,7 @@ h1, h2, h3, h4 {
     transform: scale(1.2);
 }
 
-/* Cartes plus visibles */
+/* Cartes */
 .card-event {
     background: #1b1c23 !important;
     border: 1px solid #2f3138 !important;
@@ -271,11 +270,11 @@ h1, h2, h3, h4 {
     margin-bottom: 6px;
 }
 
-/* Barre de recherche déjà stylée, ici uniquement select */
+/* Barre de recherche  */
 
 .form-select {
-    background-color: #1d1f25;          /* fond sombre */
-    color: #ffffff;                      /* texte blanc */
+    background-color: #1d1f25;         
+    color: #ffffff;                      
     border: 1px solid #3a3d45;
     border-radius: 8px;
     padding: 10px;
@@ -290,7 +289,7 @@ h1, h2, h3, h4 {
 
 /* Effets au survol et sélection */
 .form-select:hover {
-    border-color: #5e82f1;               /* contour bleu subtil */
+    border-color: #5e82f1;               
 }
 
 .form-select:focus {
@@ -411,3 +410,6 @@ input:checked + .slider:before {
 .bouton-volant:hover {
     background: #0056c7;
 }
+
+
+

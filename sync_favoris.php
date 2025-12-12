@@ -1,11 +1,11 @@
 <?php
-// sync_favoris.php
+
 session_start();
 require_once 'conf/bd_conf.php';
 
 echo "<pre>";
 
-// 1️⃣ Charger les activités depuis le JSON
+// Charger les activités depuis le JSON
 $jsonFile = __DIR__ . '/data/activitiesJson.php';
 if (!file_exists($jsonFile)) {
     die("Fichier JSON introuvable : $jsonFile");
@@ -30,13 +30,13 @@ foreach ($activities as $act) {
     $activitiesByUid[$act['uid']] = $act;
 }
 
-// 2️⃣ Récupérer tous les favoris
+// 2. Récupérer tous les favoris
 $favStmt = $pdo->query("SELECT id_sortie FROM favoris");
 $favIds = $favStmt->fetchAll(PDO::FETCH_COLUMN);
 
 echo "Nombre de favoris à traiter : " . count($favIds) . "\n\n";
 
-// 3️⃣ Synchroniser chaque favori
+// 3. Synchroniser chaque favori
 foreach ($favIds as $id_sortie) {
 
     if (!isset($activitiesByUid[$id_sortie])) {

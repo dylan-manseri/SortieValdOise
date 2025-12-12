@@ -1,4 +1,4 @@
-/* === MODE JOUR === */
+/* -- MODE JOUR -- */
 
 body {
     background-color: #f3f3eb;
@@ -98,7 +98,7 @@ main {
     background-color: #ececec;
 }
 
-/* --- CAPTCHA centré proprement --- */
+/* --- CAPTCHA centré  --- */
 .g-recaptcha {
     display: flex;
     justify-content: center;
@@ -126,11 +126,11 @@ main {
     margin-top: 12px;
     margin-bottom: 4px;
     font-weight: 600;
-    color: inherit; /* garde la couleur du mode */
+    color: inherit; 
 }
 
 
-/* === creataion compte === */
+/* -- creataion compte -- */
 .register-page{
     display:flex;justify-content:center;align-items:center;
     padding:60px 15px;min-height:calc(100vh - 120px);
@@ -164,7 +164,7 @@ main {
 @media (max-width: 850px) {
     .login-container,
     .register-container {
-        width: 420px;         /* plus large que mobile pour un meilleur confort */
+        width: 420px;         
         max-width: 90%;
         padding: 25px;
     }

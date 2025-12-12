@@ -14,7 +14,7 @@ if (!isset($_GET['login']) || empty($_GET['login'])) {
 
 
 $title = "Page Gestion utilisateur";
-$css = "gestionUtilisateurs";  // if you use a CSS file
+$css = "gestionUtilisateurs";  
 $description = "Page dedie a la gestion Utilisateur";
 
 $cookieConsent = $_COOKIE['cookieConsent'] ?? null;

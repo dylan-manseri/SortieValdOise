@@ -11,7 +11,7 @@ h1{
     font-family: 'Playfair Display', serif;
     text-align: center;
     font-size: 45px;
-    color: #f5f5f5;  /* texte clair */
+    color: #f5f5f5;  
 }
 
 /* MAP */
@@ -21,19 +21,19 @@ h1{
     width: 100%;
 }
 
-/* ------ DARK MODE COLORS ------ */
+/* ------ DARK MODE COLORS --- */
 :root {
-    --primary-color: #d3d7ff;         /* texte clair doux */
-    --secondary-color: #999;          /* gris doux */
-    --background-color: #0f0f0f;      /* fond sombre */
-    --text-color: #e8e8e8;            /* texte standard */
-    --accent-color: #5ea3ff;          /* bleu accent en mode nuit */
+    --primary-color: #d3d7ff;         
+    --secondary-color: #999;          
+    --background-color: #0f0f0f;     
+    --text-color: #e8e8e8;            
+    --accent-color: #5ea3ff;          
     --shadow-color: rgba(0, 0, 0, 0.6);
 }
 
 /* LIEN */
 a{
-    color: #6fb8ff; /* version night du bleu */
+    color: #6fb8ff; 
     display:block;
     text-align: center;
     margin: auto;

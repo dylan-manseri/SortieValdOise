@@ -14,7 +14,7 @@ $css = "connexion";
 $title = "Mot de passe oublié";
 $description = "Réinitialisation du mot de passe utilisateur";
 
-/* ---------------------------- Reset Password Logic -------------------- */
+/* ------ Reset Password Logic --------- */
 $message = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

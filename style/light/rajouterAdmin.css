@@ -51,12 +51,12 @@
     width: 100%;
     padding: 12px;
     margin: 12px 0;
-    background-color: #7e9ad7;          /* même couleur pour les deux */
+    background-color: #7e9ad7;         
     color: #ffffff;
     font-size: 1.1rem;
     font-family: Arial, sans-serif;
     border: none;
-    border-radius: 20px;                /* même forme arrondie pour les deux */
+    border-radius: 20px;                
     text-align: center;
     text-decoration: none;
     cursor: pointer;

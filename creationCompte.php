@@ -17,7 +17,7 @@ require 'PHPMailer-master/src/SMTP.php';
 
 $errorMessage = '';
 
-/* ======================= ENVOI EMAIL ======================= */
+/* -- ENVOI EMAIL -- */
 function sendVerificationEmail($recipientEmail, $verificationCode, $smtpConfig){
     $mail = new PHPMailer(true);
     try{
@@ -43,7 +43,7 @@ function sendVerificationEmail($recipientEmail, $verificationCode, $smtpConfig){
     }
 }
 
-/* ======================= AJAX Vérif login ======================= */
+/* -- AJAX Vérif login -- */
 if(isset($_GET['action']) && $_GET['action']==="check_username"){
     header('Content-Type: application/json');
     $login = $_POST['login'] ?? '';
@@ -58,7 +58,7 @@ if(isset($_GET['action']) && $_GET['action']==="check_username"){
     exit;
 }
 
-/* ======================= Traitement inscription ======================= */
+/* -- Traitement inscription -- */
 if($_SERVER['REQUEST_METHOD']==='POST'){
     $login       = trim($_POST['login'] ?? '');
     $nom_user    = trim($_POST['nom_user'] ?? '');
@@ -106,10 +106,10 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     }
 }
 
-/* ======================= Partie affichage ======================= */
+/* -- Partie affichage -- */
 $title="Inscription";
 $description="Dans cette page vous pouvez crée votre compte, afin d'accéder à de nouvelles fonctionnalités";
-$css="creationCompte"; // ton fichier CSS global + light/dark
+$css="creationCompte"; 
 include "includes/pageParts/header.php";
 ?>
 

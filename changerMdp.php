@@ -14,7 +14,7 @@ if (!$token) {
         $stmt->execute([$token]);
         $foundUser = $stmt->fetch();
     } catch (PDOException $e) {
-        // En cas d'erreur de base de données (ex: table non trouvée)
+        // En cas d'erreur de base de données (ex table non trouvée)
         $error = 'Erreur de base de données. Veuillez réessayer.';
     }
 }
@@ -141,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$error && $foundUser) {
             <p style="color: red;"><?php echo $error; ?></p>
         <?php endif; ?>
 
-        <!-- The HTML form action is correct, it posts to itself -->
+        <!-- The HTML form posts to itself -->
         <form action="" method="POST">
             <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
             

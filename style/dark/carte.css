@@ -1,6 +1,6 @@
-/* ================================
+/*  
           SIDE PANEL DARK MODE
-================================ */
+  */
 
 #side-panel {
     position: fixed;
@@ -9,8 +9,8 @@
     width: 500px; /* largeur du panneau */
     height: 100vh;
 
-    background: #111;  /* 🟣 fond mode nuit */
-    color: #eee;       /* texte clair */
+    background: #111; 
+    color: #eee;      
     box-shadow: 2px 0 15px rgba(0, 0, 0, 0.55);
 
     transform: translateX(-100%); /* caché à gauche */
@@ -32,9 +32,9 @@
     transform: translateX(-100%);
 }
 
-/* ================================
+/*  
             CLOSE BUTTON
-================================ */
+  */
 
 .button-close {
     position: absolute;
@@ -52,9 +52,9 @@
     color: #fff;
 }
 
-/* ================================
+/*  
                CONTENT
-================================ */
+  */
 
 figure {
     text-align: center;
@@ -73,9 +73,9 @@ h2 {
 }
 
 h3 {
-    background: #1a1a1a; /* plus foncé */
+    background: #1a1a1a; 
     padding: 8px 14px;
-    border-left: 4px solid #4d7cf7; /* bleu plus saturé en mode nuit */
+    border-left: 4px solid #4d7cf7; 
     border-radius: 5px;
     font-size: 0.9rem;
     margin-top: 20px;
@@ -92,9 +92,9 @@ h3 .material-icons {
     color: #aac3ff;
 }
 
-/* ================================
+/*  
               FLYING BUTTON
-================================ */
+  */
 
 .bouton-volant {
     text-decoration: none;
@@ -104,7 +104,7 @@ h3 .material-icons {
     right: 20px;
     z-index: 9999;
 
-    background: #0050b8; /* bleu nuit */
+    background: #0050b8; 
     color: white;
     padding: 10px 16px;
     border-radius: 8px;
@@ -121,9 +121,9 @@ h3 .material-icons {
     background: #0062dd;
 }
 
-/* ==================================
+/*  ==
              RESPONSIVE
-================================== */
+ == */
 
 @media (max-width: 768px) {
     #side-panel {

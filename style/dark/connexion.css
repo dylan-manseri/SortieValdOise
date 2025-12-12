@@ -29,17 +29,17 @@ main {
     color: #fff;
 }
 
-/* === Password eye icon – final fix === */
+/*  Password eye icon  */
 .password-wrapper {
     position: relative;
     width: 100%;
     display: block;
-    margin: 10px 0;       /* same vertical rhythm as other inputs */
+    margin: 10px 0;       
 }
 
 .password-wrapper input[type="password"] {
     width: 100%;
-    padding: 10px 40px 10px 10px;  /* 40px to the right for the eye */
+    padding: 10px 40px 10px 10px; 
     box-sizing: border-box;
     border: 1px solid #3b3d45;
     background-color: #2a2c33;
@@ -94,7 +94,7 @@ main {
     background-color: #0553ad;
 }
 
-/* Suggestions */
+/* Suggestions : (supprimé)*/
 #suggestions {
     border: 1px solid #444;
     background-color: #2b2e36;
@@ -109,7 +109,7 @@ main {
     background-color: #3a3d47;
 }
 
-/* --- CAPTCHA centré proprement --- */
+/* --- CAPTCHA centré  --- */
 .g-recaptcha {
     display: flex;
     justify-content: center;
@@ -140,7 +140,7 @@ main {
 }
 
 
-/* =====================  creation compete ===================== */
+/* --- creation compte  */
 .register-page{
     background:#0f1016;color:#fff;
     display:flex;justify-content:center;align-items:center;
@@ -179,7 +179,7 @@ main {
 @media (max-width: 850px) {
     .login-container,
     .register-container {
-        width: 420px;         /* plus large que mobile pour un meilleur confort */
+        width: 420px;        
         max-width: 90%;
         padding: 25px;
     }

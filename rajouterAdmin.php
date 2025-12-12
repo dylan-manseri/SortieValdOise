@@ -2,14 +2,14 @@
 session_start();
 require_once 'conf/bd_conf.php';
 
-// Vérification stricte du rôle d'administrateur
+// Vérification du rôle d'administrateur
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
    header('Location: connexion.php');
    exit; 
 }
 
 $title = "Page rajouter Admin";
-$css = "rajouterAdmin";  // if you use a CSS file
+$css = "rajouterAdmin";  
 $description = "Page dédiée au rajout d’un administrateur";
 
 $cookieConsent = $_COOKIE['cookieConsent'] ?? null;
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
   
   $isTaken = false; 
   try {
-    // Requête préparée pour vérifier l'existence (case-insensitive)
+    // Requête préparée pour vérifier l'existence 
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE LOWER(login) = LOWER(?)");
     $stmt->execute([$login]);
     
