@@ -145,7 +145,8 @@ function compare(array $infos, mixed $aInserer): int
  */
 function readActivities($agendaId, &$activities): void
 {
-    $baseUrl="https://api.openagenda.com/v2/agendas/".$agendaId."/events?key=808e208d9b9144a289e3655652d24d0f&department[]=Val-d%27Oise&sort=lastTiming.asc&size=300";
+    $config = json_decode(file_get_contents( "../conf/api.json"), true);
+    $baseUrl="https://api.openagenda.com/v2/agendas/".$agendaId."/events?key=". $config["OpenAgenda"] ."&department[]=Val-d%27Oise&sort=lastTiming.asc&size=300";
     $after = [];        // Variable utile à la pagination, l'API fournit 300 données par pages, au delà il faut modifier l'URL pour accéder à la page suivante
     do {
         $url = $baseUrl;
