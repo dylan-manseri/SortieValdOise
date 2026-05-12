@@ -240,7 +240,8 @@ function getActivitiesDataIDF(&$activities) : void
         if ($count > 100) {
             $i += 100;
             $count -= 100;
-            $data = file_get_contents($url . $year . "&offset=" . $i);
+            $json = file_get_contents($url . $year . "&offset=" . $i);
+            $data = json_decode($json, true);
         } else {
             $count = 0;
         }
